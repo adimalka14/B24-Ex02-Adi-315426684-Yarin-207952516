@@ -20,53 +20,53 @@ namespace BasicFacebookFeatures
 
         private void formGeneralPage_Load(object sender, EventArgs e)
         {
-            fetchUserPrivateDetails();
-            fetchUserFriends();
-            fetchUserLikedPages();
-            fetchUserAlbums();
-            fetchUserFavoriteTeams();
-            fetchUserPosts();
+            privateDetailsFetch();
+            userFriendsFetch();
+            likedPagesFetch();
+            //albumsFetch();
+            favoriteTeamsFetch();
+            PostsFetch();
         }
 
-        private void fetchUserPrivateDetails()
+        private void privateDetailsFetch()
         {
             // $G$ DSN-001 (-5) Exiting login screen throws an exception which is not caught.
-            this.Text = $"Logged in as {r_LoggedInUser.Name}";
-            pictureProfile.ImageLocation = r_LoggedInUser.PictureLargeURL;
-            this.labelUserName.Text = $"{r_LoggedInUser.FirstName} {r_LoggedInUser.LastName}";
-            listBoxUserDetails.Items.Clear();
-            listBoxUserDetails.Items.Add("Birthday: " + r_LoggedInUser.Birthday);
-            listBoxUserDetails.Items.Add("Gender: " + r_LoggedInUser.Gender);
-            listBoxUserDetails.Items.Add("Email: " + r_LoggedInUser.Email);
-            listBoxUserDetails.Items.Add("Relationship: " + r_LoggedInUser.RelationshipStatus);
-            listBoxUserDetails.Items.Add("Location: " + r_LoggedInUser.Location?.Name);
+                this.Text = $"Logged in as {r_LoggedInUser.Name}";
+                pictureProfile.ImageLocation = r_LoggedInUser.PictureLargeURL;
+                this.labelUserName.Text = $"{r_LoggedInUser.FirstName} {r_LoggedInUser.LastName}";
+                listBoxUserDetails.Items.Clear();
+                listBoxUserDetails.Items.Add("Birthday: " + r_LoggedInUser.Birthday);
+                listBoxUserDetails.Items.Add("Gender: " + r_LoggedInUser.Gender);
+                listBoxUserDetails.Items.Add("Email: " + r_LoggedInUser.Email);
+                listBoxUserDetails.Items.Add("Relationship: " + r_LoggedInUser.RelationshipStatus);
+                listBoxUserDetails.Items.Add("Location: " + r_LoggedInUser.Location?.Name);
         }
 
-        private void fetchUserFriends()
+        private void userFriendsFetch()
         {
             listBoxFreinds.DisplayMember = "Name";
             listBoxFreinds.DataSource = r_LoggedInUser.Friends;
         }
 
-        private void fetchUserLikedPages()
+        private void likedPagesFetch()
         {
             listBoxLikedPage.DisplayMember = "Name";
             listBoxLikedPage.DataSource = r_LoggedInUser.LikedPages;
         }
 
-        private void fetchUserFavoriteTeams()
+        private void favoriteTeamsFetch()
         {
             listBoxFavoriteTeams.DisplayMember = "Name";
             listBoxFavoriteTeams.DataSource = r_LoggedInUser.FavofriteTeams;
         }
 
-        private void fetchUserAlbums()
+        private void albumsFetch()
         {
             listBoxAlbum.DisplayMember = "Name";
             listBoxAlbum.DataSource = r_LoggedInUser.Albums;
         }
 
-        private void fetchUserPosts()
+        private void PostsFetch()
         {
             listBoxPosts.Items.Clear();
             foreach (Post post in r_LoggedInUser.Posts)

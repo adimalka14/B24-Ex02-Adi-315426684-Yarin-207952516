@@ -46,7 +46,10 @@ namespace BasicFacebookFeatures
                 "user_posts",
                 "user_videos"
                 );
-            if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
+            //"EAAMjqqZBOihcBO3nslv4NOjAbZC2B6ZCKCFzw7XxqLVrv07yribeNi27pndbcWrItDItxNXWyY6XQXe3ZCZB9dQyfYOUzYiY4ZAa4wLukNzTauCxwZBOpU9rK3ZAHettCXVLbNOZCgdzL3Vf9S3poRxx1KFZCZBOHUYrOiRhTsjYX640gIaar26WLQByJs68AZDZD"
+
+            //if (string.IsNullOrEmpty(m_LoginResult.ErrorMessage))
+            try
             {
                 FormGeneralPage generalPage = new FormGeneralPage(m_LoginResult);
                 generalPage.Show();
@@ -54,9 +57,9 @@ namespace BasicFacebookFeatures
                 Hide();
                 m_LoginResult = null;
             }
-            else
+            catch(Exception e)
             {
-                MessageBox.Show(m_LoginResult.ErrorMessage, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(e.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
