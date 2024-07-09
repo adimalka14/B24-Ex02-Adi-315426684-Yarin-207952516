@@ -177,14 +177,31 @@ namespace BasicFacebookFeatures
 
         private void buttonMemoriesPosts_Click(object sender, EventArgs e)
         {
-            FormMemoriesPosts form = new FormMemoriesPosts(r_GeneralPageService.GetLoggedInUser());
-            form.ShowDialog();
+            if (r_GeneralPageService.LoggedInUser != null)
+            {
+                FormMemoriesPosts form = new FormMemoriesPosts(r_GeneralPageService.LoggedInUser);
+                new Thread(form.LoadData).Start();
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         private void buttonMatchingFriend_Click(object sender, EventArgs e)
         {
-            FormMatchFriend form = new FormMatchFriend(r_GeneralPageService.GetLoggedInUser());
-            form.ShowDialog();
+            if(r_GeneralPageService.LoggedInUser!=null)
+            {
+                FormMatchFriend form = new FormMatchFriend(r_GeneralPageService.LoggedInUser);
+                new Thread(form.LoadData).Start();
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

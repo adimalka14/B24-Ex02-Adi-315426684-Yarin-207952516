@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
@@ -16,10 +17,24 @@ namespace BasicFacebookFeatures
             r_MemoriesPostsService = new MemoriesPostsService(i_UserProfile);
         }
 
-        private void formMemoriesPosts_Load(object sender, EventArgs e)
+        //private void formMemoriesPosts_Load(object sender, EventArgs e)
+        //{
+        //    comboBoxLocation.Items.AddRange(r_MemoriesPostsService.GetLocations().ToArray());
+        //    comboBoxLocation.SelectedItem = "All locations";
+        //}
+
+        public void LoadData()
         {
-            comboBoxLocation.Items.AddRange(r_MemoriesPostsService.GetLocations().ToArray());
-            comboBoxLocation.SelectedItem = "All locations";
+            string[] locations = r_MemoriesPostsService.GetLocations().ToArray();
+
+            comboBoxLocation.Invoke(new Action(() =>
+                {
+                    comboBoxLocation.Items.AddRange(locations);
+                    comboBoxLocation.SelectedItem = "All locations";
+
+                }
+            ));
+
         }
 
         private void listBoxFoundedMemories_SelectedIndexChanged(object sender, EventArgs e)
@@ -27,7 +42,7 @@ namespace BasicFacebookFeatures
             Post selectedPost = listBoxFoundedMemories.SelectedItem as Post;
 
             textBoxSelectedMemory.Text = selectedPost?.Message;
-            label3.Text = selectedPost?.CreatedTime.ToString();
+            dateTime.Text = selectedPost.CreatedTime.ToString() ?? DateTime.Now.ToString();
             pictureBox1.ImageLocation = selectedPost?.PictureURL;
         }
 

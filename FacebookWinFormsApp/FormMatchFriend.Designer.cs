@@ -326,7 +326,6 @@
             this.Name = "FormMatchFriend";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Matching friend";
-            this.Load += new System.EventHandler(this.formMatchFriend_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

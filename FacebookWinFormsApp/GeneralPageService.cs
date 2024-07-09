@@ -1,5 +1,4 @@
 ﻿using FacebookWrapper.ObjectModel;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,11 +7,6 @@ namespace BasicFacebookFeatures.Services
     public class GeneralPageService
     {
         public User LoggedInUser { set; get; }
-
-        public User GetLoggedInUser()
-        {
-            return LoggedInUser;
-        }
 
         public string GetUserName()
         {

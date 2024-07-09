@@ -41,7 +41,7 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.textBoxSelectedMemory = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.dateTime = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelTitle = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -173,7 +173,7 @@
             // 
             this.panel4.BackColor = System.Drawing.Color.DodgerBlue;
             this.panel4.Controls.Add(this.textBoxSelectedMemory);
-            this.panel4.Controls.Add(this.label3);
+            this.panel4.Controls.Add(this.dateTime);
             this.panel4.Controls.Add(this.pictureBox1);
             this.panel4.Location = new System.Drawing.Point(474, 111);
             this.panel4.Name = "panel4";
@@ -190,14 +190,14 @@
             this.textBoxSelectedMemory.Size = new System.Drawing.Size(459, 128);
             this.textBoxSelectedMemory.TabIndex = 9;
             // 
-            // label3
+            // dateTime
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(58, 311);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(0, 29);
-            this.label3.TabIndex = 8;
+            this.dateTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTime.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.dateTime.Location = new System.Drawing.Point(58, 424);
+            this.dateTime.Name = "dateTime";
+            this.dateTime.Size = new System.Drawing.Size(180, 40);
+            this.dateTime.TabIndex = 8;
             // 
             // pictureBox1
             // 
@@ -235,7 +235,6 @@
             this.Name = "FormMemoriesPosts";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Memories";
-            this.Load += new System.EventHandler(this.formMemoriesPosts_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -262,7 +261,7 @@
         private System.Windows.Forms.ListBox listBoxFoundedMemories;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label dateTime;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.TextBox textBoxSelectedMemory;
         private System.Windows.Forms.Label labelTitle;

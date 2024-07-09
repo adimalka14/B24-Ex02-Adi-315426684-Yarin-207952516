@@ -1,8 +1,10 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
+using System.Threading;
 
 namespace BasicFacebookFeatures
 {
@@ -16,13 +18,40 @@ namespace BasicFacebookFeatures
             r_MatchFriendService = new MatchFriendService(i_UserProfile);
         }
 
-        private void formMatchFriend_Load(object sender, EventArgs e)
+        public void LoadData()
         {
-            checkedListBoxCity.Items.AddRange(r_MatchFriendService.GetCities().ToArray());
-            checkedListBoxLikedPage.DataSource = r_MatchFriendService.GetLikedPages().ToList();
-            checkedListBoxLikedPage.DisplayMember = "Name";
-            checkedListBoxFavoriteTeams.DataSource = r_MatchFriendService.GetFavoriteTeams().ToList();
-            checkedListBoxFavoriteTeams.DisplayMember = "Name";
+            new Thread(loadCities).Start();
+            new Thread(loadLikedPage).Start();
+            new Thread(loadFavoriteTeams).Start();
+        }
+
+        private void loadCities()
+        {
+            string[] cities = r_MatchFriendService.GetCities().ToArray();
+
+            checkedListBoxCity.Invoke(new Action(() => checkedListBoxCity.Items.AddRange(cities)));
+        }
+
+        private void loadLikedPage()
+        {
+            List<Page> likedPage = r_MatchFriendService.GetLikedPages().ToList();
+
+            checkedListBoxLikedPage.Invoke(new Action(() =>
+            {
+                checkedListBoxLikedPage.DataSource = likedPage;
+                checkedListBoxLikedPage.DisplayMember = "Name";
+            }));
+        }
+
+        private void loadFavoriteTeams()
+        {
+            List<Page> favoriteTeams = r_MatchFriendService.GetFavoriteTeams().ToList();
+
+            checkedListBoxFavoriteTeams.Invoke(new Action(() =>
+            {
+                checkedListBoxFavoriteTeams.DataSource = favoriteTeams;
+                checkedListBoxFavoriteTeams.DisplayMember = "Name";
+            }));
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
