@@ -1,169 +1,66 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using BasicFacebookFeatures.Services;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMatchFriend : Form
     {
-        // $G$ DSN-003 (-10) UI and Logic must be seperated.
-        public readonly User r_UserProfile;
+        private readonly MatchFriendService r_MatchFriendService;
 
         public FormMatchFriend(User i_UserProfile)
         {
-            this.r_UserProfile = i_UserProfile;
             InitializeComponent();
+            r_MatchFriendService = new MatchFriendService(i_UserProfile);
         }
 
         private void formMatchFriend_Load(object sender, EventArgs e)
         {
-            checkedListBoxCity.Items.Add(r_UserProfile.Location?.Name);
-            foreach (User friend in r_UserProfile.Friends)
-            {
-                if (friend.Location != null)
-                {
-                    checkedListBoxCity.Items.Add(friend.Location.Name);
-                }
-            }
-
-            checkedListBoxLikedPage.DataSource = r_UserProfile.LikedPages;
+            checkedListBoxCity.Items.AddRange(r_MatchFriendService.GetCities().ToArray());
+            checkedListBoxLikedPage.DataSource = r_MatchFriendService.GetLikedPages().ToList();
             checkedListBoxLikedPage.DisplayMember = "Name";
-            checkedListBoxFavoriteTeams.DataSource = r_UserProfile.FavofriteTeams;
+            checkedListBoxFavoriteTeams.DataSource = r_MatchFriendService.GetFavoriteTeams().ToList();
             checkedListBoxFavoriteTeams.DisplayMember = "Name";
         }
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            if (checkValidkAgeRange())
+            if (r_MatchFriendService.IsValidAgeRange(hScrollBarMinAge.Value, hScrollBarMaxAge.Value))
             {
                 listBoxMatchFriends.Items.Clear();
                 listBoxMatchFriends.DisplayMember = "Name";
-                Dictionary<User, int> friendsMatchCount = new Dictionary<User, int>();
-                foreach (User friend in r_UserProfile.Friends)
+
+                var selectedCities = checkedListBoxCity.CheckedItems.Cast<string>();
+                var selectedLikedPages = checkedListBoxLikedPage.CheckedItems.Cast<Page>();
+                var selectedFavoriteTeams = checkedListBoxFavoriteTeams.CheckedItems.Cast<Page>();
+
+                var matchingFriends = r_MatchFriendService.GetMatchingFriends(
+                    checkBoxMale.Checked,
+                    checkBoxFemale.Checked,
+                    hScrollBarMinAge.Value,
+                    hScrollBarMaxAge.Value,
+                    selectedCities,
+                    selectedLikedPages,
+                    selectedFavoriteTeams);
+
+                foreach (var friend in matchingFriends)
                 {
-                    if (checkGenderFreind(friend.Gender.Value)
-                        && checkAgeFreind(friend.Birthday)
-                        && checkCityFriend(friend.Location?.Name)
-                        && checkLikedPageFriend(friend.LikedPages.ToList())
-                        && checkFavoriteTeamsFriend(friend.FavofriteTeams.ToList()))
-                    {
-                        listBoxMatchFriends.Items.Add(friend);
-                    }
+                    listBoxMatchFriends.Items.Add(friend);
                 }
 
-                if (listBoxMatchFriends.Items.Count == 0)
+                if (!listBoxMatchFriends.Items.Cast<User>().Any())
                 {
                     MessageBox.Show("No match friends");
                 }
             }
-        }
-
-        private bool checkValidkAgeRange()
-        {
-            bool vaildRange = hScrollBarMaxAge.Value >= hScrollBarMinAge.Value;
-
-            if (!vaildRange)
+            else
             {
                 MessageBox.Show("Max age must be greater than min age.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 hScrollBarMaxAge.Value = 120;
                 hScrollBarMinAge.Value = 0;
             }
-
-            return vaildRange;
-        }
-
-        private bool checkGenderFreind(User.eGender i_UserGender)
-        {
-            bool matchGender = false;
-
-            if (i_UserGender == User.eGender.male && checkBoxMale.Checked == true)
-            {
-                matchGender = true;
-            }
-            else if (i_UserGender == User.eGender.female && checkBoxFemale.Checked == true)
-            {
-                matchGender = true;
-            }
-
-            return matchGender;
-        }
-
-        private bool checkAgeFreind(string i_FreindBirthday)
-        {
-            DateTime freindBirthDate = DateTime.ParseExact(i_FreindBirthday, "MM/dd/yyyy", null);
-            int friendAge = DateTime.Today.Year - freindBirthDate.Year;
-
-            return friendAge <= hScrollBarMaxAge.Value && friendAge >= hScrollBarMinAge.Value;
-        }
-
-        private bool checkCityFriend(string i_FriendCity)
-        {
-            bool isMatchCity = false;
-            int checkedCityCount = checkedListBoxCity.CheckedItems.Count;
-
-            for (int i = 0; i < checkedCityCount; i++)
-            {
-                string city = checkedListBoxCity.CheckedItems[i].ToString();
-                if (i_FriendCity == city)
-                {
-                    isMatchCity = true;
-                    break;
-                }
-            }
-
-            return isMatchCity || checkedCityCount == 0;
-        }
-
-        private bool checkLikedPageFriend(List<Page> i_FriendLikedPages)
-        {
-            bool isAnyChecked = checkedListBoxLikedPage.CheckedItems.Count > 0;
-            bool foundMatch = false;
-
-            foreach (Page checkedItem in checkedListBoxLikedPage.CheckedItems)
-            {
-                foreach (Page page in i_FriendLikedPages)
-                {
-                    if (page.Name == checkedItem.Name)
-                    {
-                        foundMatch = true;
-                        break;
-                    }
-                }
-
-                if (foundMatch)
-                {
-                    break;
-                }
-            }
-
-            return foundMatch || !isAnyChecked;
-        }
-
-        private bool checkFavoriteTeamsFriend(List<Page> i_FavoriteTeams)
-        {
-            bool isAnyChecked = checkedListBoxFavoriteTeams.CheckedItems.Count > 0;
-            bool foundMatch = false;
-
-            foreach (Page checkedItem in checkedListBoxFavoriteTeams.CheckedItems)
-            {
-                foreach (Page page in i_FavoriteTeams)
-                {
-                    if (page.Name == checkedItem.Name)
-                    {
-                        foundMatch = true;
-                        break;
-                    }
-                }
-
-                if (foundMatch)
-                {
-                    break;
-                }
-            }
-
-            return foundMatch || !isAnyChecked;
         }
 
         private void hScrollBarMinAge_Scroll(object sender, ScrollEventArgs e)
