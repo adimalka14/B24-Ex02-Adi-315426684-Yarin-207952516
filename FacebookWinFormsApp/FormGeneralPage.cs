@@ -1,21 +1,21 @@
-﻿using Facebook;
-using FacebookWrapper;
+﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
 using System.Windows.Forms;
+using BasicFacebookFeatures.Services;
+using Facebook;
+using System.Linq;
 
 namespace BasicFacebookFeatures
 {
-    // $G$ DSN-999 (-3) setting display name every time a method is called is redundant.
-    // $G$ DSN-999 (-20) UI and Logic must be seperated.
     public partial class FormGeneralPage : Form
     {
-        private readonly User r_LoggedInUser;
+        private readonly GeneralPageService r_GeneralPageService;
 
-        public FormGeneralPage(FacebookWrapper.LoginResult i_LoginResult)
+        public FormGeneralPage(LoginResult i_LoginResult)
         {
             InitializeComponent();
-            r_LoggedInUser = i_LoginResult.LoggedInUser;
+            r_GeneralPageService = new GeneralPageService(i_LoginResult.LoggedInUser);
         }
 
         private void formGeneralPage_Load(object sender, EventArgs e)
@@ -30,59 +30,46 @@ namespace BasicFacebookFeatures
 
         private void privateDetailsFetch()
         {
-            // $G$ DSN-001 (-5) Exiting login screen throws an exception which is not caught.
-                this.Text = $"Logged in as {r_LoggedInUser.Name}";
-                pictureProfile.ImageLocation = r_LoggedInUser.PictureLargeURL;
-                this.labelUserName.Text = $"{r_LoggedInUser.FirstName} {r_LoggedInUser.LastName}";
-                listBoxUserDetails.Items.Clear();
-                listBoxUserDetails.Items.Add("Birthday: " + r_LoggedInUser.Birthday);
-                listBoxUserDetails.Items.Add("Gender: " + r_LoggedInUser.Gender);
-                listBoxUserDetails.Items.Add("Email: " + r_LoggedInUser.Email);
-                listBoxUserDetails.Items.Add("Relationship: " + r_LoggedInUser.RelationshipStatus);
-                listBoxUserDetails.Items.Add("Location: " + r_LoggedInUser.Location?.Name);
+            this.Text = $"Logged in as {r_GeneralPageService.GetUserName()}";
+            pictureProfile.ImageLocation = r_GeneralPageService.GetProfilePictureUrl();
+            this.labelUserName.Text = r_GeneralPageService.GetUserName();
+            listBoxUserDetails.Items.Clear();
+            foreach (var detail in r_GeneralPageService.GetUserDetails())
+            {
+                listBoxUserDetails.Items.Add(detail);
+            }
         }
 
         private void userFriendsFetch()
         {
             listBoxFreinds.DisplayMember = "Name";
-            listBoxFreinds.DataSource = r_LoggedInUser.Friends;
+            listBoxFreinds.DataSource = r_GeneralPageService.GetFriends().ToList();
         }
 
         private void likedPagesFetch()
         {
             listBoxLikedPage.DisplayMember = "Name";
-            listBoxLikedPage.DataSource = r_LoggedInUser.LikedPages;
+            listBoxLikedPage.DataSource = r_GeneralPageService.GetLikedPages().ToList();
         }
 
         private void favoriteTeamsFetch()
         {
             listBoxFavoriteTeams.DisplayMember = "Name";
-            listBoxFavoriteTeams.DataSource = r_LoggedInUser.FavofriteTeams;
+            listBoxFavoriteTeams.DataSource = r_GeneralPageService.GetFavoriteTeams().ToList();
         }
 
         private void albumsFetch()
         {
             listBoxAlbum.DisplayMember = "Name";
-            listBoxAlbum.DataSource = r_LoggedInUser.Albums;
+            listBoxAlbum.DataSource = r_GeneralPageService.GetAlbums().ToList();
         }
 
         private void PostsFetch()
         {
             listBoxPosts.Items.Clear();
-            foreach (Post post in r_LoggedInUser.Posts)
+            foreach (var post in r_GeneralPageService.GetPosts())
             {
-                if (post.Message != null)
-                {
-                    listBoxPosts.Items.Add(post.Message);
-                }
-                else if (post.Caption != null)
-                {
-                    listBoxPosts.Items.Add(post.Caption);
-                }
-                else
-                {
-                    listBoxPosts.Items.Add($"[{post.Type}]");
-                }
+                listBoxPosts.Items.Add(post);
             }
 
             if (listBoxPosts.Items.Count == 0)
@@ -95,8 +82,7 @@ namespace BasicFacebookFeatures
         {
             DialogResult result;
 
-            result = MessageBox.Show("Do you want logout?", "logout", MessageBoxButtons.OKCancel,
-                MessageBoxIcon.Question);
+            result = MessageBox.Show("Do you want logout?", "logout", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)
             {
                 FacebookService.Logout();
@@ -116,19 +102,17 @@ namespace BasicFacebookFeatures
             {
                 try
                 {
-                    r_LoggedInUser.PostStatus(textBoxStatus.Text);
+                    r_GeneralPageService.PostStatus(textBoxStatus.Text);
                     MessageBox.Show("Post successfully shared on Facebook!");
                 }
                 catch (FacebookApiException ex)
                 {
-                    MessageBox.Show($" {ex.Message}", "Error posting to Facebook:", MessageBoxButtons.OK,
-                        MessageBoxIcon.Error);
+                    MessageBox.Show($" {ex.Message}", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
             {
-                MessageBox.Show("You can't share empty post", "Error posting to Facebook:", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                MessageBox.Show("You can't share empty post", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -166,14 +150,19 @@ namespace BasicFacebookFeatures
 
         private void buttonMemoriesPosts_Click(object sender, EventArgs e)
         {
-            FormMemoriesPosts form = new FormMemoriesPosts(r_LoggedInUser);
+            FormMemoriesPosts form = new FormMemoriesPosts(r_GeneralPageService.GetLoggedInUser());
             form.ShowDialog();
         }
 
         private void buttonMatchingFriend_Click(object sender, EventArgs e)
         {
-            FormMatchFriend form = new FormMatchFriend(r_LoggedInUser);
+            FormMatchFriend form = new FormMatchFriend(r_GeneralPageService.GetLoggedInUser());
             form.ShowDialog();
+        }
+
+        private void pictureProfile_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

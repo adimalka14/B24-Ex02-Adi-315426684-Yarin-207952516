@@ -240,5 +240,10 @@ namespace BasicFacebookFeatures
             listBoxUserDetails.Items.Add("Relationship: " + i_ChoosenUser.RelationshipStatus);
             listBoxUserDetails.Items.Add("Location: " + i_ChoosenUser.Location?.Name);
         }
+
+        private void labelTitle_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

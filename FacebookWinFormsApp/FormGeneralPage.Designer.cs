@@ -123,6 +123,7 @@
             this.pictureProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureProfile.TabIndex = 59;
             this.pictureProfile.TabStop = false;
+            this.pictureProfile.Click += new System.EventHandler(this.pictureProfile_Click);
             // 
             // labelUserName
             // 

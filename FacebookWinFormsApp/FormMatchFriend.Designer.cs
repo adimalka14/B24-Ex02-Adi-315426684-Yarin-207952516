@@ -291,6 +291,7 @@
             this.labelTitle.Size = new System.Drawing.Size(355, 71);
             this.labelTitle.TabIndex = 94;
             this.labelTitle.Text = "Matching friend";
+            this.labelTitle.Click += new System.EventHandler(this.labelTitle_Click);
             // 
             // FormMatchFriend
             // 
