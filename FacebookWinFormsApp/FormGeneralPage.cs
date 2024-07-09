@@ -1,8 +1,9 @@
 ﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
 using Facebook;
@@ -13,80 +14,77 @@ namespace BasicFacebookFeatures
     {
         private readonly GeneralPageService r_GeneralPageService;
 
-        public FormGeneralPage(LoginResult i_LoginResult)
+        public FormGeneralPage(GeneralPageService i_GeneralPageService)
         {
             InitializeComponent();
-            r_GeneralPageService = new GeneralPageService(i_LoginResult.LoggedInUser);
+            r_GeneralPageService = i_GeneralPageService;
+            this.Text = "Facebook App";
         }
 
-        private async void FormGeneralPage_Load(object sender, EventArgs e)
+        public void LoadData()
         {
-            using (var loadingForm = new LoadingForm())
-            {
-                loadingForm.Show();
-                loadingForm.BringToFront();
-
-                await Task.Run(() => LoadData());
-
-                loadingForm.Close();
-            }
-        }
-
-        private void LoadData()
-        {
-            LoadPrivateDetails();
-            LoadUserFriends();
-            LoadLikedPages();
+            new Thread(LoadPrivateDetails).Start();
+            new Thread(LoadUserFriends).Start();
+            new Thread(LoadLikedPages).Start();
             // LoadAlbums();
-            LoadFavoriteTeams();
-            LoadPosts();
+            new Thread(LoadFavoriteTeams).Start();
+            new Thread(LoadPosts).Start();
         }
 
         private void LoadPrivateDetails()
         {
-            this.Invoke(new Action(() =>
+            string pictureProfileData = r_GeneralPageService.GetProfilePictureUrl();
+            string userName = r_GeneralPageService.GetUserName();
+
+            pictureProfile.Invoke(new Action(() =>
+                this.pictureProfile.ImageLocation = pictureProfileData));
+
+            labelUserName.Invoke(new Action(() =>
+               this.labelUserName.Text = userName));
+
+            foreach (var detail in r_GeneralPageService.GetUserDetails())
             {
-                this.Text = $"Logged in as {r_GeneralPageService.GetUserName()}";
-                pictureProfile.ImageLocation = r_GeneralPageService.GetProfilePictureUrl();
-                this.labelUserName.Text = r_GeneralPageService.GetUserName();
-                listBoxUserDetails.Items.Clear();
-                foreach (var detail in r_GeneralPageService.GetUserDetails())
-                {
-                    listBoxUserDetails.Items.Add(detail);
-                }
-            }));
+                listBoxUserDetails.Invoke(new Action(() =>
+                listBoxUserDetails.Items.Add(detail)));
+            }
         }
 
         private void LoadUserFriends()
         {
-            this.Invoke(new Action(() =>
+            List<User> users = r_GeneralPageService.GetFriends().ToList();
+
+            listBoxFreinds.Invoke(new Action(() =>
             {
                 listBoxFreinds.DisplayMember = "Name";
-                listBoxFreinds.DataSource = r_GeneralPageService.GetFriends().ToList();
+                listBoxFreinds.DataSource = users;
             }));
         }
 
         private void LoadLikedPages()
         {
-            this.Invoke(new Action(() =>
+            List<Page> likedPages = r_GeneralPageService.GetLikedPages().ToList();
+
+            listBoxLikedPage.Invoke(new Action(() =>
             {
                 listBoxLikedPage.DisplayMember = "Name";
-                listBoxLikedPage.DataSource = r_GeneralPageService.GetLikedPages().ToList();
+                listBoxLikedPage.DataSource = likedPages;
             }));
         }
 
         private void LoadFavoriteTeams()
         {
-            this.Invoke(new Action(() =>
+            List<Page> favoriteTeams = r_GeneralPageService.GetFavoriteTeams().ToList();
+
+            listBoxFavoriteTeams.Invoke(new Action(() =>
             {
                 listBoxFavoriteTeams.DisplayMember = "Name";
-                listBoxFavoriteTeams.DataSource = r_GeneralPageService.GetFavoriteTeams().ToList();
+                listBoxFavoriteTeams.DataSource = favoriteTeams;
             }));
         }
 
         private void LoadAlbums()
         {
-            this.Invoke(new Action(() =>
+            listBoxAlbum.Invoke(new Action(() =>
             {
                 listBoxAlbum.DisplayMember = "Name";
                 listBoxAlbum.DataSource = r_GeneralPageService.GetAlbums().ToList();
@@ -95,14 +93,13 @@ namespace BasicFacebookFeatures
 
         private void LoadPosts()
         {
-            this.Invoke(new Action(() =>
+            foreach (string post in r_GeneralPageService.GetPosts())
             {
-                listBoxPosts.Items.Clear();
-                foreach (var post in r_GeneralPageService.GetPosts())
-                {
-                    listBoxPosts.Items.Add(post);
-                }
+                listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(post)));
+            }
 
+            listBoxPosts.Invoke(new Action(() =>
+            {
                 if (listBoxPosts.Items.Count == 0)
                 {
                     MessageBox.Show("No Posts to retrieve :(");
@@ -188,11 +185,6 @@ namespace BasicFacebookFeatures
         {
             FormMatchFriend form = new FormMatchFriend(r_GeneralPageService.GetLoggedInUser());
             form.ShowDialog();
-        }
-
-        private void pictureProfile_Click(object sender, EventArgs e)
-        {
-            // Add any required code for handling the picture profile click event
         }
     }
 }

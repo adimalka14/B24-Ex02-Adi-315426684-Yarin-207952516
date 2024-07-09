@@ -19,8 +19,8 @@ namespace BasicFacebookFeatures
             FacebookService.s_UseForamttedToStrings = true;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            CefSettings settings = new CefSettings();
-            Cef.Initialize(settings);
+            //CefSettings settings = new CefSettings();
+            //Cef.Initialize(settings);
             Application.Run(new FormMain());
         }
     }

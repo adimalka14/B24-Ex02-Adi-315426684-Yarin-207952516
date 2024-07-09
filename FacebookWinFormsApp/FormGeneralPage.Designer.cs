@@ -123,7 +123,6 @@
             this.pictureProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
             this.pictureProfile.TabIndex = 59;
             this.pictureProfile.TabStop = false;
-            this.pictureProfile.Click += new System.EventHandler(this.pictureProfile_Click);
             // 
             // labelUserName
             // 
@@ -437,7 +436,6 @@
             this.Name = "FormGeneralPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormGeneralPage";
-            this.Load += new System.EventHandler(this.FormGeneralPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageLIked.ResumeLayout(false);

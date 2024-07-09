@@ -34,15 +34,15 @@
             // labelLoading
             // 
             this.labelLoading.AutoSize = true;
-            this.labelLoading.Location = new System.Drawing.Point(70, 50);
+            this.labelLoading.Location = new System.Drawing.Point(66, 52);
             this.labelLoading.Name = "labelLoading";
-            this.labelLoading.Size = new System.Drawing.Size(80, 13);
+            this.labelLoading.Size = new System.Drawing.Size(139, 16);
             this.labelLoading.TabIndex = 0;
             this.labelLoading.Text = "Loading, please wait...";
             // 
             // LoadingForm
             // 
-            this.ClientSize = new System.Drawing.Size(220, 120);
+            this.ClientSize = new System.Drawing.Size(283, 116);
             this.ControlBox = false;
             this.Controls.Add(this.labelLoading);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -50,6 +50,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

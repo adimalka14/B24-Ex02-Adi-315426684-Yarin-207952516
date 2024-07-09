@@ -7,60 +7,55 @@ namespace BasicFacebookFeatures.Services
 {
     public class GeneralPageService
     {
-        private readonly User r_LoggedInUser;
-
-        public GeneralPageService(User i_LoggedInUser)
-        {
-            r_LoggedInUser = i_LoggedInUser;
-        }
+        public User LoggedInUser { set; get; }
 
         public User GetLoggedInUser()
         {
-            return r_LoggedInUser;
+            return LoggedInUser;
         }
 
         public string GetUserName()
         {
-            return $"{r_LoggedInUser.FirstName} {r_LoggedInUser.LastName}";
+            return $"{LoggedInUser.FirstName} {LoggedInUser.LastName}";
         }
 
         public string GetProfilePictureUrl()
         {
-            return r_LoggedInUser.PictureLargeURL;
+            return LoggedInUser.PictureLargeURL;
         }
 
         public IEnumerable<string> GetUserDetails()
         {
-            yield return "Birthday: " + r_LoggedInUser.Birthday;
-            yield return "Gender: " + r_LoggedInUser.Gender;
-            yield return "Email: " + r_LoggedInUser.Email;
-            yield return "Relationship: " + r_LoggedInUser.RelationshipStatus;
-            yield return "Location: " + r_LoggedInUser.Location?.Name;
+            yield return "Birthday: " + LoggedInUser.Birthday;
+            yield return "Gender: " + LoggedInUser.Gender;
+            yield return "Email: " + LoggedInUser.Email;
+            yield return "Relationship: " + LoggedInUser.RelationshipStatus;
+            yield return "Location: " + LoggedInUser.Location?.Name;
         }
 
         public IEnumerable<User> GetFriends()
         {
-            return r_LoggedInUser.Friends.Cast<User>();
+            return LoggedInUser.Friends.Cast<User>();
         }
 
         public IEnumerable<Page> GetLikedPages()
         {
-            return r_LoggedInUser.LikedPages.Cast<Page>();
+            return LoggedInUser.LikedPages.Cast<Page>();
         }
 
         public IEnumerable<Page> GetFavoriteTeams()
         {
-            return r_LoggedInUser.FavofriteTeams.Cast<Page>();
+            return LoggedInUser.FavofriteTeams.Cast<Page>();
         }
 
         public IEnumerable<Album> GetAlbums()
         {
-            return r_LoggedInUser.Albums.Cast<Album>();
+            return LoggedInUser.Albums.Cast<Album>();
         }
 
         public IEnumerable<string> GetPosts()
         {
-            foreach (Post post in r_LoggedInUser.Posts)
+            foreach (Post post in LoggedInUser.Posts)
             {
                 if (post.Message != null)
                 {
@@ -79,7 +74,7 @@ namespace BasicFacebookFeatures.Services
 
         public void PostStatus(string i_Status)
         {
-            r_LoggedInUser.PostStatus(i_Status);
+            LoggedInUser.PostStatus(i_Status);
         }
     }
 }
