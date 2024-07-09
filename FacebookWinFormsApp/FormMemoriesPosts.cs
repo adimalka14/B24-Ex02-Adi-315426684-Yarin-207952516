@@ -1,43 +1,25 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 using FacebookWrapper.ObjectModel;
+using BasicFacebookFeatures.Services;
 
 namespace BasicFacebookFeatures
 {
-    // $G$ DSN-002 (-10) UI and Logic must be seperated.
     public partial class FormMemoriesPosts : Form
     {
-        private readonly User r_UserProfile;
+        private readonly MemoriesPostsService r_MemoriesPostsService;
 
         public FormMemoriesPosts(User i_UserProfile)
         {
-            this.r_UserProfile = i_UserProfile;
             InitializeComponent();
+            r_MemoriesPostsService = new MemoriesPostsService(i_UserProfile);
         }
 
         private void formMemoriesPosts_Load(object sender, EventArgs e)
         {
-
-            comboBoxLocation.Items.Add("All locations");
+            comboBoxLocation.Items.AddRange(r_MemoriesPostsService.GetLocations().ToArray());
             comboBoxLocation.SelectedItem = "All locations";
-            foreach (Post post in r_UserProfile.Posts)
-            {
-                if (post.Place?.Location.City != null)
-                {
-                    comboBoxLocation.Items.Add(post.Place.Location.City);
-                }
-            }
-        }
-
-        private bool checkDate(Post i_Post)
-        {
-            return i_Post.CreatedTime.Value.Date >= dateTimePickerStart.Value.Date &&
-                   i_Post.CreatedTime.Value.Date <= dateTimePickerFinish.Value.Date;
-        }
-
-        private bool checkLocation(Post i_Post, string i_SelectedLocation)
-        {
-            return i_Post.Place?.Location?.City == i_SelectedLocation;
         }
 
         private void listBoxFoundedMemories_SelectedIndexChanged(object sender, EventArgs e)
@@ -52,18 +34,16 @@ namespace BasicFacebookFeatures
         private void buttonShowMemories_Click(object sender, EventArgs e)
         {
             string selectedLocation = comboBoxLocation.SelectedItem.ToString();
+            var filteredPosts = r_MemoriesPostsService.GetFilteredPosts(
+                selectedLocation,
+                dateTimePickerStart.Value,
+                dateTimePickerFinish.Value);
 
             listBoxFoundedMemories.Items.Clear();
             listBoxFoundedMemories.DisplayMember = "Type";
-            foreach (Post post in r_UserProfile.Posts)
+            foreach (var post in filteredPosts)
             {
-                if (selectedLocation == "All locations" || checkLocation(post, selectedLocation))
-                {
-                    if (checkDate(post))
-                    {
-                        listBoxFoundedMemories.Items.Add(post);
-                    }
-                }
+                listBoxFoundedMemories.Items.Add(post);
             }
 
             if (listBoxFoundedMemories.Items.Count == 0)
