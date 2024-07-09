@@ -1,10 +1,11 @@
 ﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
 using Facebook;
-using System.Linq;
 
 namespace BasicFacebookFeatures
 {
@@ -18,71 +19,100 @@ namespace BasicFacebookFeatures
             r_GeneralPageService = new GeneralPageService(i_LoginResult.LoggedInUser);
         }
 
-        private void formGeneralPage_Load(object sender, EventArgs e)
+        private async void FormGeneralPage_Load(object sender, EventArgs e)
         {
-            privateDetailsFetch();
-            userFriendsFetch();
-            likedPagesFetch();
-            //albumsFetch();
-            favoriteTeamsFetch();
-            PostsFetch();
-        }
-
-        private void privateDetailsFetch()
-        {
-            this.Text = $"Logged in as {r_GeneralPageService.GetUserName()}";
-            pictureProfile.ImageLocation = r_GeneralPageService.GetProfilePictureUrl();
-            this.labelUserName.Text = r_GeneralPageService.GetUserName();
-            listBoxUserDetails.Items.Clear();
-            foreach (var detail in r_GeneralPageService.GetUserDetails())
+            using (var loadingForm = new LoadingForm())
             {
-                listBoxUserDetails.Items.Add(detail);
+                loadingForm.Show();
+                loadingForm.BringToFront();
+
+                await Task.Run(() => LoadData());
+
+                loadingForm.Close();
             }
         }
 
-        private void userFriendsFetch()
+        private void LoadData()
         {
-            listBoxFreinds.DisplayMember = "Name";
-            listBoxFreinds.DataSource = r_GeneralPageService.GetFriends().ToList();
+            LoadPrivateDetails();
+            LoadUserFriends();
+            LoadLikedPages();
+            // LoadAlbums();
+            LoadFavoriteTeams();
+            LoadPosts();
         }
 
-        private void likedPagesFetch()
+        private void LoadPrivateDetails()
         {
-            listBoxLikedPage.DisplayMember = "Name";
-            listBoxLikedPage.DataSource = r_GeneralPageService.GetLikedPages().ToList();
-        }
-
-        private void favoriteTeamsFetch()
-        {
-            listBoxFavoriteTeams.DisplayMember = "Name";
-            listBoxFavoriteTeams.DataSource = r_GeneralPageService.GetFavoriteTeams().ToList();
-        }
-
-        private void albumsFetch()
-        {
-            listBoxAlbum.DisplayMember = "Name";
-            listBoxAlbum.DataSource = r_GeneralPageService.GetAlbums().ToList();
-        }
-
-        private void PostsFetch()
-        {
-            listBoxPosts.Items.Clear();
-            foreach (var post in r_GeneralPageService.GetPosts())
+            this.Invoke(new Action(() =>
             {
-                listBoxPosts.Items.Add(post);
-            }
+                this.Text = $"Logged in as {r_GeneralPageService.GetUserName()}";
+                pictureProfile.ImageLocation = r_GeneralPageService.GetProfilePictureUrl();
+                this.labelUserName.Text = r_GeneralPageService.GetUserName();
+                listBoxUserDetails.Items.Clear();
+                foreach (var detail in r_GeneralPageService.GetUserDetails())
+                {
+                    listBoxUserDetails.Items.Add(detail);
+                }
+            }));
+        }
 
-            if (listBoxPosts.Items.Count == 0)
+        private void LoadUserFriends()
+        {
+            this.Invoke(new Action(() =>
             {
-                MessageBox.Show("No Posts to retrieve :(");
-            }
+                listBoxFreinds.DisplayMember = "Name";
+                listBoxFreinds.DataSource = r_GeneralPageService.GetFriends().ToList();
+            }));
+        }
+
+        private void LoadLikedPages()
+        {
+            this.Invoke(new Action(() =>
+            {
+                listBoxLikedPage.DisplayMember = "Name";
+                listBoxLikedPage.DataSource = r_GeneralPageService.GetLikedPages().ToList();
+            }));
+        }
+
+        private void LoadFavoriteTeams()
+        {
+            this.Invoke(new Action(() =>
+            {
+                listBoxFavoriteTeams.DisplayMember = "Name";
+                listBoxFavoriteTeams.DataSource = r_GeneralPageService.GetFavoriteTeams().ToList();
+            }));
+        }
+
+        private void LoadAlbums()
+        {
+            this.Invoke(new Action(() =>
+            {
+                listBoxAlbum.DisplayMember = "Name";
+                listBoxAlbum.DataSource = r_GeneralPageService.GetAlbums().ToList();
+            }));
+        }
+
+        private void LoadPosts()
+        {
+            this.Invoke(new Action(() =>
+            {
+                listBoxPosts.Items.Clear();
+                foreach (var post in r_GeneralPageService.GetPosts())
+                {
+                    listBoxPosts.Items.Add(post);
+                }
+
+                if (listBoxPosts.Items.Count == 0)
+                {
+                    MessageBox.Show("No Posts to retrieve :(");
+                }
+            }));
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
         {
-            DialogResult result;
-
-            result = MessageBox.Show("Do you want logout?", "logout", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Do you want logout?", "logout", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)
             {
                 FacebookService.Logout();
@@ -107,7 +137,7 @@ namespace BasicFacebookFeatures
                 }
                 catch (FacebookApiException ex)
                 {
-                    MessageBox.Show($" {ex.Message}", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{ex.Message}", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             else
@@ -162,7 +192,7 @@ namespace BasicFacebookFeatures
 
         private void pictureProfile_Click(object sender, EventArgs e)
         {
-
+            // Add any required code for handling the picture profile click event
         }
     }
 }

@@ -437,7 +437,7 @@
             this.Name = "FormGeneralPage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FormGeneralPage";
-            this.Load += new System.EventHandler(this.formGeneralPage_Load);
+            this.Load += new System.EventHandler(this.FormGeneralPage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).EndInit();
             this.tabControl.ResumeLayout(false);
             this.tabPageLIked.ResumeLayout(false);
