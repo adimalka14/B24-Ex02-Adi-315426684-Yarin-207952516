@@ -4,25 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
-using System.Threading;
+using BasicFacebookFeatures.Adapter;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMatchFriend : Form
     {
         private readonly MatchFriendService r_MatchFriendService;
+        private readonly IThreadAdapter r_threadAdapter;
 
-        public FormMatchFriend(User i_UserProfile)
+        public FormMatchFriend(User i_UserProfile, IThreadAdapter i_ThreadAdapter)
         {
             InitializeComponent();
             r_MatchFriendService = new MatchFriendService(i_UserProfile);
+            r_threadAdapter = i_ThreadAdapter;
         }
 
         public void LoadData()
         {
-            new Thread(loadCities).Start();
-            new Thread(loadLikedPage).Start();
-            new Thread(loadFavoriteTeams).Start();
+            r_threadAdapter.Execute(loadCities);
+            r_threadAdapter.Execute(loadLikedPage);
+            r_threadAdapter.Execute(loadFavoriteTeams);
         }
 
         private void loadCities()
@@ -165,11 +167,6 @@ namespace BasicFacebookFeatures
             listBoxUserDetails.Items.Add("Email: " + i_ChoosenUser.Email);
             listBoxUserDetails.Items.Add("Relationship: " + i_ChoosenUser.RelationshipStatus);
             listBoxUserDetails.Items.Add("Location: " + i_ChoosenUser.Location?.Name);
-        }
-
-        private void labelTitle_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

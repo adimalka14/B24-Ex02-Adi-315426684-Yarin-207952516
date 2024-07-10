@@ -17,12 +17,6 @@ namespace BasicFacebookFeatures
             r_MemoriesPostsService = new MemoriesPostsService(i_UserProfile);
         }
 
-        //private void formMemoriesPosts_Load(object sender, EventArgs e)
-        //{
-        //    comboBoxLocation.Items.AddRange(r_MemoriesPostsService.GetLocations().ToArray());
-        //    comboBoxLocation.SelectedItem = "All locations";
-        //}
-
         public void LoadData()
         {
             string[] locations = r_MemoriesPostsService.GetLocations().ToArray();
@@ -31,10 +25,7 @@ namespace BasicFacebookFeatures
                 {
                     comboBoxLocation.Items.AddRange(locations);
                     comboBoxLocation.SelectedItem = "All locations";
-
-                }
-            ));
-
+                }));
         }
 
         private void listBoxFoundedMemories_SelectedIndexChanged(object sender, EventArgs e)

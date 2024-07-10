@@ -8,28 +8,30 @@ using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewPost;
 using Facebook;
+using BasicFacebookFeatures.Adapter;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormGeneralPage : Form
     {
         private readonly GeneralPageService r_GeneralPageService;
+        private readonly IThreadAdapter r_threadAdapter;
 
-        public FormGeneralPage(GeneralPageService i_GeneralPageService)
+        public FormGeneralPage(GeneralPageService i_GeneralPageService, IThreadAdapter i_ThreadAdapter)
         {
             InitializeComponent();
             r_GeneralPageService = i_GeneralPageService;
+            r_threadAdapter = i_ThreadAdapter;
             this.Text = "Facebook App";
         }
 
         public void LoadData()
         {
-            new Thread(LoadPrivateDetails).Start();
-            new Thread(LoadUserFriends).Start();
-            new Thread(LoadLikedPages).Start();
-            // LoadAlbums();
-            new Thread(LoadFavoriteTeams).Start();
-            new Thread(LoadPosts).Start();
+            r_threadAdapter.Execute(LoadPrivateDetails);
+            r_threadAdapter.Execute(LoadUserFriends);
+            r_threadAdapter.Execute(LoadLikedPages);
+            r_threadAdapter.Execute(LoadFavoriteTeams);
+            r_threadAdapter.Execute(LoadPosts);
         }
 
         private void LoadPrivateDetails()
@@ -156,22 +158,6 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("Please select a valid post type and fill all required fields.");
             }
-            //if (textBoxStatus.Text != "")
-            //{
-            //    try
-            //    {
-            //        r_GeneralPageService.PostStatus(textBoxStatus.Text);
-            //        MessageBox.Show("Post successfully shared on Facebook!");
-            //    }
-            //    catch (FacebookApiException ex)
-            //    {
-            //        MessageBox.Show($"{ex.Message}", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    }
-            //}
-            //else
-            //{
-            //    MessageBox.Show("You can't share empty post", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //}
         }
 
         private void loadPictureFromSelectedItem<T>(ListBox i_ListBox, PictureBox i_PictureBox, Func<T, string> i_GetUrlFunc)
@@ -211,7 +197,7 @@ namespace BasicFacebookFeatures
             if (r_GeneralPageService.LoggedInUser != null)
             {
                 FormMemoriesPosts form = new FormMemoriesPosts(r_GeneralPageService.LoggedInUser);
-                new Thread(form.LoadData).Start();
+                r_threadAdapter.Execute(form.LoadData);
                 form.ShowDialog();
             }
             else
@@ -225,8 +211,8 @@ namespace BasicFacebookFeatures
         {
             if(r_GeneralPageService.LoggedInUser!=null)
             {
-                FormMatchFriend form = new FormMatchFriend(r_GeneralPageService.LoggedInUser);
-                new Thread(form.LoadData).Start();
+                FormMatchFriend form = new FormMatchFriend(r_GeneralPageService.LoggedInUser, r_threadAdapter);
+                r_threadAdapter.Execute(form.LoadData);
                 form.ShowDialog();
             }
             else

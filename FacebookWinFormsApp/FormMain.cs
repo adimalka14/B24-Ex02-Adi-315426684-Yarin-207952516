@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
+using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.Services;
 using FacebookWrapper;
 
@@ -9,8 +10,8 @@ namespace BasicFacebookFeatures
     public partial class FormMain : Form
     {
         private GeneralPageService r_GeneralPageService = new GeneralPageService();
+        private IThreadAdapter threadAdapter = new ThreadAdapter();
         FormGeneralPage generalPage = null;
-
 
         public FormMain()
         {
@@ -18,12 +19,11 @@ namespace BasicFacebookFeatures
             FacebookService.s_CollectionLimit = 25;
         }
 
-
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
-            generalPage = new FormGeneralPage(r_GeneralPageService);
-            new Thread(autoLoginAndLoadData).Start();
+            generalPage = new FormGeneralPage(r_GeneralPageService, threadAdapter);
+            threadAdapter.Execute(autoLoginAndLoadData);
             generalPage.Show();
             generalPage.Tag = this;
             Hide();
