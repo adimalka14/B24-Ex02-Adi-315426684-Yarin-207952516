@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
+using BasicFacebookFeatures.NewPost;
 using Facebook;
 
 namespace BasicFacebookFeatures
@@ -125,12 +126,26 @@ namespace BasicFacebookFeatures
 
         private void buttonSharePost_Click(object sender, EventArgs e)
         {
-            if (textBoxStatus.Text != "")
+            NewPost.NewPost post = null;
+
+            if (tabControlTextPost.SelectedTab == TextPost)
+            {
+                string text = textBoxText.Text; 
+                post = PostFactory.CreatePost("text", text);
+            }
+            else if (tabControlTextPost.SelectedTab == imagePost)
+            {
+                string imageUrl = textBoxImgUrl.Text; 
+                string caption = textBoxImgCaption.Text; 
+                post = PostFactory.CreatePost("image", imageUrl, caption);
+            }
+
+            if (post != null)
             {
                 try
                 {
-                    r_GeneralPageService.PostStatus(textBoxStatus.Text);
-                    MessageBox.Show("Post successfully shared on Facebook!");
+                    post.PostToFacebook(r_GeneralPageService);
+                    MessageBox.Show("Post was sent successfully!");
                 }
                 catch (FacebookApiException ex)
                 {
@@ -139,8 +154,24 @@ namespace BasicFacebookFeatures
             }
             else
             {
-                MessageBox.Show("You can't share empty post", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Please select a valid post type and fill all required fields.");
             }
+            //if (textBoxStatus.Text != "")
+            //{
+            //    try
+            //    {
+            //        r_GeneralPageService.PostStatus(textBoxStatus.Text);
+            //        MessageBox.Show("Post successfully shared on Facebook!");
+            //    }
+            //    catch (FacebookApiException ex)
+            //    {
+            //        MessageBox.Show($"{ex.Message}", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    }
+            //}
+            //else
+            //{
+            //    MessageBox.Show("You can't share empty post", "Error posting to Facebook:", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
         }
 
         private void loadPictureFromSelectedItem<T>(ListBox i_ListBox, PictureBox i_PictureBox, Func<T, string> i_GetUrlFunc)

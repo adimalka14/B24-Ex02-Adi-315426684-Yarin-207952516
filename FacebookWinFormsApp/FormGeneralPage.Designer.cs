@@ -38,7 +38,6 @@
             this.labelFreindsList = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.buttonSharePost = new System.Windows.Forms.Button();
-            this.textBoxStatus = new System.Windows.Forms.TextBox();
             this.listBoxAlbum = new System.Windows.Forms.ListBox();
             this.listBoxLikedPage = new System.Windows.Forms.ListBox();
             this.listBoxGroups = new System.Windows.Forms.ListBox();
@@ -58,7 +57,15 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.tabControlTextPost = new System.Windows.Forms.TabControl();
+            this.TextPost = new System.Windows.Forms.TabPage();
+            this.textBoxText = new System.Windows.Forms.TextBox();
+            this.imagePost = new System.Windows.Forms.TabPage();
             this.splitter1 = new System.Windows.Forms.Splitter();
+            this.textBoxImgUrl = new System.Windows.Forms.TextBox();
+            this.textBoxImgCaption = new System.Windows.Forms.TextBox();
+            this.labelImgUrl = new System.Windows.Forms.Label();
+            this.labelImgCaption = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageLIked.SuspendLayout();
@@ -73,6 +80,9 @@
             this.panel1.SuspendLayout();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.tabControlTextPost.SuspendLayout();
+            this.TextPost.SuspendLayout();
+            this.imagePost.SuspendLayout();
             this.SuspendLayout();
             // 
             // button2
@@ -180,7 +190,7 @@
             this.label1.BackColor = System.Drawing.Color.DodgerBlue;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.label1.Location = new System.Drawing.Point(216, 17);
+            this.label1.Location = new System.Drawing.Point(257, 10);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(118, 25);
             this.label1.TabIndex = 65;
@@ -193,24 +203,13 @@
             this.buttonSharePost.BackColor = System.Drawing.Color.DarkGray;
             this.buttonSharePost.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonSharePost.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonSharePost.Location = new System.Drawing.Point(157, 254);
+            this.buttonSharePost.Location = new System.Drawing.Point(198, 277);
             this.buttonSharePost.Name = "buttonSharePost";
-            this.buttonSharePost.Size = new System.Drawing.Size(247, 49);
+            this.buttonSharePost.Size = new System.Drawing.Size(158, 33);
             this.buttonSharePost.TabIndex = 63;
             this.buttonSharePost.Text = "share post";
             this.buttonSharePost.UseVisualStyleBackColor = false;
             this.buttonSharePost.Click += new System.EventHandler(this.buttonSharePost_Click);
-            // 
-            // textBoxStatus
-            // 
-            this.textBoxStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxStatus.Location = new System.Drawing.Point(24, 54);
-            this.textBoxStatus.Multiline = true;
-            this.textBoxStatus.Name = "textBoxStatus";
-            this.textBoxStatus.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.textBoxStatus.Size = new System.Drawing.Size(518, 184);
-            this.textBoxStatus.TabIndex = 62;
             // 
             // listBoxAlbum
             // 
@@ -394,13 +393,56 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.DodgerBlue;
+            this.panel5.Controls.Add(this.tabControlTextPost);
             this.panel5.Controls.Add(this.label1);
             this.panel5.Controls.Add(this.buttonSharePost);
-            this.panel5.Controls.Add(this.textBoxStatus);
             this.panel5.Location = new System.Drawing.Point(346, 26);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(562, 321);
             this.panel5.TabIndex = 74;
+            // 
+            // tabControlTextPost
+            // 
+            this.tabControlTextPost.Controls.Add(this.TextPost);
+            this.tabControlTextPost.Controls.Add(this.imagePost);
+            this.tabControlTextPost.Location = new System.Drawing.Point(15, 38);
+            this.tabControlTextPost.Name = "tabControlTextPost";
+            this.tabControlTextPost.SelectedIndex = 0;
+            this.tabControlTextPost.Size = new System.Drawing.Size(527, 231);
+            this.tabControlTextPost.TabIndex = 66;
+            // 
+            // TextPost
+            // 
+            this.TextPost.Controls.Add(this.textBoxText);
+            this.TextPost.Location = new System.Drawing.Point(4, 25);
+            this.TextPost.Name = "TextPost";
+            this.TextPost.Padding = new System.Windows.Forms.Padding(3);
+            this.TextPost.Size = new System.Drawing.Size(519, 202);
+            this.TextPost.TabIndex = 0;
+            this.TextPost.Text = "Text";
+            this.TextPost.UseVisualStyleBackColor = true;
+            // 
+            // textBoxText
+            // 
+            this.textBoxText.Location = new System.Drawing.Point(0, 0);
+            this.textBoxText.Multiline = true;
+            this.textBoxText.Name = "textBoxText";
+            this.textBoxText.Size = new System.Drawing.Size(346, 196);
+            this.textBoxText.TabIndex = 0;
+            // 
+            // imagePost
+            // 
+            this.imagePost.Controls.Add(this.labelImgCaption);
+            this.imagePost.Controls.Add(this.labelImgUrl);
+            this.imagePost.Controls.Add(this.textBoxImgCaption);
+            this.imagePost.Controls.Add(this.textBoxImgUrl);
+            this.imagePost.Location = new System.Drawing.Point(4, 25);
+            this.imagePost.Name = "imagePost";
+            this.imagePost.Padding = new System.Windows.Forms.Padding(3);
+            this.imagePost.Size = new System.Drawing.Size(519, 202);
+            this.imagePost.TabIndex = 1;
+            this.imagePost.Text = "image";
+            this.imagePost.UseVisualStyleBackColor = true;
             // 
             // splitter1
             // 
@@ -410,6 +452,43 @@
             this.splitter1.Size = new System.Drawing.Size(340, 824);
             this.splitter1.TabIndex = 75;
             this.splitter1.TabStop = false;
+            // 
+            // textBoxImgUrl
+            // 
+            this.textBoxImgUrl.Location = new System.Drawing.Point(179, 105);
+            this.textBoxImgUrl.Multiline = true;
+            this.textBoxImgUrl.Name = "textBoxImgUrl";
+            this.textBoxImgUrl.Size = new System.Drawing.Size(334, 50);
+            this.textBoxImgUrl.TabIndex = 0;
+            // 
+            // textBoxImgCaption
+            // 
+            this.textBoxImgCaption.Location = new System.Drawing.Point(179, 18);
+            this.textBoxImgCaption.Multiline = true;
+            this.textBoxImgCaption.Name = "textBoxImgCaption";
+            this.textBoxImgCaption.Size = new System.Drawing.Size(334, 73);
+            this.textBoxImgCaption.TabIndex = 1;
+            // 
+            // labelImgUrl
+            // 
+            this.labelImgUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelImgUrl.Location = new System.Drawing.Point(13, 105);
+            this.labelImgUrl.Name = "labelImgUrl";
+            this.labelImgUrl.Size = new System.Drawing.Size(160, 50);
+            this.labelImgUrl.TabIndex = 2;
+            this.labelImgUrl.Text = "Image URL :";
+            this.labelImgUrl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // labelImgCaption
+            // 
+            this.labelImgCaption.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.labelImgCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelImgCaption.Location = new System.Drawing.Point(8, 33);
+            this.labelImgCaption.Name = "labelImgCaption";
+            this.labelImgCaption.Size = new System.Drawing.Size(165, 37);
+            this.labelImgCaption.TabIndex = 3;
+            this.labelImgCaption.Text = "Caption :";
+            this.labelImgCaption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormGeneralPage
             // 
@@ -452,6 +531,11 @@
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.tabControlTextPost.ResumeLayout(false);
+            this.TextPost.ResumeLayout(false);
+            this.TextPost.PerformLayout();
+            this.imagePost.ResumeLayout(false);
+            this.imagePost.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -463,7 +547,6 @@
         private System.Windows.Forms.ListBox listBoxAlbum;
         private System.Windows.Forms.Label labelUserName;
         private System.Windows.Forms.ListBox listBoxLikedPage;
-        private System.Windows.Forms.TextBox textBoxStatus;
         private System.Windows.Forms.Button buttonSharePost;
         private System.Windows.Forms.ListBox listBoxGroups;
         private System.Windows.Forms.Label label1;
@@ -489,5 +572,13 @@
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Splitter splitter1;
+        private System.Windows.Forms.TabControl tabControlTextPost;
+        private System.Windows.Forms.TabPage TextPost;
+        private System.Windows.Forms.TabPage imagePost;
+        private System.Windows.Forms.TextBox textBoxText;
+        private System.Windows.Forms.TextBox textBoxImgCaption;
+        private System.Windows.Forms.TextBox textBoxImgUrl;
+        private System.Windows.Forms.Label labelImgCaption;
+        private System.Windows.Forms.Label labelImgUrl;
     }
 }

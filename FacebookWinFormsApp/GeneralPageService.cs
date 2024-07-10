@@ -66,9 +66,9 @@ namespace BasicFacebookFeatures.Services
             }
         }
 
-        public void PostStatus(string i_Status)
+        public void PostStatus(string statusText, string placeID = null, string pictureURL = null, string taggedFriendIDs = null, string link = null, string privacyParameterValue = null)
         {
-            LoggedInUser.PostStatus(i_Status);
+            LoggedInUser.PostStatus(statusText, placeID, pictureURL, taggedFriendIDs, link, privacyParameterValue);
         }
     }
 }
