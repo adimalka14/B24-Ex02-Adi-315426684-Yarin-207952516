@@ -3,18 +3,20 @@ using System;
 
 namespace BasicFacebookFeatures.NewPost
 {
-    public class ImagePost : NewPost
+    public class ImagePostProxy : PostProxy
     {
-        private string imageUrl;
-        private string caption;
-        private string privacy;
+        public string imageUrl { get; set; }
+        public string caption { get; set; }
+        public string privacy { get; set; }
 
-        internal ImagePost(string imageUrl, string caption = null, string privacy = null)
+        internal ImagePostProxy()
         {
-            this.imageUrl = imageUrl;
-            this.caption = caption;
-            this.privacy = privacy;
-        } 
+        }
+
+        public override string ToString()
+        {
+            return base.RealPost.Caption;
+        }
 
         public override void Display()
         {

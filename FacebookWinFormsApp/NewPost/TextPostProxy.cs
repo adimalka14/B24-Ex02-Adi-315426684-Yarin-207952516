@@ -3,15 +3,18 @@ using System;
 
 namespace BasicFacebookFeatures.NewPost
 {
-    public class TextPost : NewPost
+    public class TextPostProxy : PostProxy
     {
-        private string statusText;
-        private string privacy;
+        public string statusText { get; set; }
+        public string privacy { get; set; }
 
-        internal TextPost(string statusText, string privacy = null)
+        internal TextPostProxy()
         {
-            this.statusText = statusText;
-            this.privacy = privacy;
+        }
+
+        public override string ToString()
+        {
+            return base.RealPost.Message;
         }
 
         public override void Display()

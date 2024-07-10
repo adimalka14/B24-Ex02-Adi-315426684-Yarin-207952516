@@ -1,6 +1,8 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using BasicFacebookFeatures.NewPost;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BasicFacebookFeatures.Services
 {
@@ -47,21 +49,20 @@ namespace BasicFacebookFeatures.Services
             return LoggedInUser.Albums.Cast<Album>();
         }
 
-        public IEnumerable<string> GetPosts()
+        public IEnumerable<PostProxy> GetPosts()
         {
+            PostFactory postFactory = new PostFactory();
+
             foreach (Post post in LoggedInUser.Posts)
             {
                 if (post.Message != null)
                 {
-                    yield return post.Message;
+                    
+                    yield return postFactory.CreatePost("text", post); 
                 }
                 else if (post.Caption != null)
                 {
-                    yield return post.Caption;
-                }
-                else
-                {
-                    yield return $"[{post.Type}]";
+                    yield return postFactory.CreatePost("image", post);
                 }
             }
         }

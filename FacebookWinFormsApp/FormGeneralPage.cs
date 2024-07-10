@@ -96,7 +96,7 @@ namespace BasicFacebookFeatures
 
         private void LoadPosts()
         {
-            foreach (string post in r_GeneralPageService.GetPosts())
+            foreach (PostProxy post in r_GeneralPageService.GetPosts())
             {
                 listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(post)));
             }
@@ -128,25 +128,26 @@ namespace BasicFacebookFeatures
 
         private void buttonSharePost_Click(object sender, EventArgs e)
         {
-            NewPost.NewPost post = null;
+            NewPost.PostProxy postProxy = null;
+            PostFactory factory = new PostFactory();
 
             if (tabControlTextPost.SelectedTab == TextPost)
             {
                 string text = textBoxText.Text; 
-                post = PostFactory.CreatePost("text", text);
+                postProxy = factory.CreateNewPost("text", text);
             }
             else if (tabControlTextPost.SelectedTab == imagePost)
             {
                 string imageUrl = textBoxImgUrl.Text; 
                 string caption = textBoxImgCaption.Text; 
-                post = PostFactory.CreatePost("image", imageUrl, caption);
+                postProxy = factory.CreateNewPost("image", caption, imageUrl);
             }
 
-            if (post != null)
+            if (postProxy != null)
             {
                 try
                 {
-                    post.PostToFacebook(r_GeneralPageService);
+                    postProxy.PostToFacebook(r_GeneralPageService);
                     MessageBox.Show("Post was sent successfully!");
                 }
                 catch (FacebookApiException ex)
