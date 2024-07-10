@@ -17,7 +17,7 @@ namespace BasicFacebookFeatures.MatchStrategy
         public bool Match(User friend)
         {
             IEnumerable<string> selectedTeamNames = m_SelectedTeams.Select(team => team.Name);
-            IEnumerable<string> friendTeamNames = friend.LikedPages.Select(team => team.Name);
+            IEnumerable<string> friendTeamNames = friend.FavofriteTeams.Select(team => team.Name);
 
             return !m_SelectedTeams.Any() || friendTeamNames.ToList().Intersect(selectedTeamNames).Any();
         }

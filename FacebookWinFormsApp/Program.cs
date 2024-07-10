@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using CefSharp.WinForms;
-using CefSharp;
 using FacebookWrapper;
 
 namespace BasicFacebookFeatures

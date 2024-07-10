@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.Services;
@@ -23,7 +22,7 @@ namespace BasicFacebookFeatures
         {
             Clipboard.SetText("design.patterns");
             generalPage = new FormGeneralPage(r_GeneralPageService, threadAdapter);
-            threadAdapter.Execute(autoLoginAndLoadData);
+            threadAdapter.Execute(login);
             generalPage.Show();
             generalPage.Tag = this;
             Hide();

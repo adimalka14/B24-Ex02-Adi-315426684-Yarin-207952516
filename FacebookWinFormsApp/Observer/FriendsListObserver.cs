@@ -1,5 +1,6 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BasicFacebookFeatures.Observer
