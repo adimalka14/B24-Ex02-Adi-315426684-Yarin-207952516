@@ -29,6 +29,7 @@ namespace BasicFacebookFeatures
             userNotifier.Attach(new ProfileObserver(pictureProfile, labelUserName));
             userNotifier.Attach(new FriendsListObserver(listBoxFreinds, pictureBoxFreind));
             userNotifier.Attach(new LikedPagesObserver(listBoxLikedPage, pictureBoxLikedPage));
+            buttonRefreshAll.Click += buttonRefreshAll_Click;
         }
 
         public void LoadData()
@@ -218,6 +219,11 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void buttonRefreshAll_Click(object sender, EventArgs e)
+        {
+            userNotifier.User = r_GeneralPageService.LoggedInUser;
         }
     }
 }
