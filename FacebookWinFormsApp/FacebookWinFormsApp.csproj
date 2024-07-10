@@ -91,9 +91,6 @@
   <ItemGroup>
     <Compile Include="Adapter\IThreadAdapter.cs" />
     <Compile Include="Adapter\ThreadAdapter.cs" />
-    <Compile Include="Command\CommandInvoker.cs" />
-    <Compile Include="Command\ICommand.cs" />
-    <Compile Include="Command\PostStatusCommand.cs" />
     <Compile Include="GeneralPageService.cs" />
     <Compile Include="FormMemoriesPosts.cs">
       <SubType>Form</SubType>
