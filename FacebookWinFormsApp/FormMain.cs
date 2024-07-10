@@ -22,7 +22,7 @@ namespace BasicFacebookFeatures
         {
             Clipboard.SetText("design.patterns");
             generalPage = new FormGeneralPage(r_GeneralPageService, threadAdapter);
-            threadAdapter.Execute(login);
+            threadAdapter.Execute(autoLoginAndLoadData);
             generalPage.Show();
             generalPage.Tag = this;
             Hide();

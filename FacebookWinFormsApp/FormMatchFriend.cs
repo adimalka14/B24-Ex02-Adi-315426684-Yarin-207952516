@@ -60,31 +60,37 @@ namespace BasicFacebookFeatures
         {
             if (r_MatchFriendService.IsValidAgeRange(hScrollBarMinAge.Value, hScrollBarMaxAge.Value))
             {
-                listBoxMatchFriends.Items.Clear();
-                listBoxMatchFriends.DisplayMember = "Name";
-
-                var selectedCities = checkedListBoxCity.CheckedItems.Cast<string>();
-                var selectedLikedPages = checkedListBoxLikedPage.CheckedItems.Cast<Page>();
-                var selectedFavoriteTeams = checkedListBoxFavoriteTeams.CheckedItems.Cast<Page>();
-
-                var matchingFriends = r_MatchFriendService.GetMatchingFriends(
-                    checkBoxMale.Checked,
-                    checkBoxFemale.Checked,
-                    hScrollBarMinAge.Value,
-                    hScrollBarMaxAge.Value,
-                    selectedCities,
-                    selectedLikedPages,
-                    selectedFavoriteTeams);
-
-                foreach (var friend in matchingFriends)
+                r_threadAdapter.Execute(() =>
                 {
-                    listBoxMatchFriends.Items.Add(friend);
-                }
+                    var selectedCities = checkedListBoxCity.CheckedItems.Cast<string>().ToList();
+                    var selectedLikedPages = checkedListBoxLikedPage.CheckedItems.Cast<Page>().ToList();
+                    var selectedFavoriteTeams = checkedListBoxFavoriteTeams.CheckedItems.Cast<Page>().ToList();
 
-                if (!listBoxMatchFriends.Items.Cast<User>().Any())
-                {
-                    MessageBox.Show("No match friends");
-                }
+                    var matchingFriends = r_MatchFriendService.GetMatchingFriends(
+                        checkBoxMale.Checked,
+                        checkBoxFemale.Checked,
+                        hScrollBarMinAge.Value,
+                        hScrollBarMaxAge.Value,
+                        selectedCities,
+                        selectedLikedPages,
+                        selectedFavoriteTeams).ToList();
+
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        listBoxMatchFriends.Items.Clear();
+                        listBoxMatchFriends.DisplayMember = "Name";
+
+                        foreach (var friend in matchingFriends)
+                        {
+                            listBoxMatchFriends.Items.Add(friend);
+                        }
+
+                        if (!listBoxMatchFriends.Items.Cast<User>().Any())
+                        {
+                            MessageBox.Show("No match friends");
+                        }
+                    });
+                });
             }
             else
             {
@@ -153,20 +159,27 @@ namespace BasicFacebookFeatures
 
             if (choosenUser != null)
             {
-                showSelectedFriendPrivateDetails(choosenUser);
+                r_threadAdapter.Execute(() => showSelectedFriendPrivateDetails(choosenUser));
             }
         }
 
         private void showSelectedFriendPrivateDetails(User i_ChoosenUser)
         {
-            pictureProfile.ImageLocation = i_ChoosenUser.PictureLargeURL;
-            this.labelUserName.Text = $"{i_ChoosenUser.FirstName} {i_ChoosenUser.LastName}";
-            listBoxUserDetails.Items.Clear();
-            listBoxUserDetails.Items.Add("Birthday: " + i_ChoosenUser.Birthday);
-            listBoxUserDetails.Items.Add("Gender: " + i_ChoosenUser.Gender);
-            listBoxUserDetails.Items.Add("Email: " + i_ChoosenUser.Email);
-            listBoxUserDetails.Items.Add("Relationship: " + i_ChoosenUser.RelationshipStatus);
-            listBoxUserDetails.Items.Add("Location: " + i_ChoosenUser.Location?.Name);
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new Action(() => showSelectedFriendPrivateDetails(i_ChoosenUser)));
+            }
+            else
+            {
+                pictureProfile.ImageLocation = i_ChoosenUser.PictureLargeURL;
+                this.labelUserName.Text = $"{i_ChoosenUser.FirstName} {i_ChoosenUser.LastName}";
+                listBoxUserDetails.Items.Clear();
+                listBoxUserDetails.Items.Add("Birthday: " + i_ChoosenUser.Birthday);
+                listBoxUserDetails.Items.Add("Gender: " + i_ChoosenUser.Gender);
+                listBoxUserDetails.Items.Add("Email: " + i_ChoosenUser.Email);
+                listBoxUserDetails.Items.Add("Relationship: " + i_ChoosenUser.RelationshipStatus);
+                listBoxUserDetails.Items.Add("Location: " + i_ChoosenUser.Location?.Name);
+            }
         }
     }
 }

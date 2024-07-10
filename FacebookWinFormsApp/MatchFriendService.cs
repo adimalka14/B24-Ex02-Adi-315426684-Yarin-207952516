@@ -43,6 +43,33 @@ namespace BasicFacebookFeatures.Services
             return maxAge >= minAge;
         }
 
+        //public IEnumerable<User> GetMatchingFriends(
+        //    bool isMaleChecked,
+        //    bool isFemaleChecked,
+        //    int minAge,
+        //    int maxAge,
+        //    IEnumerable<string> selectedCities,
+        //    IEnumerable<Page> selectedLikedPages,
+        //    IEnumerable<Page> selectedFavoriteTeams)
+        //{
+        //    List<IMatchStrategy> strategies = new List<IMatchStrategy>
+        //    {
+        //        new AgeMatchStrategy(minAge, maxAge),
+        //        new GenderMatchStrategy(isMaleChecked, isFemaleChecked),
+        //        new ListMatchStrategy<string>(selectedCities, friend => new List<string> { friend.Location?.Name }),
+        //        new ListMatchStrategy<string>(selectedLikedPages, friend => friend.LikedPages),
+        //        new ListMatchStrategy<Page>(selectedFavoriteTeams, friend => friend.FavoriteTeams)
+        //    };
+
+        //    foreach (User friend in r_UserProfile.Friends)
+        //    {
+        //        if (strategies.All(strategy => strategy.Match(friend)))
+        //        {
+        //            yield return friend;
+        //        }
+        //    }
+        //}
+
         public IEnumerable<User> GetMatchingFriends(
             bool isMaleChecked,
             bool isFemaleChecked,
