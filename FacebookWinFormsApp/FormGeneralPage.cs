@@ -9,6 +9,7 @@ using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewPost;
 using Facebook;
 using BasicFacebookFeatures.Adapter;
+using BasicFacebookFeatures.Observer;
 
 namespace BasicFacebookFeatures
 {
@@ -16,6 +17,8 @@ namespace BasicFacebookFeatures
     {
         private readonly GeneralPageService r_GeneralPageService;
         private readonly IThreadAdapter r_threadAdapter;
+        private UserNotifier userNotifier = new UserNotifier();
+
 
         public FormGeneralPage(GeneralPageService i_GeneralPageService, IThreadAdapter i_ThreadAdapter)
         {
@@ -23,6 +26,9 @@ namespace BasicFacebookFeatures
             r_GeneralPageService = i_GeneralPageService;
             r_threadAdapter = i_ThreadAdapter;
             this.Text = "Facebook App";
+            userNotifier.Attach(new ProfileObserver(pictureProfile, labelUserName));
+            userNotifier.Attach(new FriendsListObserver(listBoxFreinds, pictureBoxFreind));
+            userNotifier.Attach(new LikedPagesObserver(listBoxLikedPage, pictureBoxLikedPage));
         }
 
         public void LoadData()
@@ -36,19 +42,12 @@ namespace BasicFacebookFeatures
 
         private void LoadPrivateDetails()
         {
-            string pictureProfileData = r_GeneralPageService.GetProfilePictureUrl();
-            string userName = r_GeneralPageService.GetUserName();
-
-            pictureProfile.Invoke(new Action(() =>
-                this.pictureProfile.ImageLocation = pictureProfileData));
-
-            labelUserName.Invoke(new Action(() =>
-               this.labelUserName.Text = userName));
+            userNotifier.User = r_GeneralPageService.LoggedInUser;
 
             foreach (var detail in r_GeneralPageService.GetUserDetails())
             {
                 listBoxUserDetails.Invoke(new Action(() =>
-                listBoxUserDetails.Items.Add(detail)));
+                    listBoxUserDetails.Items.Add(detail)));
             }
         }
 
