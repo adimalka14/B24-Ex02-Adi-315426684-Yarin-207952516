@@ -61,11 +61,12 @@
             this.TextPost = new System.Windows.Forms.TabPage();
             this.textBoxText = new System.Windows.Forms.TextBox();
             this.imagePost = new System.Windows.Forms.TabPage();
-            this.splitter1 = new System.Windows.Forms.Splitter();
-            this.textBoxImgUrl = new System.Windows.Forms.TextBox();
-            this.textBoxImgCaption = new System.Windows.Forms.TextBox();
-            this.labelImgUrl = new System.Windows.Forms.Label();
             this.labelImgCaption = new System.Windows.Forms.Label();
+            this.labelImgUrl = new System.Windows.Forms.Label();
+            this.textBoxImgCaption = new System.Windows.Forms.TextBox();
+            this.textBoxImgUrl = new System.Windows.Forms.TextBox();
+            this.splitter1 = new System.Windows.Forms.Splitter();
+            this.buttonRefreshAll = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).BeginInit();
             this.tabControl.SuspendLayout();
             this.tabPageLIked.SuspendLayout();
@@ -91,7 +92,7 @@
             this.button2.BackColor = System.Drawing.Color.DarkGray;
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(67, 650);
+            this.button2.Location = new System.Drawing.Point(67, 629);
             this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(190, 44);
@@ -106,7 +107,7 @@
             this.button1.BackColor = System.Drawing.Color.Silver;
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(67, 584);
+            this.button1.Location = new System.Drawing.Point(67, 577);
             this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(190, 44);
@@ -444,41 +445,6 @@
             this.imagePost.Text = "image";
             this.imagePost.UseVisualStyleBackColor = true;
             // 
-            // splitter1
-            // 
-            this.splitter1.BackColor = System.Drawing.Color.DodgerBlue;
-            this.splitter1.Location = new System.Drawing.Point(0, 0);
-            this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(340, 824);
-            this.splitter1.TabIndex = 75;
-            this.splitter1.TabStop = false;
-            // 
-            // textBoxImgUrl
-            // 
-            this.textBoxImgUrl.Location = new System.Drawing.Point(179, 105);
-            this.textBoxImgUrl.Multiline = true;
-            this.textBoxImgUrl.Name = "textBoxImgUrl";
-            this.textBoxImgUrl.Size = new System.Drawing.Size(334, 50);
-            this.textBoxImgUrl.TabIndex = 0;
-            // 
-            // textBoxImgCaption
-            // 
-            this.textBoxImgCaption.Location = new System.Drawing.Point(179, 18);
-            this.textBoxImgCaption.Multiline = true;
-            this.textBoxImgCaption.Name = "textBoxImgCaption";
-            this.textBoxImgCaption.Size = new System.Drawing.Size(334, 73);
-            this.textBoxImgCaption.TabIndex = 1;
-            // 
-            // labelImgUrl
-            // 
-            this.labelImgUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelImgUrl.Location = new System.Drawing.Point(13, 105);
-            this.labelImgUrl.Name = "labelImgUrl";
-            this.labelImgUrl.Size = new System.Drawing.Size(160, 50);
-            this.labelImgUrl.TabIndex = 2;
-            this.labelImgUrl.Text = "Image URL :";
-            this.labelImgUrl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // labelImgCaption
             // 
             this.labelImgCaption.Anchor = System.Windows.Forms.AnchorStyles.None;
@@ -490,6 +456,56 @@
             this.labelImgCaption.Text = "Caption :";
             this.labelImgCaption.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // labelImgUrl
+            // 
+            this.labelImgUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelImgUrl.Location = new System.Drawing.Point(13, 105);
+            this.labelImgUrl.Name = "labelImgUrl";
+            this.labelImgUrl.Size = new System.Drawing.Size(160, 50);
+            this.labelImgUrl.TabIndex = 2;
+            this.labelImgUrl.Text = "Image URL :";
+            this.labelImgUrl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // textBoxImgCaption
+            // 
+            this.textBoxImgCaption.Location = new System.Drawing.Point(179, 18);
+            this.textBoxImgCaption.Multiline = true;
+            this.textBoxImgCaption.Name = "textBoxImgCaption";
+            this.textBoxImgCaption.Size = new System.Drawing.Size(334, 73);
+            this.textBoxImgCaption.TabIndex = 1;
+            // 
+            // textBoxImgUrl
+            // 
+            this.textBoxImgUrl.Location = new System.Drawing.Point(179, 105);
+            this.textBoxImgUrl.Multiline = true;
+            this.textBoxImgUrl.Name = "textBoxImgUrl";
+            this.textBoxImgUrl.Size = new System.Drawing.Size(334, 50);
+            this.textBoxImgUrl.TabIndex = 0;
+            // 
+            // splitter1
+            // 
+            this.splitter1.BackColor = System.Drawing.Color.DodgerBlue;
+            this.splitter1.Location = new System.Drawing.Point(0, 0);
+            this.splitter1.Name = "splitter1";
+            this.splitter1.Size = new System.Drawing.Size(340, 824);
+            this.splitter1.TabIndex = 75;
+            this.splitter1.TabStop = false;
+            // 
+            // buttonRefreshAll
+            // 
+            this.buttonRefreshAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefreshAll.BackColor = System.Drawing.Color.Silver;
+            this.buttonRefreshAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRefreshAll.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonRefreshAll.Location = new System.Drawing.Point(67, 684);
+            this.buttonRefreshAll.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRefreshAll.Name = "buttonRefreshAll";
+            this.buttonRefreshAll.Size = new System.Drawing.Size(190, 44);
+            this.buttonRefreshAll.TabIndex = 76;
+            this.buttonRefreshAll.Text = "Refresh Page";
+            this.buttonRefreshAll.UseVisualStyleBackColor = false;
+            this.buttonRefreshAll.Click += new System.EventHandler(this.buttonRefreshAll_Click);
+            // 
             // FormGeneralPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -497,6 +513,7 @@
             this.BackColor = System.Drawing.SystemColors.ScrollBar;
             this.ClientSize = new System.Drawing.Size(1546, 824);
             this.ControlBox = false;
+            this.Controls.Add(this.buttonRefreshAll);
             this.Controls.Add(this.pictureProfile);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -580,5 +597,6 @@
         private System.Windows.Forms.TextBox textBoxImgUrl;
         private System.Windows.Forms.Label labelImgCaption;
         private System.Windows.Forms.Label labelImgUrl;
+        private System.Windows.Forms.Button buttonRefreshAll;
     }
 }

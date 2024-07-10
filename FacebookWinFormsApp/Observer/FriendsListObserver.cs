@@ -17,16 +17,13 @@ namespace BasicFacebookFeatures.Observer
 
         public void Update(User user)
         {
-            var friends = user.Friends;
+            var friends = user.Friends.ToList();
 
             listBoxFriends.Invoke(new Action(() =>
             {
-                listBoxFriends.Items.Clear();
                 listBoxFriends.DisplayMember = "Name";
-                foreach (var friend in friends)
-                {
-                    listBoxFriends.Items.Add(friend);
-                }
+                listBoxFriends.DataSource = null;  // Clear existing data source
+                listBoxFriends.DataSource = friends;
             }));
         }
     }
