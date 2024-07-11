@@ -15,9 +15,7 @@ namespace BasicFacebookFeatures.Adapter
                 }
                 catch (Exception ex)
                 {
-                    // Handle the exception or log it
                     Console.WriteLine($"Exception caught: {ex.Message}");
-                    // אפשר לשקול להעביר את החריגה הלאה או לטפל בה בדרכים נוספות
                 }
             });
             newThread.Start();

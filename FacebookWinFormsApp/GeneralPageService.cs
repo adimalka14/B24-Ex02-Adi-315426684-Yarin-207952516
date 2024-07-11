@@ -3,12 +3,38 @@ using System.Collections.Generic;
 using System.Linq;
 using BasicFacebookFeatures.NewPost;
 using BasicFacebookFeatures.NewUser;
+using System.Reflection;
 
 namespace BasicFacebookFeatures.Services
 {
     public class GeneralPageService
     {
         public LoggedUser LoggedInUser { get; set; }
+        public readonly UserComposer r_Composer = new UserComposer(new UserBuilder());
+
+        public void FetchPrivateDetails()
+        {
+            r_Composer.UserPrivateDetails(LoggedInUser);
+        }
+
+        public void FetchUserFriends()
+        {
+            r_Composer.UserFriends(LoggedInUser);
+        }
+        public void FetchLikedPages()
+        {
+            r_Composer.LikedPages(LoggedInUser);
+
+        }
+        public void FetchFavoriteTeams()
+        {
+            r_Composer.FavoriteTeams(LoggedInUser);
+
+        }
+        public void FetchPosts()
+        {
+            r_Composer.Posts(LoggedInUser);
+        }
 
         public string GetUserName()
         {
@@ -17,7 +43,7 @@ namespace BasicFacebookFeatures.Services
 
         public string GetProfilePictureUrl()
         {
-            return LoggedInUser.PictureLargeURL;
+            return LoggedInUser.PictureLargeUrl;
         }
 
         public IEnumerable<string> GetUserDetails()
@@ -31,12 +57,12 @@ namespace BasicFacebookFeatures.Services
 
         public IEnumerable<User> GetFriends()
         {
-            return LoggedInUser.Friends.Cast<User>();
+            return LoggedInUser.Friends;
         }
 
         public IEnumerable<Page> GetLikedPages()
         {
-            return LoggedInUser.LikedPages.Cast<Page>();
+            return LoggedInUser.LikedPages;
         }
 
         public IEnumerable<Page> GetFavoriteTeams()

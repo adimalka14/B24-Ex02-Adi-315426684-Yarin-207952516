@@ -9,8 +9,8 @@ namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
-        private GeneralPageService r_GeneralPageService = new GeneralPageService();
-        private IThreadAdapter r_ThreadAdapter = new ThreadAdapter();
+        private readonly GeneralPageService r_GeneralPageService = new GeneralPageService();
+        private readonly IThreadAdapter r_ThreadAdapter = new ThreadAdapter();
         FormGeneralPage generalPage = null;
 
         public FormMain()
@@ -31,12 +31,9 @@ namespace BasicFacebookFeatures
 
         public void Init()
         {
-            UserComposer composer = new UserComposer(new UserBuilder(r_ThreadAdapter)); // pattern Builder
-
             try
             {
-                LoggedUser user;
-                user = composer.CreateUser();
+                LoggedUser user = r_GeneralPageService.r_Composer.CreateUser();
                 r_GeneralPageService.LoggedInUser = user;
                 generalPage.LoadData();
             }

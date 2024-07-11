@@ -504,7 +504,6 @@
             this.buttonRefreshAll.TabIndex = 76;
             this.buttonRefreshAll.Text = "Refresh Page";
             this.buttonRefreshAll.UseVisualStyleBackColor = false;
-            this.buttonRefreshAll.Click += new System.EventHandler(this.buttonRefreshAll_Click);
             // 
             // FormGeneralPage
             // 

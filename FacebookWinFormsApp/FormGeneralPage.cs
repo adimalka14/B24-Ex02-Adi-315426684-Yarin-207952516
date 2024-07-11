@@ -8,7 +8,6 @@ using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewPost;
 using Facebook;
 using BasicFacebookFeatures.Adapter;
-using BasicFacebookFeatures.Observer;
 
 namespace BasicFacebookFeatures
 {
@@ -16,7 +15,6 @@ namespace BasicFacebookFeatures
     {
         private readonly GeneralPageService r_GeneralPageService;
         private readonly IThreadAdapter r_threadAdapter;
-        private UserNotifier userNotifier = new UserNotifier();
 
 
         public FormGeneralPage(GeneralPageService i_GeneralPageService, IThreadAdapter i_ThreadAdapter)
@@ -25,10 +23,6 @@ namespace BasicFacebookFeatures
             r_GeneralPageService = i_GeneralPageService;
             r_threadAdapter = i_ThreadAdapter;
             this.Text = "Facebook App";
-            userNotifier.Attach(new ProfileObserver(pictureProfile, labelUserName));
-            userNotifier.Attach(new FriendsListObserver(listBoxFreinds, pictureBoxFreind));
-            userNotifier.Attach(new LikedPagesObserver(listBoxLikedPage, pictureBoxLikedPage));
-            buttonRefreshAll.Click += buttonRefreshAll_Click;
         }
 
         public void LoadData()
@@ -42,6 +36,7 @@ namespace BasicFacebookFeatures
 
         private void LoadPrivateDetails()
         {
+            r_GeneralPageService.FetchPrivateDetails();
             string userName = r_GeneralPageService.GetUserName();
             string userProfilePicture = r_GeneralPageService.GetProfilePictureUrl();
 
@@ -60,6 +55,7 @@ namespace BasicFacebookFeatures
 
         private void LoadUserFriends()
         {
+            r_GeneralPageService.FetchUserFriends();
             List<User> users = r_GeneralPageService.GetFriends().ToList();
 
             listBoxFreinds.Invoke(new Action(() =>
@@ -71,6 +67,7 @@ namespace BasicFacebookFeatures
 
         private void LoadLikedPages()
         {
+            r_GeneralPageService.FetchLikedPages();
             List<Page> likedPages = r_GeneralPageService.GetLikedPages().ToList();
 
             listBoxLikedPage.Invoke(new Action(() =>
@@ -82,6 +79,7 @@ namespace BasicFacebookFeatures
 
         private void LoadFavoriteTeams()
         {
+            r_GeneralPageService.FetchFavoriteTeams();
             List<Page> favoriteTeams = r_GeneralPageService.GetFavoriteTeams().ToList();
 
             listBoxFavoriteTeams.Invoke(new Action(() =>
@@ -94,6 +92,7 @@ namespace BasicFacebookFeatures
 
         private void LoadPosts()
         {
+            r_GeneralPageService.FetchPosts();
             foreach (PostProxy post in r_GeneralPageService.GetPosts())
             {
                 listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(post)));
@@ -218,11 +217,6 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void buttonRefreshAll_Click(object sender, EventArgs e)
-        {
-            //userNotifier.User = r_GeneralPageService.LoggedInUser;
         }
     }
 }

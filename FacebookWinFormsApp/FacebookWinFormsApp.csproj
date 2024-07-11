@@ -125,11 +125,6 @@
     <Compile Include="NewPost\PostProxy.cs" />
     <Compile Include="NewPost\PostFactory.cs" />
     <Compile Include="NewPost\TextPostProxy.cs" />
-    <Compile Include="Observer\FriendsListObserver.cs" />
-    <Compile Include="Observer\IObserver.cs" />
-    <Compile Include="Observer\LikedPagesObserver.cs" />
-    <Compile Include="Observer\ProfileObserver.cs" />
-    <Compile Include="Observer\UserNotifier.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MatchStrategy\AgeMatchStrategy.cs" />
