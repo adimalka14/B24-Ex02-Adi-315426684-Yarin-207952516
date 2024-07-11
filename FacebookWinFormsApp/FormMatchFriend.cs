@@ -31,12 +31,13 @@ namespace BasicFacebookFeatures
         private void loadCities()
         {
             string[] cities = r_MatchFriendService.GetCities().ToArray();
-
             checkedListBoxCity.Invoke(new Action(() => checkedListBoxCity.Items.AddRange(cities)));
+
         }
 
         private void loadLikedPage()
         {
+
             List<Page> likedPage = r_MatchFriendService.GetLikedPages().ToList();
 
             checkedListBoxLikedPage.Invoke(new Action(() =>

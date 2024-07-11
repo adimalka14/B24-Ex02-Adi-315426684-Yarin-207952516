@@ -3,6 +3,7 @@ using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BasicFacebookFeatures.NewPost;
 
 namespace BasicFacebookFeatures.Services
 {
@@ -18,29 +19,29 @@ namespace BasicFacebookFeatures.Services
         public IEnumerable<string> GetLocations()
         {
             var locations = new HashSet<string> { "All locations" };
-            foreach (var post in r_UserProfile.Posts)
+            foreach (PostProxy post in r_UserProfile.Posts)
             {
-                if (!string.IsNullOrEmpty(post.Place?.Location.City))
+                if (!string.IsNullOrEmpty(post.Location))
                 {
-                    locations.Add(post.Place.Location.City);
+                    locations.Add(post.Location);
                 }
             }
 
             return locations;
         }
 
-        public bool CheckDate(Post i_Post, DateTime startDate, DateTime endDate)
+        public bool CheckDate(PostProxy i_Post, DateTime startDate, DateTime endDate)
         {
-            return i_Post.CreatedTime.Value.Date >= startDate.Date &&
-                   i_Post.CreatedTime.Value.Date <= endDate.Date;
+            return i_Post.CreatedTime >= startDate.Date &&
+                   i_Post.CreatedTime <= endDate.Date;
         }
 
-        public bool CheckLocation(Post i_Post, string i_SelectedLocation)
+        public bool CheckLocation(PostProxy i_Post, string i_SelectedLocation)
         {
-            return i_Post.Place?.Location?.City == i_SelectedLocation;
+            return i_Post.Location == i_SelectedLocation;
         }
 
-        public IEnumerable<Post> GetFilteredPosts(string i_SelectedLocation, DateTime startDate, DateTime endDate)
+        public IEnumerable<PostProxy> GetFilteredPosts(string i_SelectedLocation, DateTime startDate, DateTime endDate)
         {
             return r_UserProfile.Posts.Where(post =>
                 (i_SelectedLocation == "All locations" || CheckLocation(post, i_SelectedLocation)) &&

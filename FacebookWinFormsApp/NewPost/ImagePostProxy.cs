@@ -12,12 +12,6 @@ namespace BasicFacebookFeatures.NewPost
         internal ImagePostProxy()
         {
         }
-
-        public override string ToString()
-        {
-            return base.RealPost.Caption;
-        }
-
         public override void Display()
         {
             Console.WriteLine("Displaying Image Post: " + imageUrl);

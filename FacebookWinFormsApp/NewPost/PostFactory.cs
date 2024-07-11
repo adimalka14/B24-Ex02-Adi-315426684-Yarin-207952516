@@ -10,9 +10,11 @@ namespace BasicFacebookFeatures.NewPost
             switch (type.ToLower())
             {
                 case "text":
-                    return new TextPostProxy{RealPost = i_RealPost};
+                    return new TextPostProxy{RealPost = i_RealPost, Location = i_RealPost.Place?.Location.City,
+                        CreatedTime = i_RealPost.CreatedTime.Value.Date,Text = i_RealPost.Message };
                 case "image":
-                    return new ImagePostProxy {RealPost = i_RealPost};
+                    return new ImagePostProxy {RealPost = i_RealPost, Location = i_RealPost.Place?.Location.City,
+                        CreatedTime = i_RealPost.CreatedTime.Value.Date, Text = i_RealPost.Caption };
                 default:
                     throw new ArgumentException("Invalid post type.");
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Windows.Forms;
 
 namespace BasicFacebookFeatures.Adapter
 {
@@ -12,6 +13,13 @@ namespace BasicFacebookFeatures.Adapter
                 try
                 {
                     action();
+                }
+                catch (NullReferenceException ex)
+                {
+                    Form.ActiveForm.Invoke((MethodInvoker)delegate
+                    {
+                        MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    });
                 }
                 catch (Exception ex)
                 {

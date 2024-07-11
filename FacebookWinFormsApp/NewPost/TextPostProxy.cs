@@ -12,11 +12,6 @@ namespace BasicFacebookFeatures.NewPost
         {
         }
 
-        public override string ToString()
-        {
-            return base.RealPost.Message;
-        }
-
         public override void Display()
         {
             Console.WriteLine("Displaying Text Post: " + statusText);

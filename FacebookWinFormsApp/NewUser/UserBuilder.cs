@@ -1,6 +1,10 @@
 ﻿using BasicFacebookFeatures.Adapter;
 using FacebookWrapper;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using BasicFacebookFeatures.NewPost;
+using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.NewUser
 {
@@ -68,7 +72,17 @@ namespace BasicFacebookFeatures.NewUser
         }
         public void BuildPosts(LoggedUser i_User)
         {
-            i_User.Posts = i_User.RealUser.Posts;
+            IEnumerable<Post> userPost = i_User.RealUser.Posts;
+            List<PostProxy> proxyPostList = new List<PostProxy>();
+            PostFactory factory = new PostFactory();
+
+            foreach (Post post in userPost)
+            {
+                PostProxy newProxyPost = factory.CreatePost(post.Message == null ? "image" : "text", post);
+                proxyPostList.Add(newProxyPost); 
+            }
+
+            i_User.Posts = proxyPostList; 
         }
     }
 }

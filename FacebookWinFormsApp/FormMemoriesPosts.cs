@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using BasicFacebookFeatures.NewPost;
 using BasicFacebookFeatures.NewUser;
 using FacebookWrapper.ObjectModel;
 using BasicFacebookFeatures.Services;
+using System.Collections.Generic;
 
 namespace BasicFacebookFeatures
 {
@@ -30,27 +32,28 @@ namespace BasicFacebookFeatures
 
         private void listBoxFoundedMemories_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Post selectedPost = listBoxFoundedMemories.SelectedItem as Post;
+            PostProxy selectedPost = listBoxFoundedMemories.SelectedItem as PostProxy;
 
-            textBoxSelectedMemory.Text = selectedPost?.Message;
-            dateTime.Text = selectedPost.CreatedTime.ToString() ?? DateTime.Now.ToString();
-            pictureBox1.ImageLocation = selectedPost?.PictureURL;
+            textBoxSelectedMemory.Text = selectedPost.Text;
+            dateTime.Text = selectedPost.CreatedTime.ToString();
+
+            ImagePostProxy imagePost = selectedPost as ImagePostProxy;
+            if (imagePost != null)
+            {
+                pictureBox1.ImageLocation = imagePost.imageUrl;
+            }
         }
 
         private void buttonShowMemories_Click(object sender, EventArgs e)
         {
             string selectedLocation = comboBoxLocation.SelectedItem.ToString();
-            var filteredPosts = r_MemoriesPostsService.GetFilteredPosts(
+            List<PostProxy>  filteredPosts = r_MemoriesPostsService.GetFilteredPosts(
                 selectedLocation,
                 dateTimePickerStart.Value,
-                dateTimePickerFinish.Value);
+                dateTimePickerFinish.Value).ToList();
 
             listBoxFoundedMemories.Items.Clear();
-            listBoxFoundedMemories.DisplayMember = "Type";
-            foreach (var post in filteredPosts)
-            {
-                listBoxFoundedMemories.Items.Add(post);
-            }
+            listBoxFoundedMemories.DataSource = filteredPosts;
 
             if (listBoxFoundedMemories.Items.Count == 0)
             {

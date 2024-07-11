@@ -93,13 +93,11 @@ namespace BasicFacebookFeatures
         private void LoadPosts()
         {
             r_GeneralPageService.FetchPosts();
-            foreach (PostProxy post in r_GeneralPageService.GetPosts())
-            {
-                listBoxPosts.Invoke(new Action(() => listBoxPosts.Items.Add(post)));
-            }
+            List<PostProxy> posts = r_GeneralPageService.GetPosts().ToList();
 
             listBoxPosts.Invoke(new Action(() =>
             {
+                listBoxPosts.DataSource = posts;
                 if (listBoxPosts.Items.Count == 0)
                 {
                     MessageBox.Show("No Posts to retrieve :(");
@@ -207,13 +205,13 @@ namespace BasicFacebookFeatures
 
         private void buttonMatchingFriend_Click(object sender, EventArgs e)
         {
-            if(r_GeneralPageService.LoggedInUser!=null)
+            try
             {
                 FormMatchFriend form = new FormMatchFriend(r_GeneralPageService.LoggedInUser, r_threadAdapter);
                 r_threadAdapter.Execute(form.LoadData);
                 form.ShowDialog();
             }
-            else
+            catch(Exception ex)
             {
                 MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }

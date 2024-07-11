@@ -72,20 +72,7 @@ namespace BasicFacebookFeatures.Services
 
         public IEnumerable<PostProxy> GetPosts()
         {
-            PostFactory postFactory = new PostFactory();
-
-            foreach (Post post in LoggedInUser.Posts)
-            {
-                if (post.Message != null)
-                {
-                    
-                    yield return postFactory.CreatePost("text", post); 
-                }
-                else if (post.Caption != null)
-                {
-                    yield return postFactory.CreatePost("image", post);
-                }
-            }
+            return LoggedInUser.Posts;
         }
 
         public void PostStatus(string statusText, string placeID = null, string pictureURL = null, string taggedFriendIDs = null, string link = null, string privacyParameterValue = null)

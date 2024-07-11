@@ -1,4 +1,5 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using System;
+using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using BasicFacebookFeatures.MatchStrategy;
@@ -53,13 +54,17 @@ namespace BasicFacebookFeatures.Services
         //    IEnumerable<Page> selectedLikedPages,
         //    IEnumerable<Page> selectedFavoriteTeams)
         //{
+        //    Func<string, string, bool> stringComparer = (item1, item2) => item1 == item2;
+
+        //    Func<Page, Page, bool> pageComparer = (page1, page2) => page1.Name == page2.Name;
+
         //    List<IMatchStrategy> strategies = new List<IMatchStrategy>
         //    {
         //        new AgeMatchStrategy(minAge, maxAge),
         //        new GenderMatchStrategy(isMaleChecked, isFemaleChecked),
-        //        new ListMatchStrategy<string>(selectedCities, friend => new List<string> { friend.Location?.Name }),
-        //        new ListMatchStrategy<string>(selectedLikedPages, friend => friend.LikedPages),
-        //        new ListMatchStrategy<Page>(selectedFavoriteTeams, friend => friend.FavoriteTeams)
+        //        new ListMatchStrategy<string>(selectedCities, friend => friend.Location?.Name.Split(',').Select(s => s.Trim()), stringComparer),
+        //        new ListMatchStrategy<Page>(selectedLikedPages, friend => friend.LikedPages, pageComparer),
+        //        new ListMatchStrategy<Page>(selectedFavoriteTeams, friend => friend.FavofriteTeams, pageComparer)
         //    };
 
         //    foreach (User friend in r_UserProfile.Friends)
