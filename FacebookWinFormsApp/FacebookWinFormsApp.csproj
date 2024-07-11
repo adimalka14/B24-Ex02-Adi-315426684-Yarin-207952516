@@ -136,6 +136,10 @@
     <Compile Include="MatchStrategy\CityMatchStrategy.cs" />
     <Compile Include="MatchStrategy\GenderMatchStrategy.cs" />
     <Compile Include="MatchStrategy\IMatchStrategy.cs" />
+    <Compile Include="NewUser\IUserBuilder.cs" />
+    <Compile Include="NewUser\LoggedUser.cs" />
+    <Compile Include="NewUser\UserBuilder.cs" />
+    <Compile Include="NewUser\UserComposer.cs" />
     <EmbeddedResource Include="FormMemoriesPosts.resx">
       <DependentUpon>FormMemoriesPosts.cs</DependentUpon>
     </EmbeddedResource>

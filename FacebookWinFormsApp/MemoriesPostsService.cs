@@ -1,4 +1,5 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using BasicFacebookFeatures.NewUser;
+using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,9 @@ namespace BasicFacebookFeatures.Services
 {
     public class MemoriesPostsService
     {
-        private readonly User r_UserProfile;
+        private readonly LoggedUser r_UserProfile;
 
-        public MemoriesPostsService(User i_UserProfile)
+        public MemoriesPostsService(LoggedUser i_UserProfile)
         {
             r_UserProfile = i_UserProfile;
         }

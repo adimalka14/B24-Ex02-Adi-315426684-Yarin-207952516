@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.Adapter;
+using BasicFacebookFeatures.NewUser;
 
 namespace BasicFacebookFeatures
 {
@@ -13,7 +14,7 @@ namespace BasicFacebookFeatures
         private readonly MatchFriendService r_MatchFriendService;
         private readonly IThreadAdapter r_threadAdapter;
 
-        public FormMatchFriend(User i_UserProfile, IThreadAdapter i_ThreadAdapter)
+        public FormMatchFriend(LoggedUser i_UserProfile, IThreadAdapter i_ThreadAdapter)
         {
             InitializeComponent();
             r_MatchFriendService = new MatchFriendService(i_UserProfile);

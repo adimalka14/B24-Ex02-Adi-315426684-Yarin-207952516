@@ -3,7 +3,6 @@ using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewPost;
@@ -43,7 +42,7 @@ namespace BasicFacebookFeatures
 
         private void LoadPrivateDetails()
         {
-            userNotifier.User = r_GeneralPageService.LoggedInUser;
+            //userNotifier.User = r_GeneralPageService.LoggedInUser;
 
             foreach (var detail in r_GeneralPageService.GetUserDetails())
             {
@@ -85,14 +84,6 @@ namespace BasicFacebookFeatures
             }));
         }
 
-        private void LoadAlbums()
-        {
-            listBoxAlbum.Invoke(new Action(() =>
-            {
-                listBoxAlbum.DisplayMember = "Name";
-                listBoxAlbum.DataSource = r_GeneralPageService.GetAlbums().ToList();
-            }));
-        }
 
         private void LoadPosts()
         {
@@ -224,7 +215,7 @@ namespace BasicFacebookFeatures
 
         private void buttonRefreshAll_Click(object sender, EventArgs e)
         {
-            userNotifier.User = r_GeneralPageService.LoggedInUser;
+            //userNotifier.User = r_GeneralPageService.LoggedInUser;
         }
     }
 }

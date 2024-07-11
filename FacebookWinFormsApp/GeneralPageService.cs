@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using BasicFacebookFeatures.NewPost;
-using static System.Net.Mime.MediaTypeNames;
+using BasicFacebookFeatures.NewUser;
 
 namespace BasicFacebookFeatures.Services
 {
     public class GeneralPageService
     {
-        public User LoggedInUser { set; get; }
+        public LoggedUser LoggedInUser { get; set; }
 
         public string GetUserName()
         {
@@ -26,7 +26,7 @@ namespace BasicFacebookFeatures.Services
             yield return "Gender: " + LoggedInUser.Gender;
             yield return "Email: " + LoggedInUser.Email;
             yield return "Relationship: " + LoggedInUser.RelationshipStatus;
-            yield return "Location: " + LoggedInUser.Location?.Name;
+            yield return "Location: " + LoggedInUser.Location;
         }
 
         public IEnumerable<User> GetFriends()
@@ -41,12 +41,7 @@ namespace BasicFacebookFeatures.Services
 
         public IEnumerable<Page> GetFavoriteTeams()
         {
-            return LoggedInUser.FavofriteTeams.Cast<Page>();
-        }
-
-        public IEnumerable<Album> GetAlbums()
-        {
-            return LoggedInUser.Albums.Cast<Album>();
+            return LoggedInUser.FavoriteTeams;
         }
 
         public IEnumerable<PostProxy> GetPosts()
@@ -69,7 +64,7 @@ namespace BasicFacebookFeatures.Services
 
         public void PostStatus(string statusText, string placeID = null, string pictureURL = null, string taggedFriendIDs = null, string link = null, string privacyParameterValue = null)
         {
-            LoggedInUser.PostStatus(statusText, placeID, pictureURL, taggedFriendIDs, link, privacyParameterValue);
+            LoggedInUser.RealUser.PostStatus(statusText, placeID, pictureURL, taggedFriendIDs, link, privacyParameterValue);
         }
     }
 }

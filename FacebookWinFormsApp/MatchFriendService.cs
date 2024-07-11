@@ -3,21 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using BasicFacebookFeatures.MatchStrategy;
 using BasicFacebookFeatures.Strategy;
+using BasicFacebookFeatures.NewUser;
 
 namespace BasicFacebookFeatures.Services
 {
     public class MatchFriendService
     {
-        private readonly User r_UserProfile;
+        private readonly LoggedUser r_UserProfile;
 
-        public MatchFriendService(User i_UserProfile)
+        public MatchFriendService(LoggedUser i_UserProfile)
         {
             r_UserProfile = i_UserProfile;
         }
 
         public IEnumerable<string> GetCities()
         {
-            var cities = new HashSet<string> { r_UserProfile.Location?.Name };
+            var cities = new HashSet<string> { r_UserProfile.Location};
             foreach (var friend in r_UserProfile.Friends)
             {
                 if (!string.IsNullOrEmpty(friend.Location?.Name))
@@ -30,12 +31,12 @@ namespace BasicFacebookFeatures.Services
 
         public IEnumerable<Page> GetLikedPages()
         {
-            return r_UserProfile.LikedPages.Cast<Page>();
+            return r_UserProfile.LikedPages;
         }
 
         public IEnumerable<Page> GetFavoriteTeams()
         {
-            return r_UserProfile.FavofriteTeams.Cast<Page>();
+            return r_UserProfile.FavoriteTeams;
         }
 
         public bool IsValidAgeRange(int minAge, int maxAge)

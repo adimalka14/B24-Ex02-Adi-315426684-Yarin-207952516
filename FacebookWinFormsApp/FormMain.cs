@@ -2,14 +2,16 @@
 using System.Windows.Forms;
 using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.Services;
+using BasicFacebookFeatures.NewUser;
 using FacebookWrapper;
+using CefSharp;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
         private GeneralPageService r_GeneralPageService = new GeneralPageService();
-        private IThreadAdapter threadAdapter = new ThreadAdapter();
+        private IThreadAdapter r_ThreadAdapter = new ThreadAdapter();
         FormGeneralPage generalPage = null;
 
         public FormMain()
@@ -21,44 +23,74 @@ namespace BasicFacebookFeatures
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
-            generalPage = new FormGeneralPage(r_GeneralPageService, threadAdapter);
-            threadAdapter.Execute(autoLoginAndLoadData);
+            generalPage = new FormGeneralPage(r_GeneralPageService, r_ThreadAdapter);
+            r_ThreadAdapter.Execute(Init);
             generalPage.Show();
             generalPage.Tag = this;
             Hide();
         }
 
-        private void autoLoginAndLoadData()
+        public void Init()
         {
-            string accessToken = "EAAMjqqZBOihcBOxW9fwDdwTb9E21mkTaHu9bpzgio1YI8lyZBfOsb8ZAr1aAl59SNuIeHsyjy4bMj3eNowYoTGp02Bz2ZAPxuyYnnZBhw8c3mKZBaxhlkgZBKXqHa6piB4DjuR6cDpT19fbPFhEvhZB3xW01K0BhUcP2ZChUn3QKGsv6hHBkin41StunTPQZDZD";
-            LoginResult loginResult = FacebookService.Connect(accessToken);
-            r_GeneralPageService.LoggedInUser = loginResult.LoggedInUser;
-            generalPage.LoadData();
+            UserComposer composer = new UserComposer(new UserBuilder(r_ThreadAdapter)); // pattern Builder
+
+            try
+            {
+                LoggedUser user;
+                user = composer.CreateUser();
+                r_GeneralPageService.LoggedInUser = user;
+                generalPage.LoadData();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void login()
+        private void OnApplicationExit(object sender, EventArgs e)
         {
-            LoginResult loginResult = FacebookService.Login(
-                "883640926898711",
-                    // requested permissions:
-                    "email",
-                    "public_profile",
-                    "user_age_range",
-                    "user_birthday",
-                    "user_events",
-                    "user_friends",
-                    "user_gender",
-                    "user_hometown",
-                    "user_likes",
-                    "user_link",
-                    "user_location",
-                    "user_photos",
-                    "user_posts",
-                    "user_videos");
-
-            r_GeneralPageService.LoggedInUser = loginResult.LoggedInUser;
-            generalPage.LoadData();
+            if (InvokeRequired)
+            {
+                BeginInvoke(new Action(() => Cef.Shutdown()));
+            }
+            else
+            {
+                Cef.Shutdown();
+            }
         }
+
+
+        //private void autoLoginAndLoadData()
+        //{
+        //    string accessToken = "EAAMjqqZBOihcBOxW9fwDdwTb9E21mkTaHu9bpzgio1YI8lyZBfOsb8ZAr1aAl59SNuIeHsyjy4bMj3eNowYoTGp02Bz2ZAPxuyYnnZBhw8c3mKZBaxhlkgZBKXqHa6piB4DjuR6cDpT19fbPFhEvhZB3xW01K0BhUcP2ZChUn3QKGsv6hHBkin41StunTPQZDZD";
+        //    LoginResult loginResult = FacebookService.Connect(accessToken);
+        //    r_GeneralPageService.LoggedInUser = loginResult.LoggedInUser;
+        //    generalPage.LoadData();
+        //}
+
+        //private void login()
+        //{
+        //    LoginResult loginResult = FacebookService.Login(
+        //        "883640926898711",
+        //            // requested permissions:
+        //            "email",
+        //            "public_profile",
+        //            "user_age_range",
+        //            "user_birthday",
+        //            "user_events",
+        //            "user_friends",
+        //            "user_gender",
+        //            "user_hometown",
+        //            "user_likes",
+        //            "user_link",
+        //            "user_location",
+        //            "user_photos",
+        //            "user_posts",
+        //            "user_videos");
+
+        //    r_GeneralPageService.LoggedInUser = loginResult.LoggedInUser;
+        //    generalPage.LoadData();
+        //}
 
 
         //private void login()

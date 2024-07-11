@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
+using BasicFacebookFeatures.NewUser;
 using FacebookWrapper.ObjectModel;
 using BasicFacebookFeatures.Services;
 
@@ -10,7 +11,7 @@ namespace BasicFacebookFeatures
     {
         private readonly MemoriesPostsService r_MemoriesPostsService;
 
-        public FormMemoriesPosts(User i_UserProfile)
+        public FormMemoriesPosts(LoggedUser i_UserProfile)
         {
             InitializeComponent();
             r_MemoriesPostsService = new MemoriesPostsService(i_UserProfile);
