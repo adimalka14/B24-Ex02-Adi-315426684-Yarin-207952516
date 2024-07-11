@@ -4,7 +4,6 @@ using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewUser;
 using FacebookWrapper;
-using CefSharp;
 
 namespace BasicFacebookFeatures
 {
@@ -46,19 +45,6 @@ namespace BasicFacebookFeatures
                 MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-        private void OnApplicationExit(object sender, EventArgs e)
-        {
-            if (InvokeRequired)
-            {
-                BeginInvoke(new Action(() => Cef.Shutdown()));
-            }
-            else
-            {
-                Cef.Shutdown();
-            }
-        }
-
 
         //private void autoLoginAndLoadData()
         //{

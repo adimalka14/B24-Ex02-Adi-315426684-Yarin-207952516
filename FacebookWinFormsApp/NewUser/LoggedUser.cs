@@ -25,29 +25,9 @@ namespace BasicFacebookFeatures.NewUser
             RealUser = realUser;
         }
 
-        public string FirstName
-        {
-            get
-            {
-                if (m_firstName == null)
-                {
-                    m_firstName = RealUser.FirstName;
-                }
-                return m_firstName;
-            }
-        }
+        public string FirstName => m_firstName ?? (m_firstName = RealUser.FirstName);
 
-        public string LastName
-        {
-            get
-            {
-                if (m_lastName == null)
-                {
-                    m_lastName = RealUser.LastName;
-                }
-                return m_lastName;
-            }
-        }
+        public string LastName => m_lastName ?? (m_lastName = RealUser.LastName);
 
         public string Birthday
         {

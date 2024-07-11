@@ -42,7 +42,14 @@ namespace BasicFacebookFeatures
 
         private void LoadPrivateDetails()
         {
-            //userNotifier.User = r_GeneralPageService.LoggedInUser;
+            string userName = r_GeneralPageService.GetUserName();
+            string userProfilePicture = r_GeneralPageService.GetProfilePictureUrl();
+
+            pictureProfile.Invoke(new Action(() =>
+                this.pictureProfile.ImageLocation = userProfilePicture));
+
+            labelUserName.Invoke(new Action(() =>
+                this.labelUserName.Text = userName));
 
             foreach (var detail in r_GeneralPageService.GetUserDetails())
             {
