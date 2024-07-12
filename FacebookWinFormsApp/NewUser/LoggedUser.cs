@@ -1,5 +1,6 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
+using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.NewPost;
 
 namespace BasicFacebookFeatures.NewUser
@@ -18,7 +19,7 @@ namespace BasicFacebookFeatures.NewUser
         public IEnumerable<User> Friends { get; set; }
         public IEnumerable<Page> LikedPages { get; set; }
         public IEnumerable<Page> FavoriteTeams { get; set; }
-        public IEnumerable<PostProxy> Posts { get; set; }
+        public IEnumerable<PostAdapter> Posts { get; set; }
 
         public LoggedUser(User realUser)
         {

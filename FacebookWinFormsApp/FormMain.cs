@@ -4,6 +4,7 @@ using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewUser;
 using FacebookWrapper;
+using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
 {
@@ -23,17 +24,21 @@ namespace BasicFacebookFeatures
         {
             Clipboard.SetText("design.patterns");
             generalPage = new FormGeneralPage(r_GeneralPageService, r_ThreadAdapter);
-            r_ThreadAdapter.Execute(Init);
-            generalPage.Show();
-            generalPage.Tag = this;
-            Hide();
+            if (Init()) 
+            {
+                generalPage.Show();
+                generalPage.Tag = this;
+                Hide();
+            }
         }
 
-        public void Init()
+        public bool Init()
         {
+            LoggedUser user = null;
+
             try
             {
-                LoggedUser user = r_GeneralPageService.r_Composer.CreateUser();
+                user = r_GeneralPageService.r_Composer.CreateUser();
                 r_GeneralPageService.LoggedInUser = user;
                 generalPage.LoadData();
             }
@@ -41,6 +46,8 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+            return user != null;
         }
 
         //private void autoLoginAndLoadData()

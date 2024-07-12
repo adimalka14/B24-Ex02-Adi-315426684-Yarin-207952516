@@ -1,8 +1,7 @@
-﻿using BasicFacebookFeatures.Adapter;
-using FacebookWrapper;
+﻿using FacebookWrapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.NewPost;
 using FacebookWrapper.ObjectModel;
 
@@ -30,20 +29,21 @@ namespace BasicFacebookFeatures.NewUser
             "user_videos"
     };
 
-        private readonly IThreadAdapter r_ThreadAdapter = new ThreadAdapter();
-
         public LoggedUser CreateUser()
         {
             LoginResult loginResult = FacebookService.Login(r_appId, m_properties);
-            if (loginResult!=null)
+            LoggedUser newUser;
+
+            if (loginResult.LoggedInUser!=null)
             {
-                LoggedUser newUser = new LoggedUser(loginResult.LoggedInUser);
-                return newUser;
+                newUser = new LoggedUser(loginResult.LoggedInUser);
             }
             else
             {
                 throw new Exception("Login failed");
             }
+
+            return newUser;
         }
 
         public void BuildPrivateDetails(LoggedUser i_User)
@@ -73,16 +73,28 @@ namespace BasicFacebookFeatures.NewUser
         public void BuildPosts(LoggedUser i_User)
         {
             IEnumerable<Post> userPost = i_User.RealUser.Posts;
-            List<PostProxy> proxyPostList = new List<PostProxy>();
-            PostFactory factory = new PostFactory();
+            List<PostAdapter> adapterPostList = new List<PostAdapter>();
 
             foreach (Post post in userPost)
             {
-                PostProxy newProxyPost = factory.CreatePost(post.Message == null ? "image" : "text", post);
-                proxyPostList.Add(newProxyPost); 
+                adapterPostList.Add(new PostAdapter{Post = post,
+                    Location = post.Place?.Location.City,
+                    CreatedTime = post.CreatedTime.Value.Date
+                });
             }
 
-            i_User.Posts = proxyPostList; 
+            i_User.Posts = adapterPostList;
+            //IEnumerable<Post> userPost = i_User.RealUser.Posts;
+            //List<PostProxy> proxyPostList = new List<PostProxy>();
+            //PostFactory factory = new PostFactory();
+
+            //foreach (Post post in userPost)
+            //{
+            //    PostProxy newProxyPost = factory.CreatePost(post.Message == null ? "image" : "text", post);
+            //    proxyPostList.Add(newProxyPost); 
+            //}
+
+            //i_User.Posts = proxyPostList; 
         }
     }
 }

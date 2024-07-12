@@ -4,6 +4,7 @@ using System.Linq;
 using BasicFacebookFeatures.NewPost;
 using BasicFacebookFeatures.NewUser;
 using System.Reflection;
+using BasicFacebookFeatures.Adapter;
 
 namespace BasicFacebookFeatures.Services
 {
@@ -70,7 +71,7 @@ namespace BasicFacebookFeatures.Services
             return LoggedInUser.FavoriteTeams;
         }
 
-        public IEnumerable<PostProxy> GetPosts()
+        public IEnumerable<PostAdapter> GetPosts()
         {
             return LoggedInUser.Posts;
         }

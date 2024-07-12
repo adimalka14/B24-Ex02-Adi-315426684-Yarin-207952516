@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Adapter\IThreadAdapter.cs" />
+    <Compile Include="Adapter\PostAdapter.cs" />
     <Compile Include="Adapter\ThreadAdapter.cs" />
     <Compile Include="GeneralPageService.cs" />
     <Compile Include="FormMemoriesPosts.cs">
@@ -119,7 +120,6 @@
     <Compile Include="MatchFriendService.cs" />
     <Compile Include="MatchStrategy\FavoriteTeamsStrategy.cs" />
     <Compile Include="MatchStrategy\LikedPageStrategy.cs" />
-    <Compile Include="MatchStrategy\ListMatchStrategy.cs" />
     <Compile Include="MemoriesPostsService.cs" />
     <Compile Include="NewPost\ImagePostProxy.cs" />
     <Compile Include="NewPost\PostProxy.cs" />

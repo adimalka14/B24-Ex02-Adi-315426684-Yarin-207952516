@@ -7,7 +7,6 @@ namespace BasicFacebookFeatures.NewPost
     public abstract class PostProxy
     {
         public Post RealPost { get; set; }
-
         public string Text { get; set; }
         public string Location { get; set; }
         public DateTime CreatedTime { get; set; }

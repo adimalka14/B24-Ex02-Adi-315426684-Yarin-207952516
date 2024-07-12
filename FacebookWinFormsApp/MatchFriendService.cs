@@ -27,6 +27,7 @@ namespace BasicFacebookFeatures.Services
                     cities.Add(friend.Location.Name);
                 }
             }
+
             return cities;
         }
 
@@ -44,37 +45,6 @@ namespace BasicFacebookFeatures.Services
         {
             return maxAge >= minAge;
         }
-
-        //public IEnumerable<User> GetMatchingFriends(
-        //    bool isMaleChecked,
-        //    bool isFemaleChecked,
-        //    int minAge,
-        //    int maxAge,
-        //    IEnumerable<string> selectedCities,
-        //    IEnumerable<Page> selectedLikedPages,
-        //    IEnumerable<Page> selectedFavoriteTeams)
-        //{
-        //    Func<string, string, bool> stringComparer = (item1, item2) => item1 == item2;
-
-        //    Func<Page, Page, bool> pageComparer = (page1, page2) => page1.Name == page2.Name;
-
-        //    List<IMatchStrategy> strategies = new List<IMatchStrategy>
-        //    {
-        //        new AgeMatchStrategy(minAge, maxAge),
-        //        new GenderMatchStrategy(isMaleChecked, isFemaleChecked),
-        //        new ListMatchStrategy<string>(selectedCities, friend => friend.Location?.Name.Split(',').Select(s => s.Trim()), stringComparer),
-        //        new ListMatchStrategy<Page>(selectedLikedPages, friend => friend.LikedPages, pageComparer),
-        //        new ListMatchStrategy<Page>(selectedFavoriteTeams, friend => friend.FavofriteTeams, pageComparer)
-        //    };
-
-        //    foreach (User friend in r_UserProfile.Friends)
-        //    {
-        //        if (strategies.All(strategy => strategy.Match(friend)))
-        //        {
-        //            yield return friend;
-        //        }
-        //    }
-        //}
 
         public IEnumerable<User> GetMatchingFriends(
             bool isMaleChecked,

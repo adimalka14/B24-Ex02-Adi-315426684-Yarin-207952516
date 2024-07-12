@@ -3,6 +3,7 @@ using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewPost;
@@ -28,6 +29,7 @@ namespace BasicFacebookFeatures
         public void LoadData()
         {
             r_threadAdapter.Execute(LoadPrivateDetails);
+            //new Thread(() => LoadPrivateDetails()).Start();
             r_threadAdapter.Execute(LoadUserFriends);
             r_threadAdapter.Execute(LoadLikedPages);
             r_threadAdapter.Execute(LoadFavoriteTeams);
@@ -93,7 +95,7 @@ namespace BasicFacebookFeatures
         private void LoadPosts()
         {
             r_GeneralPageService.FetchPosts();
-            List<PostProxy> posts = r_GeneralPageService.GetPosts().ToList();
+            List<PostAdapter> posts = r_GeneralPageService.GetPosts().ToList();
 
             listBoxPosts.Invoke(new Action(() =>
             {

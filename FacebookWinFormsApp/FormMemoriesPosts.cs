@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Windows.Forms;
-using BasicFacebookFeatures.NewPost;
 using BasicFacebookFeatures.NewUser;
-using FacebookWrapper.ObjectModel;
 using BasicFacebookFeatures.Services;
 using System.Collections.Generic;
+using BasicFacebookFeatures.Adapter;
 
 namespace BasicFacebookFeatures
 {
@@ -32,26 +31,23 @@ namespace BasicFacebookFeatures
 
         private void listBoxFoundedMemories_SelectedIndexChanged(object sender, EventArgs e)
         {
-            PostProxy selectedPost = listBoxFoundedMemories.SelectedItem as PostProxy;
+            PostAdapter selectedPost = listBoxFoundedMemories.SelectedItem as PostAdapter;
 
-            textBoxSelectedMemory.Text = selectedPost.Text;
-            dateTime.Text = selectedPost.CreatedTime.ToString();
-
-            ImagePostProxy imagePost = selectedPost as ImagePostProxy;
-            if (imagePost != null)
-            {
-                pictureBox1.ImageLocation = imagePost.imageUrl;
-            }
+            textBoxSelectedMemory.Text = selectedPost?.ToString()??"";
+            dateTime.Text = selectedPost?.CreatedTime.ToString()??"";
+            pictureBox1.ImageLocation = selectedPost?.Post.PictureURL?? "https://images.app.goo.gl/1fiGGkwrp8ToEiRW8";
+            
         }
 
         private void buttonShowMemories_Click(object sender, EventArgs e)
         {
             string selectedLocation = comboBoxLocation.SelectedItem.ToString();
-            List<PostProxy>  filteredPosts = r_MemoriesPostsService.GetFilteredPosts(
+            List<PostAdapter>  filteredPosts = r_MemoriesPostsService.GetFilteredPosts(
                 selectedLocation,
                 dateTimePickerStart.Value,
                 dateTimePickerFinish.Value).ToList();
 
+            listBoxFoundedMemories.DataSource = null;
             listBoxFoundedMemories.Items.Clear();
             listBoxFoundedMemories.DataSource = filteredPosts;
 
