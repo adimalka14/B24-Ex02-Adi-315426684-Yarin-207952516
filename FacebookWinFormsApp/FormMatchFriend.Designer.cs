@@ -224,7 +224,7 @@ namespace BasicFacebookFeatures
             // 
             this.listBoxUserDetails.FormattingEnabled = true;
             this.listBoxUserDetails.ItemHeight = 16;
-            this.listBoxUserDetails.Location = new System.Drawing.Point(657, 503);
+            this.listBoxUserDetails.Location = new System.Drawing.Point(681, 503);
             this.listBoxUserDetails.Name = "listBoxUserDetails";
             this.listBoxUserDetails.Size = new System.Drawing.Size(291, 116);
             this.listBoxUserDetails.TabIndex = 93;
@@ -232,7 +232,7 @@ namespace BasicFacebookFeatures
             // pictureProfile
             // 
             this.pictureProfile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureProfile.Location = new System.Drawing.Point(647, 204);
+            this.pictureProfile.Location = new System.Drawing.Point(683, 211);
             this.pictureProfile.Name = "pictureProfile";
             this.pictureProfile.Size = new System.Drawing.Size(291, 240);
             this.pictureProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
@@ -244,7 +244,7 @@ namespace BasicFacebookFeatures
             this.labelUserName.AutoSize = true;
             this.labelUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelUserName.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.labelUserName.Location = new System.Drawing.Point(690, 454);
+            this.labelUserName.Location = new System.Drawing.Point(714, 454);
             this.labelUserName.Name = "labelUserName";
             this.labelUserName.Size = new System.Drawing.Size(218, 46);
             this.labelUserName.TabIndex = 92;
@@ -269,10 +269,10 @@ namespace BasicFacebookFeatures
             this.buttonRefreshAll.BackColor = System.Drawing.Color.Silver;
             this.buttonRefreshAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRefreshAll.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonRefreshAll.Location = new System.Drawing.Point(348, 602);
+            this.buttonRefreshAll.Location = new System.Drawing.Point(949, 626);
             this.buttonRefreshAll.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRefreshAll.Name = "buttonRefreshAll";
-            this.buttonRefreshAll.Size = new System.Drawing.Size(190, 44);
+            this.buttonRefreshAll.Size = new System.Drawing.Size(148, 44);
             this.buttonRefreshAll.TabIndex = 98;
             this.buttonRefreshAll.Text = "Refresh Page";
             this.buttonRefreshAll.UseVisualStyleBackColor = false;
@@ -317,7 +317,7 @@ namespace BasicFacebookFeatures
             this.matchingFriendListListBox.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this.matchFriendServiceBindingSource, "MatchingFriendList", true));
             this.matchingFriendListListBox.FormattingEnabled = true;
             this.matchingFriendListListBox.ItemHeight = 16;
-            this.matchingFriendListListBox.Location = new System.Drawing.Point(615, 20);
+            this.matchingFriendListListBox.Location = new System.Drawing.Point(657, 20);
             this.matchingFriendListListBox.Name = "matchingFriendListListBox";
             this.matchingFriendListListBox.Size = new System.Drawing.Size(362, 164);
             this.matchingFriendListListBox.TabIndex = 99;
@@ -326,7 +326,7 @@ namespace BasicFacebookFeatures
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1432, 668);
+            this.ClientSize = new System.Drawing.Size(1094, 668);
             this.Controls.Add(this.matchingFriendListListBox);
             this.Controls.Add(this.buttonRefreshAll);
             this.Controls.Add(this.CitiesDataBoundCheckedListBox);

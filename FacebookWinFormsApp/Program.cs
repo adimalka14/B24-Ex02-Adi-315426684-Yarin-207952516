@@ -5,8 +5,7 @@ using CefSharp.WinForms;
 using FacebookWrapper;
 
 namespace BasicFacebookFeatures
-{
-    // $G$ THE-001 (-10) your grade on diagrams document - 90. please see comments inside the document. 40% of your grade).
+{ 
     static class Program
     {
         /// <summary>
@@ -22,7 +21,6 @@ namespace BasicFacebookFeatures
             CefSettings settings = new CefSettings();
             Cef.Initialize(settings);
             Application.Run(new FormMain());
-           
         }
     }
 }

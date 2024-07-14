@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.ComponentModel;
+﻿using System.Collections;
 using System.Windows.Forms;
 
 namespace BasicFacebookFeatures

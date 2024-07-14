@@ -1,6 +1,7 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 using BasicFacebookFeatures.Adapter;
+
 namespace BasicFacebookFeatures.NewUser
 {
     public class UserFacade

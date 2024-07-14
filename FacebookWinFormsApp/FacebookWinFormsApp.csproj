@@ -120,6 +120,7 @@
     <Compile Include="FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainPageService.cs" />
     <Compile Include="MatchFriendService.cs" />
     <Compile Include="MatchStrategy\FavoriteTeamsStrategy.cs" />
     <Compile Include="MatchStrategy\LikedPageStrategy.cs" />
@@ -157,13 +158,9 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\BasicFacebookFeatures.Adapter.PageAdapter.datasource" />
-    <None Include="Properties\DataSources\BasicFacebookFeatures.Adapter.PostAdapter.datasource" />
     <None Include="Properties\DataSources\BasicFacebookFeatures.Services.GeneralPageService.datasource" />
     <None Include="Properties\DataSources\BasicFacebookFeatures.Services.MatchFriendService.datasource" />
     <None Include="Properties\DataSources\BasicFacebookFeatures.Services.MemoriesPostsService.datasource" />
-    <None Include="Properties\DataSources\FormMatchFriend.datasource" />
-    <None Include="Properties\DataSources\FormUserPage.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

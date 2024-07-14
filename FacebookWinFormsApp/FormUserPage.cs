@@ -85,7 +85,14 @@ namespace BasicFacebookFeatures
 
         private void buttonSharePost_Click(object sender, EventArgs e)
         {
-            r_GeneralPageService.PostStatus(textBoxText.Text);
+            try
+            {
+                r_GeneralPageService.PostStatus(textBoxText.Text);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private void buttonLogout_Click(object sender, EventArgs e)
