@@ -1,26 +1,38 @@
 ﻿using BasicFacebookFeatures.NewUser;
-using FacebookWrapper.ObjectModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using BasicFacebookFeatures.Adapter;
-using BasicFacebookFeatures.NewPost;
 
 namespace BasicFacebookFeatures.Services
 {
     public class MemoriesPostsService
     {
-        private readonly LoggedUser r_UserProfile;
+        private readonly UserFacade r_UserFacadeProfile;
+        public IEnumerable<string> Locations { get; set; }
+        public IEnumerable<PostAdapter> FilteredPosts { get; set; }
+        public event Action DataLoaded;
 
-        public MemoriesPostsService(LoggedUser i_UserProfile)
+
+        public MemoriesPostsService(UserFacade i_UserFacadeProfile)
         {
-            r_UserProfile = i_UserProfile;
+            r_UserFacadeProfile = i_UserFacadeProfile;
         }
 
-        public IEnumerable<string> GetLocations()
+        public void FetchData()
         {
-            var locations = new HashSet<string> { "All locations" };
-            foreach (PostAdapter post in r_UserProfile.Posts)
+            new Thread(GetLocations).Start();
+        }
+        private void OnDataLoaded()
+        {
+            DataLoaded?.Invoke();
+        }
+
+        public void GetLocations()
+        {
+            List<string> locations = new List<string> { "All locations" };
+            foreach (PostAdapter post in r_UserFacadeProfile.Posts)
             {
                 if (!string.IsNullOrEmpty(post.Location))
                 {
@@ -28,7 +40,8 @@ namespace BasicFacebookFeatures.Services
                 }
             }
 
-            return locations;
+            this.Locations=locations;
+            OnDataLoaded();
         }
 
         public bool CheckDate(PostAdapter i_Post, DateTime startDate, DateTime endDate)
@@ -37,16 +50,21 @@ namespace BasicFacebookFeatures.Services
                    i_Post.CreatedTime <= endDate.Date;
         }
 
-        public bool CheckLocation(PostAdapter i_Post, string i_SelectedLocation)
+        public bool CheckLocation(PostAdapter i_Post, IEnumerable<string> i_SelectedLocation)
         {
-            return i_Post.Location == i_SelectedLocation;
+            return  i_SelectedLocation.Contains(i_Post.Location);
         }
 
-        public IEnumerable<PostAdapter> GetFilteredPosts(string i_SelectedLocation, DateTime startDate, DateTime endDate)
+        public void GetFilteredPosts(IEnumerable<string> i_SelectedLocation, DateTime startDate, DateTime endDate)
         {
-            return r_UserProfile.Posts.Where(post =>
-                (i_SelectedLocation == "All locations" || CheckLocation(post, i_SelectedLocation)) &&
-                CheckDate(post, startDate, endDate));
+            new Thread(()=>
+            {
+                FilteredPosts =
+                    r_UserFacadeProfile.Posts.Where(post => 
+                        (i_SelectedLocation.Contains("All locations")
+                         || CheckLocation(post, i_SelectedLocation)) && CheckDate(post, startDate, endDate)).ToList();
+                OnDataLoaded();
+            }).Start();
         }
     }
 }

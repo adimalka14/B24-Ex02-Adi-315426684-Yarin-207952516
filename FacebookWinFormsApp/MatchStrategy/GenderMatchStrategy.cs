@@ -1,4 +1,5 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using BasicFacebookFeatures.NewUser;
+using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.Strategy
 {
@@ -13,10 +14,10 @@ namespace BasicFacebookFeatures.Strategy
             this.isFemaleChecked = isFemaleChecked;
         }
 
-        public bool Match(User friend)
+        public bool Match(UserFacade friend)
         {
-            return (friend.Gender == User.eGender.male && isMaleChecked) ||
-                   (friend.Gender == User.eGender.female && isFemaleChecked);
+            return (friend.Gender == UserFacade.eGender.male && isMaleChecked) ||
+                   (friend.Gender == UserFacade.eGender.female && isFemaleChecked);
         }
     }
 }

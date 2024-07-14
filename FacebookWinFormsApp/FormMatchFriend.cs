@@ -1,98 +1,108 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
-using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.NewUser;
+using System.ComponentModel;
+using System.Linq;
+using BasicFacebookFeatures.Adapter;
+using System.Collections.Generic;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMatchFriend : Form
     {
         private readonly MatchFriendService r_MatchFriendService;
-        private readonly IThreadAdapter r_threadAdapter;
 
-        public FormMatchFriend(LoggedUser i_UserProfile, IThreadAdapter i_ThreadAdapter)
+        public FormMatchFriend(UserFacade i_UserFacadeProfile)
         {
             InitializeComponent();
-            r_MatchFriendService = new MatchFriendService(i_UserProfile);
-            r_threadAdapter = i_ThreadAdapter;
+            r_MatchFriendService = new MatchFriendService(i_UserFacadeProfile);
+            matchFriendServiceBindingSource.DataSource = r_MatchFriendService;
+            r_MatchFriendService.DataLoaded += this.OnDataLoaded;
         }
 
-        public void LoadData()
+        private void FormMatchFriend_Load(object sender, EventArgs e)
         {
-            r_threadAdapter.Execute(loadCities);
-            r_threadAdapter.Execute(loadLikedPage);
-            r_threadAdapter.Execute(loadFavoriteTeams);
+            r_MatchFriendService.FetchData();
         }
 
-        private void loadCities()
+        private void OnDataLoaded()
         {
-            string[] cities = r_MatchFriendService.GetCities().ToArray();
-            checkedListBoxCity.Invoke(new Action(() => checkedListBoxCity.Items.AddRange(cities)));
-
-        }
-
-        private void loadLikedPage()
-        {
-
-            List<Page> likedPage = r_MatchFriendService.GetLikedPages().ToList();
-
-            checkedListBoxLikedPage.Invoke(new Action(() =>
+            if (this.InvokeRequired)
             {
-                checkedListBoxLikedPage.DataSource = likedPage;
-                checkedListBoxLikedPage.DisplayMember = "Name";
-            }));
-        }
-
-        private void loadFavoriteTeams()
-        {
-            List<Page> favoriteTeams = r_MatchFriendService.GetFavoriteTeams().ToList();
-
-            checkedListBoxFavoriteTeams.Invoke(new Action(() =>
+                this.Invoke(new Action(() => matchFriendServiceBindingSource.ResetBindings(false)));
+            }
+            else
             {
-                checkedListBoxFavoriteTeams.DataSource = favoriteTeams;
-                checkedListBoxFavoriteTeams.DisplayMember = "Name";
-            }));
+                matchFriendServiceBindingSource.ResetBindings(false);
+            }
         }
+
+
+
+        //private void loadCities()
+        //{
+        //    string[] cities = r_MatchFriendService.Cities.ToArray();
+        //    checkedListBoxCity.Invoke(new Action(() => checkedListBoxCity.Items.AddRange(cities)));
+        //}
+
+        //private void loadLikedPage()
+        //{
+
+        //    List<PageAdapter> likedPage = r_MatchFriendService.GetLikedPages().ToList();
+
+        //    checkedListBoxLikedPage.Invoke(new Action(() =>
+        //    {
+        //        checkedListBoxLikedPage.DataSource = likedPage;
+        //        checkedListBoxLikedPage.DisplayMember = "Name";
+        //    }));
+        //}
+
+        //private void loadFavoriteTeams()
+        //{
+        //    List<PageAdapter> favoriteTeams = r_MatchFriendService.GetFavoriteTeams().ToList();
+
+        //    checkedListBoxFavoriteTeams.Invoke(new Action(() =>
+        //    {
+        //        checkedListBoxFavoriteTeams.DataSource = favoriteTeams;
+        //        checkedListBoxFavoriteTeams.DisplayMember = "Name";
+        //    }));
+        //}
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             if (r_MatchFriendService.IsValidAgeRange(hScrollBarMinAge.Value, hScrollBarMaxAge.Value))
             {
-                r_threadAdapter.Execute(() =>
-                {
-                    var selectedCities = checkedListBoxCity.CheckedItems.Cast<string>().ToList();
-                    var selectedLikedPages = checkedListBoxLikedPage.CheckedItems.Cast<Page>().ToList();
-                    var selectedFavoriteTeams = checkedListBoxFavoriteTeams.CheckedItems.Cast<Page>().ToList();
 
-                    var matchingFriends = r_MatchFriendService.GetMatchingFriends(
+                IEnumerable<string> selectedCities = CitiesDataBoundCheckedListBox.CheckedItems.Cast<string>().ToList();
+                IEnumerable<PageAdapter> selectedLikedPages = likedPagesDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
+                IEnumerable<PageAdapter> selectedFavoriteTeams = favoriteTeamsDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
+
+                r_MatchFriendService.GetMatchingFriends(
                         checkBoxMale.Checked,
                         checkBoxFemale.Checked,
                         hScrollBarMinAge.Value,
                         hScrollBarMaxAge.Value,
                         selectedCities,
                         selectedLikedPages,
-                        selectedFavoriteTeams).ToList();
+                        selectedFavoriteTeams);
 
-                    this.Invoke((MethodInvoker)delegate
-                    {
-                        listBoxMatchFriends.Items.Clear();
-                        listBoxMatchFriends.DisplayMember = "Name";
+                //this.Invoke((MethodInvoker)delegate
+                //{
+                //    listBoxMatchFriends.Items.Clear();
+                //    listBoxMatchFriends.DisplayMember = "Name";
 
-                        foreach (var friend in matchingFriends)
-                        {
-                            listBoxMatchFriends.Items.Add(friend);
-                        }
+                //    foreach (var friend in matchingFriends)
+                //    {
+                //        listBoxMatchFriends.Items.Add(friend);
+                //    }
 
-                        if (!listBoxMatchFriends.Items.Cast<User>().Any())
-                        {
-                            MessageBox.Show("No match friends");
-                        }
-                    });
-                });
+                if (!matchingFriendListListBox.Items.Cast<UserFacade>().Any())
+                {
+                    MessageBox.Show("No match friends");
+                }
+                //});
             }
             else
             {
@@ -142,28 +152,28 @@ namespace BasicFacebookFeatures
 
         private void buttonCity_Click(object sender, EventArgs e)
         {
-            toggleCheckAll(buttonCity, checkedListBoxCity);
+            toggleCheckAll(buttonCity, CitiesDataBoundCheckedListBox);
         }
 
         private void buttonLikedPage_Click(object sender, EventArgs e)
         {
-            toggleCheckAll(buttonLikedPage, checkedListBoxLikedPage);
+            toggleCheckAll(buttonLikedPage, likedPagesDataBoundCheckedListBox);
         }
 
         private void buttonFavoriteTeams_Click(object sender, EventArgs e)
         {
-            toggleCheckAll(buttonFavoriteTeams, checkedListBoxFavoriteTeams);
+            toggleCheckAll(buttonFavoriteTeams, favoriteTeamsDataBoundCheckedListBox);
         }
 
-        private void listBoxMatchFriends_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            User choosenUser = listBoxMatchFriends.SelectedItem as User;
+        //private void listBoxMatchFriends_SelectedIndexChanged(object sender, EventArgs e)
+        //{
+        //    User choosenUser = listBoxMatchFriends.SelectedItem as User;
 
-            if (choosenUser != null)
-            {
-                r_threadAdapter.Execute(() => showSelectedFriendPrivateDetails(choosenUser));
-            }
-        }
+        //    if (choosenUser != null)
+        //    {
+        //        r_threadAdapter.Execute(() => showSelectedFriendPrivateDetails(choosenUser));
+        //    }
+        //}
 
         private void showSelectedFriendPrivateDetails(User i_ChoosenUser)
         {
@@ -182,6 +192,11 @@ namespace BasicFacebookFeatures
                 listBoxUserDetails.Items.Add("Relationship: " + i_ChoosenUser.RelationshipStatus);
                 listBoxUserDetails.Items.Add("Location: " + i_ChoosenUser.Location?.Name);
             }
+        }
+
+        private void buttonRefreshAll_Click(object sender, EventArgs e)
+        {
+            OnDataLoaded();
         }
     }
 }

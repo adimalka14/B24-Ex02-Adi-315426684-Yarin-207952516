@@ -1,6 +1,7 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using BasicFacebookFeatures.NewUser;
 
 namespace BasicFacebookFeatures.Strategy
 {
@@ -13,9 +14,9 @@ namespace BasicFacebookFeatures.Strategy
             this.selectedCities = selectedCities;
         }
 
-        public bool Match(User friend)
+        public bool Match(UserFacade friend)
         {
-            return selectedCities.Contains(friend.Location?.Name) || !selectedCities.Any();
+            return selectedCities.Contains(friend.Location) || !selectedCities.Any();
         }
     }
 }

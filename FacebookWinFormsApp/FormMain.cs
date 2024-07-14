@@ -1,18 +1,14 @@
 ﻿using System;
 using System.Windows.Forms;
-using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewUser;
 using FacebookWrapper;
-using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures
 {
     public partial class FormMain : Form
     {
         private readonly GeneralPageService r_GeneralPageService = new GeneralPageService();
-        private readonly IThreadAdapter r_ThreadAdapter = new ThreadAdapter();
-        FormGeneralPage generalPage = null;
 
         public FormMain()
         {
@@ -23,31 +19,33 @@ namespace BasicFacebookFeatures
         private void buttonLogin_Click(object sender, EventArgs e)
         {
             Clipboard.SetText("design.patterns");
-            generalPage = new FormGeneralPage(r_GeneralPageService, r_ThreadAdapter);
-            if (Init()) 
+            if (Init())
             {
-                generalPage.Show();
-                generalPage.Tag = this;
+                FormUserPage userPage = new FormUserPage(r_GeneralPageService);
+                userPage.Show();
+                userPage.Tag = this;
+                //generalPage.Show();
+                //generalPage.Tag = this;
                 Hide();
             }
         }
 
         public bool Init()
         {
-            LoggedUser user = null;
+            UserFacade userFacade = null;
 
             try
             {
-                user = r_GeneralPageService.r_Composer.CreateUser();
-                r_GeneralPageService.LoggedInUser = user;
-                generalPage.LoadData();
+                userFacade = r_GeneralPageService.r_Composer.CreateUser();
+                r_GeneralPageService.InUserFacade = userFacade;
+                //generalPage.LoadData();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            return user != null;
+            return userFacade != null;
         }
 
         //private void autoLoginAndLoadData()

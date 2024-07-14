@@ -9,33 +9,33 @@
             this.Builder = i_Builder;
         }
 
-        public LoggedUser CreateUser()
+        public UserFacade CreateUser()
         {
             return Builder.CreateUser();
         }
 
-        public void UserPrivateDetails(LoggedUser i_User)
+        public void UserPrivateDetails(UserFacade i_UserFacade)
         {
-            Builder.BuildPrivateDetails(i_User);
+            Builder.BuildPrivateDetails(i_UserFacade);
         }
 
-        public void UserFriends(LoggedUser i_User)
+        public void UserFriends(UserFacade i_UserFacade)
         {
-            Builder.BuildUserFriends(i_User);
+            Builder.BuildUserFriends(i_UserFacade);
         }
-        public void LikedPages(LoggedUser i_User)
+        public void LikedPages(UserFacade i_UserFacade)
         {
-            Builder.BuildLikedPages(i_User);
+            Builder.BuildLikedPages(i_UserFacade);
 
         }
-        public void FavoriteTeams(LoggedUser i_User)
+        public void FavoriteTeams(UserFacade i_UserFacade)
         {
-            Builder.BuildFavoriteTeams(i_User);
+            Builder.BuildFavoriteTeams(i_UserFacade);
 
         }
-        public void Posts(LoggedUser i_User)
+        public void Posts(UserFacade i_UserFacade)
         {
-            Builder.BuildPosts(i_User);
+            Builder.BuildPosts(i_UserFacade);
         }
     }
 }

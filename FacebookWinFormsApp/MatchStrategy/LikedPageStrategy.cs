@@ -1,20 +1,22 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
+using BasicFacebookFeatures.Adapter;
+using BasicFacebookFeatures.NewUser;
 using BasicFacebookFeatures.Strategy;
 
 namespace BasicFacebookFeatures.MatchStrategy
 {
     internal class LikedPageStrategy : IMatchStrategy
     {
-        private IEnumerable<Page> m_SelectedLikedPages;
+        private IEnumerable<PageAdapter> m_SelectedLikedPages;
 
-        public LikedPageStrategy(IEnumerable<Page> i_SelectedLikedPages)
+        public LikedPageStrategy(IEnumerable<PageAdapter> i_SelectedLikedPages)
         {
             this.m_SelectedLikedPages = i_SelectedLikedPages;
         }
 
-        public bool Match(User friend)
+        public bool Match(UserFacade friend)
         {
             IEnumerable<string> selectedTeamNames= m_SelectedLikedPages.Select(Page => Page.Id);
             IEnumerable<string> friendTeamNames = friend.LikedPages.Select(Page => Page.Id);
