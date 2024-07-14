@@ -1,44 +1,62 @@
-﻿using System;
-using FacebookWrapper.ObjectModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.MatchStrategy;
 using BasicFacebookFeatures.Strategy;
 using BasicFacebookFeatures.NewUser;
+using System.Threading;
+using System;
 
 namespace BasicFacebookFeatures.Services
 {
     public class MatchFriendService
     {
-        private readonly LoggedUser r_UserProfile;
+        public UserFacade UserFacadeProfile { get; set; }
+        public IEnumerable<string> Cities { get; set; }
+        public IEnumerable<UserFacade> MatchingFriendList { get; set; }
+        public event Action DataLoaded;
 
-        public MatchFriendService(LoggedUser i_UserProfile)
+        public MatchFriendService(UserFacade i_UserFacadeProfile)
         {
-            r_UserProfile = i_UserProfile;
+            UserFacadeProfile = i_UserFacadeProfile;
         }
 
-        public IEnumerable<string> GetCities()
+        public void FetchData()
         {
-            var cities = new HashSet<string> { r_UserProfile.Location};
-            foreach (var friend in r_UserProfile.Friends)
+            new Thread(loadCities).Start();
+        }
+
+        private void OnDataLoaded()
+        {
+            DataLoaded?.Invoke();
+        }
+
+        public void loadCities()
+        {
+            List<string> cities = new List<string>();
+
+            cities.Add(UserFacadeProfile.Location);
+
+            foreach (UserFacade friend in UserFacadeProfile.Friends)
             {
-                if (!string.IsNullOrEmpty(friend.Location?.Name))
+                if (!string.IsNullOrEmpty(friend.Location))
                 {
-                    cities.Add(friend.Location.Name);
+                    cities.Add(friend.Location);
                 }
             }
 
-            return cities;
+            this.Cities = cities;
+            OnDataLoaded();
         }
 
-        public IEnumerable<Page> GetLikedPages()
+        public IEnumerable<PageAdapter> GetLikedPages()
         {
-            return r_UserProfile.LikedPages;
+            return UserFacadeProfile.LikedPages;
         }
 
-        public IEnumerable<Page> GetFavoriteTeams()
+        public IEnumerable<PageAdapter> GetFavoriteTeams()
         {
-            return r_UserProfile.FavoriteTeams;
+            return UserFacadeProfile.FavoriteTeams;
         }
 
         public bool IsValidAgeRange(int minAge, int maxAge)
@@ -46,14 +64,14 @@ namespace BasicFacebookFeatures.Services
             return maxAge >= minAge;
         }
 
-        public IEnumerable<User> GetMatchingFriends(
+        public void GetMatchingFriends(
             bool isMaleChecked,
             bool isFemaleChecked,
             int minAge,
             int maxAge,
             IEnumerable<string> selectedCities,
-            IEnumerable<Page> selectedLikedPages,
-            IEnumerable<Page> selectedFavoriteTeams)
+            IEnumerable<PageAdapter> selectedLikedPages,
+            IEnumerable<PageAdapter> selectedFavoriteTeams)
         {
             List<IMatchStrategy> strategies = new List<IMatchStrategy>
             {
@@ -63,14 +81,18 @@ namespace BasicFacebookFeatures.Services
                 new LikedPageStrategy(selectedLikedPages),
                 new FavoriteTeamsStrategy(selectedFavoriteTeams),
             };
+            List<UserFacade> filterFriend = new List<UserFacade>();
 
-            foreach (User friend in r_UserProfile.Friends)
+            foreach (UserFacade friend in UserFacadeProfile.Friends)
             {
                 if (strategies.All(strategy => strategy.Match(friend)))
                 {
-                    yield return friend;
+                    filterFriend.Add(friend);
                 }
             }
+
+            MatchingFriendList = filterFriend;
+            OnDataLoaded();
         }
     }
 }

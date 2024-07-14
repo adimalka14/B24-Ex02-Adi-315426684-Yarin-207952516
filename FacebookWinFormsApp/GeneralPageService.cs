@@ -1,84 +1,102 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System.Collections.Generic;
-using System.Linq;
-using BasicFacebookFeatures.NewPost;
+using System.Threading;
 using BasicFacebookFeatures.NewUser;
-using System.Reflection;
 using BasicFacebookFeatures.Adapter;
+using System;
 
 namespace BasicFacebookFeatures.Services
 {
     public class GeneralPageService
     {
-        public LoggedUser LoggedInUser { get; set; }
+        public UserFacade InUserFacade { get; set; }
         public readonly UserComposer r_Composer = new UserComposer(new UserBuilder());
+        public event Action DataLoaded;
+
+
+        public void FetchData()
+        {
+            new Thread(() => FetchPrivateDetails()).Start();
+            new Thread(() => FetchUserFriends()).Start();
+            new Thread(() => FetchLikedPages()).Start();
+            new Thread(() => FetchFavoriteTeams()).Start();
+            new Thread(() => FetchPosts()).Start();
+        }
 
         public void FetchPrivateDetails()
         {
-            r_Composer.UserPrivateDetails(LoggedInUser);
+            r_Composer.UserPrivateDetails(InUserFacade);
+            OnDataLoaded();
         }
 
         public void FetchUserFriends()
         {
-            r_Composer.UserFriends(LoggedInUser);
+            r_Composer.UserFriends(InUserFacade);
+            OnDataLoaded();
         }
         public void FetchLikedPages()
         {
-            r_Composer.LikedPages(LoggedInUser);
-
+            r_Composer.LikedPages(InUserFacade);
+            OnDataLoaded();
         }
         public void FetchFavoriteTeams()
         {
-            r_Composer.FavoriteTeams(LoggedInUser);
-
+            r_Composer.FavoriteTeams(InUserFacade);
+            OnDataLoaded();
         }
         public void FetchPosts()
         {
-            r_Composer.Posts(LoggedInUser);
+            r_Composer.Posts(InUserFacade);
+            OnDataLoaded();
+        }
+
+        private void OnDataLoaded()
+        {
+            DataLoaded?.Invoke();
         }
 
         public string GetUserName()
         {
-            return $"{LoggedInUser.FirstName} {LoggedInUser.LastName}";
+            return $"{InUserFacade.FirstName} {InUserFacade.LastName}";
         }
 
         public string GetProfilePictureUrl()
         {
-            return LoggedInUser.PictureLargeUrl;
+            return InUserFacade.PictureLargeUrl;
         }
 
         public IEnumerable<string> GetUserDetails()
         {
-            yield return "Birthday: " + LoggedInUser.Birthday;
-            yield return "Gender: " + LoggedInUser.Gender;
-            yield return "Email: " + LoggedInUser.Email;
-            yield return "Relationship: " + LoggedInUser.RelationshipStatus;
-            yield return "Location: " + LoggedInUser.Location;
+            yield return "Birthday: " + InUserFacade.Birthday;
+            yield return "Gender: " + InUserFacade.Gender;
+            yield return "Email: " + InUserFacade.Email;
+            yield return "Relationship: " + InUserFacade.RelationshipStatus;
+            yield return "Location: " + InUserFacade.Location;
         }
 
-        public IEnumerable<User> GetFriends()
+        public IEnumerable<UserFacade> GetFriends()
         {
-            return LoggedInUser.Friends;
+            return InUserFacade.Friends;
         }
 
-        public IEnumerable<Page> GetLikedPages()
+        public IEnumerable<PageAdapter> GetLikedPages()
         {
-            return LoggedInUser.LikedPages;
+            return InUserFacade.LikedPages;
         }
 
-        public IEnumerable<Page> GetFavoriteTeams()
+        public IEnumerable<PageAdapter> GetFavoriteTeams()
         {
-            return LoggedInUser.FavoriteTeams;
+            return InUserFacade.FavoriteTeams;
         }
 
         public IEnumerable<PostAdapter> GetPosts()
         {
-            return LoggedInUser.Posts;
+            return InUserFacade.Posts;
         }
 
-        public void PostStatus(string statusText, string placeID = null, string pictureURL = null, string taggedFriendIDs = null, string link = null, string privacyParameterValue = null)
+        public void PostStatus(string statusText)
         {
-            LoggedInUser.RealUser.PostStatus(statusText, placeID, pictureURL, taggedFriendIDs, link, privacyParameterValue);
+            InUserFacade.RealUser.PostStatus(statusText);
         }
     }
 }

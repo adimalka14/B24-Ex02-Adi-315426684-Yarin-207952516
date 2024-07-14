@@ -1,15 +1,16 @@
 ﻿using FacebookWrapper;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using BasicFacebookFeatures.Adapter;
-using BasicFacebookFeatures.NewPost;
 using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.NewUser
 {
     public class UserBuilder : IUserBuilder
     {
-        private readonly string r_appId = "883640926898711"; //myAppId
+        private readonly string r_appId = "883640926898711";//"1824773104686874";// //myAppId
         private string[] m_properties =
         {
             // requested permissions:
@@ -29,72 +30,97 @@ namespace BasicFacebookFeatures.NewUser
             "user_videos"
     };
 
-        public LoggedUser CreateUser()
+        public UserFacade CreateUser()
         {
+            //string accessToken = "EAAMjqqZBOihcBOxW9fwDdwTb9E21mkTaHu9bpzgio1YI8lyZBfOsb8ZAr1aAl59SNuIeHsyjy4bMj3eNowYoTGp02Bz2ZAPxuyYnnZBhw8c3mKZBaxhlkgZBKXqHa6piB4DjuR6cDpT19fbPFhEvhZB3xW01K0BhUcP2ZChUn3QKGsv6hHBkin41StunTPQZDZD";
+            //LoginResult loginResult = FacebookService.Connect(accessToken);
             LoginResult loginResult = FacebookService.Login(r_appId, m_properties);
-            LoggedUser newUser;
+            UserFacade newUserFacade;
 
             if (loginResult.LoggedInUser!=null)
             {
-                newUser = new LoggedUser(loginResult.LoggedInUser);
+                newUserFacade = new UserFacade(loginResult.LoggedInUser);
             }
             else
             {
                 throw new Exception("Login failed");
             }
 
-            return newUser;
+            return newUserFacade;
         }
 
-        public void BuildPrivateDetails(LoggedUser i_User)
+        public void BuildPrivateDetails(UserFacade i_UserFacade)
         {
-            i_User.FirstName = i_User.RealUser.FirstName;
-            i_User.LastName = i_User.RealUser.LastName;
-            i_User.Birthday = i_User.RealUser.Birthday;
-            i_User.Email = i_User.RealUser.Email;
-            i_User.PictureLargeUrl = i_User.RealUser.PictureLargeURL;
-            i_User.Location = i_User.RealUser.Location.Name;
-            i_User.Gender = i_User.RealUser.Gender.ToString();
-            i_User.RelationshipStatus = i_User.RealUser.RelationshipStatus.ToString();
+            i_UserFacade.FirstName = i_UserFacade.RealUser.FirstName;
+            i_UserFacade.LastName = i_UserFacade.RealUser.LastName;
+            i_UserFacade.Birthday = i_UserFacade.RealUser.Birthday;
+            i_UserFacade.Email = i_UserFacade.RealUser.Email;
+            i_UserFacade.PictureLargeUrl = i_UserFacade.RealUser.PictureLargeURL;
+            i_UserFacade.Location = i_UserFacade.RealUser.Location.Name;
+            i_UserFacade.Gender = i_UserFacade.RealUser.Gender.HasValue
+                ? (UserFacade.eGender)i_UserFacade.RealUser.Gender.Value
+                : UserFacade.eGender.None;
+            i_UserFacade.RelationshipStatus = i_UserFacade.RealUser.RelationshipStatus.ToString();
         }
 
-        public void BuildUserFriends(LoggedUser i_User)
+        public void BuildUserFriends(UserFacade i_UserFacade)
         {
-            i_User.Friends = i_User.RealUser.Friends;
-        }
-        public void BuildLikedPages(LoggedUser i_User)
-        {
-            i_User.LikedPages = i_User.RealUser.LikedPages;
-        }
-        public void BuildFavoriteTeams(LoggedUser i_User)
-        {
-            i_User.FavoriteTeams = i_User.RealUser.FavofriteTeams;
-        }
-        public void BuildPosts(LoggedUser i_User)
-        {
-            IEnumerable<Post> userPost = i_User.RealUser.Posts;
-            List<PostAdapter> adapterPostList = new List<PostAdapter>();
+            List<UserFacade> friends = new List<UserFacade>();
 
-            foreach (Post post in userPost)
+            foreach (User friend in i_UserFacade.RealUser.Friends)
             {
-                adapterPostList.Add(new PostAdapter{Post = post,
-                    Location = post.Place?.Location.City,
-                    CreatedTime = post.CreatedTime.Value.Date
-                });
+                UserFacade friendFacade = new UserFacade(friend)
+                {
+                    FirstName = friend.FirstName ?? string.Empty,
+                    LastName = friend.LastName ?? string.Empty,
+                    Birthday = friend.Birthday ?? string.Empty,
+                    Email = friend.Email ?? string.Empty,
+                    Location = friend.Location?.Name ?? string.Empty,
+                    Gender = friend.Gender.HasValue ? (UserFacade.eGender)friend.Gender.Value : UserFacade.eGender.None,
+                    RelationshipStatus = friend.RelationshipStatus.HasValue ? friend.RelationshipStatus.Value.ToString() : string.Empty,
+                };
+                new Thread(() => friendFacade.LikedPages = getLikedPages(friend)).Start();
+                new Thread(() => friendFacade.FavoriteTeams = getFavoriteTeams(friend)).Start();
+                new Thread(() => friendFacade.Posts = getPosts(friend)).Start();
+                friends.Add(friendFacade);
             }
 
-            i_User.Posts = adapterPostList;
-            //IEnumerable<Post> userPost = i_User.RealUser.Posts;
-            //List<PostProxy> proxyPostList = new List<PostProxy>();
-            //PostFactory factory = new PostFactory();
+            i_UserFacade.Friends = friends;
+        }
 
-            //foreach (Post post in userPost)
-            //{
-            //    PostProxy newProxyPost = factory.CreatePost(post.Message == null ? "image" : "text", post);
-            //    proxyPostList.Add(newProxyPost); 
-            //}
+        public void BuildLikedPages(UserFacade i_UserFacade)
+        {
+            i_UserFacade.LikedPages = getLikedPages(i_UserFacade.RealUser);
+        }
 
-            //i_User.Posts = proxyPostList; 
+        public void BuildFavoriteTeams(UserFacade i_UserFacade)
+        {
+            i_UserFacade.FavoriteTeams = getFavoriteTeams(i_UserFacade.RealUser);
+        }
+
+        public void BuildPosts(UserFacade i_UserFacade)
+        {
+            i_UserFacade.Posts = getPosts(i_UserFacade.RealUser);
+        }
+
+        private List<PageAdapter> getLikedPages(User i_User)
+        {
+            return i_User.LikedPages?.Select(page => new PageAdapter { Page = page, Id = page.Id }).ToList() ?? new List<PageAdapter>();
+        }
+
+        private List<PageAdapter> getFavoriteTeams(User i_User)
+        {
+            return i_User.FavofriteTeams?.Select(page => new PageAdapter { Page = page, Id = page.Id }).ToList() ?? new List<PageAdapter>();
+        }
+
+        private List<PostAdapter> getPosts(User i_User)
+        {
+            return i_User.Posts?.Select(post => new PostAdapter
+            {
+                Post = post,
+                Location = post.Place?.Location.City,
+                CreatedTime = post.CreatedTime?.Date ?? DateTime.MinValue
+            }).ToList() ?? new List<PostAdapter>();
         }
     }
 }

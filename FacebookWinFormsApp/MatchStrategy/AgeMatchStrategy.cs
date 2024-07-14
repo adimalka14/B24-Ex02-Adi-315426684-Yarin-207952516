@@ -1,5 +1,6 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
+using BasicFacebookFeatures.NewUser;
 
 namespace BasicFacebookFeatures.Strategy
 {
@@ -14,7 +15,7 @@ namespace BasicFacebookFeatures.Strategy
             this.maxAge = maxAge;
         }
 
-        public bool Match(User friend)
+        public bool Match(UserFacade friend)
         {
             DateTime birthDate = DateTime.ParseExact(friend.Birthday, "MM/dd/yyyy", null);
             int age = DateTime.Today.Year - birthDate.Year;
