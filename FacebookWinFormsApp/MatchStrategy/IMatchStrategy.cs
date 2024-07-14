@@ -1,10 +1,9 @@
 ﻿using BasicFacebookFeatures.NewUser;
-using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.Strategy
 {
     public interface IMatchStrategy
     {
-        bool Match(UserFacade friend);
+        bool Match(UserFacade i_Friend);
     }
 }

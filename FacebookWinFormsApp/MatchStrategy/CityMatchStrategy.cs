@@ -1,5 +1,4 @@
-﻿using FacebookWrapper.ObjectModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BasicFacebookFeatures.NewUser;
 
@@ -7,16 +6,16 @@ namespace BasicFacebookFeatures.Strategy
 {
     public class CityMatchStrategy : IMatchStrategy
     {
-        private IEnumerable<string> selectedCities;
+        private readonly IEnumerable<string> r_SelectedCities;
 
-        public CityMatchStrategy(IEnumerable<string> selectedCities)
+        public CityMatchStrategy(IEnumerable<string> i_SelectedCities)
         {
-            this.selectedCities = selectedCities;
+            this.r_SelectedCities = i_SelectedCities;
         }
 
-        public bool Match(UserFacade friend)
+        public bool Match(UserFacade i_Friend)
         {
-            return selectedCities.Contains(friend.Location) || !selectedCities.Any();
+            return r_SelectedCities.Contains(i_Friend.Location) || !r_SelectedCities.Any();
         }
     }
 }

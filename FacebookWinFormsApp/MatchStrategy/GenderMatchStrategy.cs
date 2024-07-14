@@ -1,23 +1,22 @@
 ﻿using BasicFacebookFeatures.NewUser;
-using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.Strategy
 {
     public class GenderMatchStrategy : IMatchStrategy
     {
-        private bool isMaleChecked;
-        private bool isFemaleChecked;
+        private readonly bool r_IsMaleChecked;
+        private readonly bool r_IsFemaleChecked;
 
-        public GenderMatchStrategy(bool isMaleChecked, bool isFemaleChecked)
+        public GenderMatchStrategy(bool i_IsMaleChecked, bool i_IsFemaleChecked)
         {
-            this.isMaleChecked = isMaleChecked;
-            this.isFemaleChecked = isFemaleChecked;
+            this.r_IsMaleChecked = i_IsMaleChecked;
+            this.r_IsFemaleChecked = i_IsFemaleChecked;
         }
 
-        public bool Match(UserFacade friend)
+        public bool Match(UserFacade i_Friend)
         {
-            return (friend.Gender == UserFacade.eGender.male && isMaleChecked) ||
-                   (friend.Gender == UserFacade.eGender.female && isFemaleChecked);
+            return (i_Friend.Gender == UserFacade.eGender.male && r_IsMaleChecked) ||
+                   (i_Friend.Gender == UserFacade.eGender.female && r_IsFemaleChecked);
         }
     }
 }

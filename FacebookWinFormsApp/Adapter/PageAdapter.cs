@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices;
-using FacebookWrapper.ObjectModel;
+﻿using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.Adapter
 {
@@ -9,24 +8,15 @@ namespace BasicFacebookFeatures.Adapter
         public string Id { get; set; }
         private string m_ImgUrl;
 
+        public string ImgUrl
+        {
+            get => m_ImgUrl ?? (m_ImgUrl = Page.PictureNormalURL);
+            set => m_ImgUrl = value;
+        }
+
         public override string ToString()
         {
             return Page.Name;
-        }
-
-        public string ImgUrl
-        {
-            get
-            {
-                if (m_ImgUrl == null)
-                {
-                    m_ImgUrl = Page.PictureNormalURL;
-                }
-
-                return m_ImgUrl;
-            }
-
-            set => m_ImgUrl = value;
         }
     }
 }

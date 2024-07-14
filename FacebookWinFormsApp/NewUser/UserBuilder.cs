@@ -10,7 +10,7 @@ namespace BasicFacebookFeatures.NewUser
 {
     public class UserBuilder : IUserBuilder
     {
-        private readonly string r_appId = "883640926898711";//"1824773104686874";// //myAppId
+        private readonly string r_appId = "1824773104686874";//"883640926898711";// //myAppId
         private string[] m_properties =
         {
             // requested permissions:

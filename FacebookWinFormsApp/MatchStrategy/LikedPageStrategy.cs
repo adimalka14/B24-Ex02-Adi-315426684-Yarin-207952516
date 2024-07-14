@@ -1,5 +1,4 @@
-﻿using FacebookWrapper.ObjectModel;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BasicFacebookFeatures.Adapter;
 using BasicFacebookFeatures.NewUser;
@@ -9,19 +8,19 @@ namespace BasicFacebookFeatures.MatchStrategy
 {
     internal class LikedPageStrategy : IMatchStrategy
     {
-        private IEnumerable<PageAdapter> m_SelectedLikedPages;
+        private readonly IEnumerable<PageAdapter> r_SelectedLikedPages;
 
         public LikedPageStrategy(IEnumerable<PageAdapter> i_SelectedLikedPages)
         {
-            this.m_SelectedLikedPages = i_SelectedLikedPages;
+            this.r_SelectedLikedPages = i_SelectedLikedPages;
         }
 
-        public bool Match(UserFacade friend)
+        public bool Match(UserFacade i_Friend)
         {
-            IEnumerable<string> selectedTeamNames= m_SelectedLikedPages.Select(Page => Page.Id);
-            IEnumerable<string> friendTeamNames = friend.LikedPages.Select(Page => Page.Id);
+            IEnumerable<string> selectedTeamNames= r_SelectedLikedPages.Select(page => page.Id);
+            IEnumerable<string> friendTeamNames = i_Friend.LikedPages.Select(page => page.Id);
 
-            return !m_SelectedLikedPages.Any() || friendTeamNames.Intersect(selectedTeamNames).Any();
+            return !r_SelectedLikedPages.Any() || friendTeamNames.Intersect(selectedTeamNames).Any();
         }
     }
 }
