@@ -14,6 +14,14 @@ namespace BasicFacebookFeatures.Services
         public UserFacade UserFacadeProfile { get; set; }
         public IEnumerable<string> Cities { get; set; }
         public IEnumerable<UserFacade> MatchingFriendList { get; set; }
+        public bool IsMaleChecked { get; set; } = true;
+        public bool IsFemaleChecked { get; set; } = false;
+        public int MinAge { get; set; }
+        public int MaxAge { get; set; } = 120;
+        public IEnumerable<string> SelectedCities { get; set; }
+        public IEnumerable<PageAdapter> SelectedLikedPages { get; set; }
+        public IEnumerable<PageAdapter> SelectedFavoriteTeams { get; set; }
+
         public event Action DataLoaded;
 
         public MatchFriendService(UserFacade i_UserFacadeProfile)
@@ -35,7 +43,7 @@ namespace BasicFacebookFeatures.Services
         {
             List<string> cities = new List<string>();
 
-            cities.Add(UserFacadeProfile.Location);
+            cities.Add(UserFacadeProfile?.Location);
 
             foreach (UserFacade friend in UserFacadeProfile.Friends)
             {
@@ -49,39 +57,17 @@ namespace BasicFacebookFeatures.Services
             OnDataLoaded();
         }
 
-        public IEnumerable<PageAdapter> GetLikedPages()
+        public void GetMatchingFriends()
         {
-            return UserFacadeProfile.LikedPages;
-        }
-
-        public IEnumerable<PageAdapter> GetFavoriteTeams()
-        {
-            return UserFacadeProfile.FavoriteTeams;
-        }
-
-        public bool IsValidAgeRange(int minAge, int maxAge)
-        {
-            return maxAge >= minAge;
-        }
-
-        public void GetMatchingFriends(
-            bool isMaleChecked,
-            bool isFemaleChecked,
-            int minAge,
-            int maxAge,
-            IEnumerable<string> selectedCities,
-            IEnumerable<PageAdapter> selectedLikedPages,
-            IEnumerable<PageAdapter> selectedFavoriteTeams)
-        {
+            List<UserFacade> filterFriend = new List<UserFacade>();
             List<IMatchStrategy> strategies = new List<IMatchStrategy>
             {
-                new AgeMatchStrategy(minAge, maxAge),
-                new CityMatchStrategy(selectedCities),
-                new GenderMatchStrategy(isMaleChecked, isFemaleChecked),
-                new LikedPageStrategy(selectedLikedPages),
-                new FavoriteTeamsStrategy(selectedFavoriteTeams),
+                new AgeMatchStrategy(MinAge, MaxAge),
+                new CityMatchStrategy(SelectedCities),
+                new GenderMatchStrategy(IsMaleChecked, IsFemaleChecked),
+                new LikedPageStrategy(SelectedLikedPages),
+                new FavoriteTeamsStrategy(SelectedFavoriteTeams),
             };
-            List<UserFacade> filterFriend = new List<UserFacade>();
 
             foreach (UserFacade friend in UserFacadeProfile.Friends)
             {

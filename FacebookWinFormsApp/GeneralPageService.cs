@@ -1,9 +1,8 @@
-﻿using FacebookWrapper.ObjectModel;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading;
-using BasicFacebookFeatures.NewUser;
+using System.Linq;
 using BasicFacebookFeatures.Adapter;
-using System;
+using BasicFacebookFeatures.NewUser;
 
 namespace BasicFacebookFeatures.Services
 {
@@ -11,91 +10,61 @@ namespace BasicFacebookFeatures.Services
     {
         public UserFacade InUserFacade { get; set; }
         public readonly UserComposer r_Composer = new UserComposer(new UserBuilder());
-        public event Action DataLoaded;
-
+        //public event Action DataLoaded;
+        public readonly NotifyThread r_NotifyThread = new NotifyThread();
 
         public void FetchData()
         {
-            new Thread(() => FetchPrivateDetails()).Start();
-            new Thread(() => FetchUserFriends()).Start();
-            new Thread(() => FetchLikedPages()).Start();
-            new Thread(() => FetchFavoriteTeams()).Start();
-            new Thread(() => FetchPosts()).Start();
+            r_NotifyThread.SafeExecute(FetchPrivateDetails);
+            r_NotifyThread.SafeExecute(FetchUserFriends);
+            r_NotifyThread.SafeExecute(FetchLikedPages);
+            r_NotifyThread.SafeExecute(FetchFavoriteTeams);
+            r_NotifyThread.SafeExecute(FetchPosts);
+
+            //new Thread(() => FetchPrivateDetails()).Start();
+            //new Thread(() => FetchUserFriends()).Start();
+            //new Thread(() => FetchLikedPages()).Start();
+            //new Thread(() => FetchFavoriteTeams()).Start();
+            //new Thread(() => FetchPosts()).Start();
         }
 
         public void FetchPrivateDetails()
         {
             r_Composer.UserPrivateDetails(InUserFacade);
-            OnDataLoaded();
+            //OnDataLoaded();
         }
 
         public void FetchUserFriends()
         {
             r_Composer.UserFriends(InUserFacade);
-            OnDataLoaded();
+            //OnDataLoaded();
         }
         public void FetchLikedPages()
         {
             r_Composer.LikedPages(InUserFacade);
-            OnDataLoaded();
+            //OnDataLoaded();
         }
         public void FetchFavoriteTeams()
         {
             r_Composer.FavoriteTeams(InUserFacade);
-            OnDataLoaded();
+            //OnDataLoaded();
         }
         public void FetchPosts()
         {
             r_Composer.Posts(InUserFacade);
-            OnDataLoaded();
+            //OnDataLoaded();
         }
 
-        private void OnDataLoaded()
-        {
-            DataLoaded?.Invoke();
-        }
-
-        public string GetUserName()
-        {
-            return $"{InUserFacade.FirstName} {InUserFacade.LastName}";
-        }
-
-        public string GetProfilePictureUrl()
-        {
-            return InUserFacade.PictureLargeUrl;
-        }
-
-        public IEnumerable<string> GetUserDetails()
-        {
-            yield return "Birthday: " + InUserFacade.Birthday;
-            yield return "Gender: " + InUserFacade.Gender;
-            yield return "Email: " + InUserFacade.Email;
-            yield return "Relationship: " + InUserFacade.RelationshipStatus;
-            yield return "Location: " + InUserFacade.Location;
-        }
-
-        public IEnumerable<UserFacade> GetFriends()
-        {
-            return InUserFacade.Friends;
-        }
-
-        public IEnumerable<PageAdapter> GetLikedPages()
-        {
-            return InUserFacade.LikedPages;
-        }
-
-        public IEnumerable<PageAdapter> GetFavoriteTeams()
-        {
-            return InUserFacade.FavoriteTeams;
-        }
-
-        public IEnumerable<PostAdapter> GetPosts()
-        {
-            return InUserFacade.Posts;
-        }
+        //private void OnDataLoaded()
+        //{
+        //    DataLoaded?.Invoke();
+        //}
 
         public void PostStatus(string statusText)
         {
+            List<PostAdapter> list = InUserFacade.Posts.ToList();
+            list.Add(new PostAdapter{Description = $"{InUserFacade.FirstName} {InUserFacade.LastName} : {statusText}",CreatedTime = DateTime.Now,Location = "Zanoah"});
+            InUserFacade.Posts = list;
             InUserFacade.RealUser.PostStatus(statusText);
         }
     }

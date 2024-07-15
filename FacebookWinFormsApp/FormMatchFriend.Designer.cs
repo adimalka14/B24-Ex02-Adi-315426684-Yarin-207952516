@@ -31,33 +31,124 @@ namespace BasicFacebookFeatures
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.Label birthdayLabel;
+            System.Windows.Forms.Label emailLabel;
+            System.Windows.Forms.Label firstNameLabel;
+            System.Windows.Forms.Label genderLabel;
+            System.Windows.Forms.Label lastNameLabel;
+            System.Windows.Forms.Label locationLabel;
+            System.Windows.Forms.Label relationshipStatusLabel;
             this.buttonSearch = new System.Windows.Forms.Button();
             this.checkBoxMale = new System.Windows.Forms.CheckBox();
+            this.matchFriendServiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.checkBoxFemale = new System.Windows.Forms.CheckBox();
             this.labelGender = new System.Windows.Forms.Label();
             this.splitter1 = new System.Windows.Forms.Splitter();
-            this.hScrollBarMinAge = new System.Windows.Forms.HScrollBar();
             this.labelMinAge = new System.Windows.Forms.Label();
-            this.hScrollBarMaxAge = new System.Windows.Forms.HScrollBar();
             this.labelMaxAge = new System.Windows.Forms.Label();
-            this.labelMinAgeValue = new System.Windows.Forms.Label();
-            this.labelMaxAgeValue = new System.Windows.Forms.Label();
             this.buttonCity = new System.Windows.Forms.Button();
             this.buttonLikedPage = new System.Windows.Forms.Button();
             this.buttonFavoriteTeams = new System.Windows.Forms.Button();
-            this.listBoxUserDetails = new System.Windows.Forms.ListBox();
-            this.pictureProfile = new System.Windows.Forms.PictureBox();
-            this.labelUserName = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
             this.buttonRefreshAll = new System.Windows.Forms.Button();
             this.CitiesDataBoundCheckedListBox = new BasicFacebookFeatures.DataBoundCheckedListBox();
-            this.matchFriendServiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.favoriteTeamsDataBoundCheckedListBox = new BasicFacebookFeatures.DataBoundCheckedListBox();
             this.likedPagesDataBoundCheckedListBox = new BasicFacebookFeatures.DataBoundCheckedListBox();
             this.matchingFriendListListBox = new System.Windows.Forms.ListBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).BeginInit();
+            this.userFacadeBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.birthdayLabel1 = new System.Windows.Forms.Label();
+            this.emailLabel1 = new System.Windows.Forms.Label();
+            this.firstNameLabel1 = new System.Windows.Forms.Label();
+            this.genderLabel1 = new System.Windows.Forms.Label();
+            this.lastNameLabel1 = new System.Windows.Forms.Label();
+            this.locationLabel1 = new System.Windows.Forms.Label();
+            this.pictureLargeUrlPictureBox = new System.Windows.Forms.PictureBox();
+            this.relationshipStatusLabel1 = new System.Windows.Forms.Label();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.numericUpDown2 = new System.Windows.Forms.NumericUpDown();
+            birthdayLabel = new System.Windows.Forms.Label();
+            emailLabel = new System.Windows.Forms.Label();
+            firstNameLabel = new System.Windows.Forms.Label();
+            genderLabel = new System.Windows.Forms.Label();
+            lastNameLabel = new System.Windows.Forms.Label();
+            locationLabel = new System.Windows.Forms.Label();
+            relationshipStatusLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.matchFriendServiceBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userFacadeBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).BeginInit();
             this.SuspendLayout();
+            // 
+            // birthdayLabel
+            // 
+            birthdayLabel.AutoSize = true;
+            birthdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            birthdayLabel.Location = new System.Drawing.Point(650, 491);
+            birthdayLabel.Name = "birthdayLabel";
+            birthdayLabel.Size = new System.Drawing.Size(106, 29);
+            birthdayLabel.TabIndex = 99;
+            birthdayLabel.Text = "Birthday:";
+            // 
+            // emailLabel
+            // 
+            emailLabel.AutoSize = true;
+            emailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            emailLabel.Location = new System.Drawing.Point(654, 530);
+            emailLabel.Name = "emailLabel";
+            emailLabel.Size = new System.Drawing.Size(80, 29);
+            emailLabel.TabIndex = 101;
+            emailLabel.Text = "Email:";
+            // 
+            // firstNameLabel
+            // 
+            firstNameLabel.AutoSize = true;
+            firstNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            firstNameLabel.Location = new System.Drawing.Point(654, 414);
+            firstNameLabel.Name = "firstNameLabel";
+            firstNameLabel.Size = new System.Drawing.Size(137, 29);
+            firstNameLabel.TabIndex = 103;
+            firstNameLabel.Text = "First Name:";
+            // 
+            // genderLabel
+            // 
+            genderLabel.AutoSize = true;
+            genderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            genderLabel.Location = new System.Drawing.Point(654, 563);
+            genderLabel.Name = "genderLabel";
+            genderLabel.Size = new System.Drawing.Size(100, 29);
+            genderLabel.TabIndex = 105;
+            genderLabel.Text = "Gender:";
+            // 
+            // lastNameLabel
+            // 
+            lastNameLabel.AutoSize = true;
+            lastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            lastNameLabel.Location = new System.Drawing.Point(650, 452);
+            lastNameLabel.Name = "lastNameLabel";
+            lastNameLabel.Size = new System.Drawing.Size(134, 29);
+            lastNameLabel.TabIndex = 107;
+            lastNameLabel.Text = "Last Name:";
+            // 
+            // locationLabel
+            // 
+            locationLabel.AutoSize = true;
+            locationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            locationLabel.Location = new System.Drawing.Point(654, 599);
+            locationLabel.Name = "locationLabel";
+            locationLabel.Size = new System.Drawing.Size(110, 29);
+            locationLabel.TabIndex = 109;
+            locationLabel.Text = "Location:";
+            // 
+            // relationshipStatusLabel
+            // 
+            relationshipStatusLabel.AutoSize = true;
+            relationshipStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            relationshipStatusLabel.Location = new System.Drawing.Point(654, 634);
+            relationshipStatusLabel.Name = "relationshipStatusLabel";
+            relationshipStatusLabel.Size = new System.Drawing.Size(225, 29);
+            relationshipStatusLabel.TabIndex = 113;
+            relationshipStatusLabel.Text = "Relationship Status:";
             // 
             // buttonSearch
             // 
@@ -77,6 +168,7 @@ namespace BasicFacebookFeatures
             this.checkBoxMale.BackColor = System.Drawing.Color.DodgerBlue;
             this.checkBoxMale.Checked = true;
             this.checkBoxMale.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxMale.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.matchFriendServiceBindingSource, "IsMaleChecked", true));
             this.checkBoxMale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxMale.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.checkBoxMale.Location = new System.Drawing.Point(133, 68);
@@ -88,11 +180,16 @@ namespace BasicFacebookFeatures
             this.checkBoxMale.UseVisualStyleBackColor = false;
             this.checkBoxMale.CheckedChanged += new System.EventHandler(this.checkBoxMale_CheckedChanged);
             // 
+            // matchFriendServiceBindingSource
+            // 
+            this.matchFriendServiceBindingSource.DataSource = typeof(BasicFacebookFeatures.Services.MatchFriendService);
+            // 
             // checkBoxFemale
             // 
             this.checkBoxFemale.BackColor = System.Drawing.Color.DodgerBlue;
             this.checkBoxFemale.Checked = true;
             this.checkBoxFemale.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxFemale.DataBindings.Add(new System.Windows.Forms.Binding("Checked", this.matchFriendServiceBindingSource, "IsFemaleChecked", true));
             this.checkBoxFemale.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBoxFemale.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.checkBoxFemale.Location = new System.Drawing.Point(288, 68);
@@ -121,19 +218,9 @@ namespace BasicFacebookFeatures
             this.splitter1.BackColor = System.Drawing.Color.DodgerBlue;
             this.splitter1.Location = new System.Drawing.Point(0, 0);
             this.splitter1.Name = "splitter1";
-            this.splitter1.Size = new System.Drawing.Size(552, 668);
+            this.splitter1.Size = new System.Drawing.Size(552, 690);
             this.splitter1.TabIndex = 80;
             this.splitter1.TabStop = false;
-            // 
-            // hScrollBarMinAge
-            // 
-            this.hScrollBarMinAge.LargeChange = 1;
-            this.hScrollBarMinAge.Location = new System.Drawing.Point(211, 119);
-            this.hScrollBarMinAge.Maximum = 120;
-            this.hScrollBarMinAge.Name = "hScrollBarMinAge";
-            this.hScrollBarMinAge.Size = new System.Drawing.Size(276, 29);
-            this.hScrollBarMinAge.TabIndex = 82;
-            this.hScrollBarMinAge.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBarMinAge_Scroll);
             // 
             // labelMinAge
             // 
@@ -147,17 +234,6 @@ namespace BasicFacebookFeatures
             this.labelMinAge.Text = "Min age:";
             this.labelMinAge.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // hScrollBarMaxAge
-            // 
-            this.hScrollBarMaxAge.LargeChange = 1;
-            this.hScrollBarMaxAge.Location = new System.Drawing.Point(211, 155);
-            this.hScrollBarMaxAge.Maximum = 120;
-            this.hScrollBarMaxAge.Name = "hScrollBarMaxAge";
-            this.hScrollBarMaxAge.Size = new System.Drawing.Size(276, 29);
-            this.hScrollBarMaxAge.TabIndex = 84;
-            this.hScrollBarMaxAge.Value = 120;
-            this.hScrollBarMaxAge.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBarMaxAge_Scroll);
-            // 
             // labelMaxAge
             // 
             this.labelMaxAge.BackColor = System.Drawing.Color.DodgerBlue;
@@ -169,26 +245,6 @@ namespace BasicFacebookFeatures
             this.labelMaxAge.TabIndex = 85;
             this.labelMaxAge.Text = "Max age:";
             this.labelMaxAge.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelMinAgeValue
-            // 
-            this.labelMinAgeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMinAgeValue.Location = new System.Drawing.Point(128, 119);
-            this.labelMinAgeValue.Name = "labelMinAgeValue";
-            this.labelMinAgeValue.Size = new System.Drawing.Size(51, 29);
-            this.labelMinAgeValue.TabIndex = 86;
-            this.labelMinAgeValue.Text = "0";
-            this.labelMinAgeValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // labelMaxAgeValue
-            // 
-            this.labelMaxAgeValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelMaxAgeValue.Location = new System.Drawing.Point(128, 155);
-            this.labelMaxAgeValue.Name = "labelMaxAgeValue";
-            this.labelMaxAgeValue.Size = new System.Drawing.Size(51, 33);
-            this.labelMaxAgeValue.TabIndex = 87;
-            this.labelMaxAgeValue.Text = "120";
-            this.labelMaxAgeValue.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonCity
             // 
@@ -220,37 +276,6 @@ namespace BasicFacebookFeatures
             this.buttonFavoriteTeams.UseVisualStyleBackColor = true;
             this.buttonFavoriteTeams.Click += new System.EventHandler(this.buttonFavoriteTeams_Click);
             // 
-            // listBoxUserDetails
-            // 
-            this.listBoxUserDetails.FormattingEnabled = true;
-            this.listBoxUserDetails.ItemHeight = 16;
-            this.listBoxUserDetails.Location = new System.Drawing.Point(681, 503);
-            this.listBoxUserDetails.Name = "listBoxUserDetails";
-            this.listBoxUserDetails.Size = new System.Drawing.Size(291, 116);
-            this.listBoxUserDetails.TabIndex = 93;
-            // 
-            // pictureProfile
-            // 
-            this.pictureProfile.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pictureProfile.Location = new System.Drawing.Point(683, 211);
-            this.pictureProfile.Name = "pictureProfile";
-            this.pictureProfile.Size = new System.Drawing.Size(291, 240);
-            this.pictureProfile.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pictureProfile.TabIndex = 91;
-            this.pictureProfile.TabStop = false;
-            // 
-            // labelUserName
-            // 
-            this.labelUserName.AutoSize = true;
-            this.labelUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelUserName.ForeColor = System.Drawing.Color.DodgerBlue;
-            this.labelUserName.Location = new System.Drawing.Point(714, 454);
-            this.labelUserName.Name = "labelUserName";
-            this.labelUserName.Size = new System.Drawing.Size(218, 46);
-            this.labelUserName.TabIndex = 92;
-            this.labelUserName.Text = "UserName";
-            this.labelUserName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // labelTitle
             // 
             this.labelTitle.AutoSize = true;
@@ -269,7 +294,7 @@ namespace BasicFacebookFeatures
             this.buttonRefreshAll.BackColor = System.Drawing.Color.Silver;
             this.buttonRefreshAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonRefreshAll.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonRefreshAll.Location = new System.Drawing.Point(949, 626);
+            this.buttonRefreshAll.Location = new System.Drawing.Point(449, 613);
             this.buttonRefreshAll.Margin = new System.Windows.Forms.Padding(4);
             this.buttonRefreshAll.Name = "buttonRefreshAll";
             this.buttonRefreshAll.Size = new System.Drawing.Size(148, 44);
@@ -287,10 +312,6 @@ namespace BasicFacebookFeatures
             this.CitiesDataBoundCheckedListBox.Name = "CitiesDataBoundCheckedListBox";
             this.CitiesDataBoundCheckedListBox.Size = new System.Drawing.Size(311, 106);
             this.CitiesDataBoundCheckedListBox.TabIndex = 97;
-            // 
-            // matchFriendServiceBindingSource
-            // 
-            this.matchFriendServiceBindingSource.DataSource = typeof(BasicFacebookFeatures.Services.MatchFriendService);
             // 
             // favoriteTeamsDataBoundCheckedListBox
             // 
@@ -314,37 +335,146 @@ namespace BasicFacebookFeatures
             // 
             // matchingFriendListListBox
             // 
-            this.matchingFriendListListBox.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this.matchFriendServiceBindingSource, "MatchingFriendList", true));
+            this.matchingFriendListListBox.DataSource = this.userFacadeBindingSource;
             this.matchingFriendListListBox.FormattingEnabled = true;
             this.matchingFriendListListBox.ItemHeight = 16;
-            this.matchingFriendListListBox.Location = new System.Drawing.Point(657, 20);
+            this.matchingFriendListListBox.Location = new System.Drawing.Point(673, 20);
             this.matchingFriendListListBox.Name = "matchingFriendListListBox";
-            this.matchingFriendListListBox.Size = new System.Drawing.Size(362, 164);
+            this.matchingFriendListListBox.Size = new System.Drawing.Size(283, 164);
             this.matchingFriendListListBox.TabIndex = 99;
+            // 
+            // userFacadeBindingSource
+            // 
+            this.userFacadeBindingSource.DataSource = typeof(BasicFacebookFeatures.NewUser.UserFacade);
+            // 
+            // birthdayLabel1
+            // 
+            this.birthdayLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Birthday", true));
+            this.birthdayLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.birthdayLabel1.Location = new System.Drawing.Point(903, 497);
+            this.birthdayLabel1.Name = "birthdayLabel1";
+            this.birthdayLabel1.Size = new System.Drawing.Size(142, 23);
+            this.birthdayLabel1.TabIndex = 100;
+            this.birthdayLabel1.Text = "label1";
+            // 
+            // emailLabel1
+            // 
+            this.emailLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Email", true));
+            this.emailLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.emailLabel1.Location = new System.Drawing.Point(903, 536);
+            this.emailLabel1.Name = "emailLabel1";
+            this.emailLabel1.Size = new System.Drawing.Size(142, 23);
+            this.emailLabel1.TabIndex = 102;
+            this.emailLabel1.Text = "label1";
+            // 
+            // firstNameLabel1
+            // 
+            this.firstNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "FirstName", true));
+            this.firstNameLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.firstNameLabel1.Location = new System.Drawing.Point(903, 414);
+            this.firstNameLabel1.Name = "firstNameLabel1";
+            this.firstNameLabel1.Size = new System.Drawing.Size(142, 23);
+            this.firstNameLabel1.TabIndex = 104;
+            this.firstNameLabel1.Text = "label1";
+            // 
+            // genderLabel1
+            // 
+            this.genderLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Gender", true));
+            this.genderLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.genderLabel1.Location = new System.Drawing.Point(903, 563);
+            this.genderLabel1.Name = "genderLabel1";
+            this.genderLabel1.Size = new System.Drawing.Size(142, 23);
+            this.genderLabel1.TabIndex = 106;
+            this.genderLabel1.Text = "label1";
+            // 
+            // lastNameLabel1
+            // 
+            this.lastNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "LastName", true));
+            this.lastNameLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lastNameLabel1.Location = new System.Drawing.Point(903, 458);
+            this.lastNameLabel1.Name = "lastNameLabel1";
+            this.lastNameLabel1.Size = new System.Drawing.Size(142, 23);
+            this.lastNameLabel1.TabIndex = 108;
+            this.lastNameLabel1.Text = "label1";
+            // 
+            // locationLabel1
+            // 
+            this.locationLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Location", true));
+            this.locationLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.locationLabel1.Location = new System.Drawing.Point(903, 595);
+            this.locationLabel1.Name = "locationLabel1";
+            this.locationLabel1.Size = new System.Drawing.Size(142, 23);
+            this.locationLabel1.TabIndex = 110;
+            this.locationLabel1.Text = "label1";
+            // 
+            // pictureLargeUrlPictureBox
+            // 
+            this.pictureLargeUrlPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("imageLocation", this.userFacadeBindingSource, "PictureLargeUrl", true));
+            this.pictureLargeUrlPictureBox.Location = new System.Drawing.Point(677, 208);
+            this.pictureLargeUrlPictureBox.Name = "pictureLargeUrlPictureBox";
+            this.pictureLargeUrlPictureBox.Size = new System.Drawing.Size(285, 186);
+            this.pictureLargeUrlPictureBox.TabIndex = 112;
+            this.pictureLargeUrlPictureBox.TabStop = false;
+            // 
+            // relationshipStatusLabel1
+            // 
+            this.relationshipStatusLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "RelationshipStatus", true));
+            this.relationshipStatusLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.relationshipStatusLabel1.Location = new System.Drawing.Point(903, 634);
+            this.relationshipStatusLabel1.Name = "relationshipStatusLabel1";
+            this.relationshipStatusLabel1.Size = new System.Drawing.Size(142, 23);
+            this.relationshipStatusLabel1.TabIndex = 114;
+            this.relationshipStatusLabel1.Text = "label1";
+            // 
+            // numericUpDown1
+            // 
+            this.numericUpDown1.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchFriendServiceBindingSource, "MinAge", true));
+            this.numericUpDown1.Location = new System.Drawing.Point(176, 126);
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDown1.TabIndex = 115;
+            // 
+            // numericUpDown2
+            // 
+            this.numericUpDown2.DataBindings.Add(new System.Windows.Forms.Binding("Value", this.matchFriendServiceBindingSource, "MaxAge", true));
+            this.numericUpDown2.Location = new System.Drawing.Point(176, 162);
+            this.numericUpDown2.Name = "numericUpDown2";
+            this.numericUpDown2.Size = new System.Drawing.Size(120, 22);
+            this.numericUpDown2.TabIndex = 116;
             // 
             // FormMatchFriend
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1094, 668);
+            this.ClientSize = new System.Drawing.Size(1540, 690);
+            this.Controls.Add(this.numericUpDown2);
+            this.Controls.Add(this.numericUpDown1);
+            this.Controls.Add(birthdayLabel);
+            this.Controls.Add(this.birthdayLabel1);
+            this.Controls.Add(emailLabel);
+            this.Controls.Add(this.emailLabel1);
+            this.Controls.Add(firstNameLabel);
+            this.Controls.Add(this.firstNameLabel1);
+            this.Controls.Add(genderLabel);
+            this.Controls.Add(this.genderLabel1);
+            this.Controls.Add(lastNameLabel);
+            this.Controls.Add(this.lastNameLabel1);
+            this.Controls.Add(locationLabel);
+            this.Controls.Add(this.locationLabel1);
+            this.Controls.Add(this.pictureLargeUrlPictureBox);
+            this.Controls.Add(relationshipStatusLabel);
+            this.Controls.Add(this.relationshipStatusLabel1);
             this.Controls.Add(this.matchingFriendListListBox);
             this.Controls.Add(this.buttonRefreshAll);
             this.Controls.Add(this.CitiesDataBoundCheckedListBox);
             this.Controls.Add(this.favoriteTeamsDataBoundCheckedListBox);
             this.Controls.Add(this.likedPagesDataBoundCheckedListBox);
             this.Controls.Add(this.labelTitle);
-            this.Controls.Add(this.listBoxUserDetails);
-            this.Controls.Add(this.pictureProfile);
-            this.Controls.Add(this.labelUserName);
             this.Controls.Add(this.buttonFavoriteTeams);
             this.Controls.Add(this.buttonLikedPage);
             this.Controls.Add(this.buttonCity);
-            this.Controls.Add(this.labelMaxAgeValue);
-            this.Controls.Add(this.labelMinAgeValue);
             this.Controls.Add(this.labelMaxAge);
-            this.Controls.Add(this.hScrollBarMaxAge);
             this.Controls.Add(this.labelMinAge);
-            this.Controls.Add(this.hScrollBarMinAge);
             this.Controls.Add(this.labelGender);
             this.Controls.Add(this.checkBoxFemale);
             this.Controls.Add(this.checkBoxMale);
@@ -357,8 +487,11 @@ namespace BasicFacebookFeatures
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Matching friend";
             this.Load += new System.EventHandler(this.FormMatchFriend_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureProfile)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.matchFriendServiceBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userFacadeBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -371,18 +504,11 @@ namespace BasicFacebookFeatures
         private System.Windows.Forms.CheckBox checkBoxFemale;
         private System.Windows.Forms.Label labelGender;
         private System.Windows.Forms.Splitter splitter1;
-        private System.Windows.Forms.HScrollBar hScrollBarMinAge;
         private System.Windows.Forms.Label labelMinAge;
-        private System.Windows.Forms.HScrollBar hScrollBarMaxAge;
         private System.Windows.Forms.Label labelMaxAge;
-        private System.Windows.Forms.Label labelMinAgeValue;
-        private System.Windows.Forms.Label labelMaxAgeValue;
         private System.Windows.Forms.Button buttonCity;
         private System.Windows.Forms.Button buttonLikedPage;
         private System.Windows.Forms.Button buttonFavoriteTeams;
-        private System.Windows.Forms.ListBox listBoxUserDetails;
-        private System.Windows.Forms.PictureBox pictureProfile;
-        private System.Windows.Forms.Label labelUserName;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.BindingSource matchFriendServiceBindingSource;
         private DataBoundCheckedListBox likedPagesDataBoundCheckedListBox;
@@ -390,5 +516,16 @@ namespace BasicFacebookFeatures
         private DataBoundCheckedListBox CitiesDataBoundCheckedListBox;
         private System.Windows.Forms.Button buttonRefreshAll;
         private System.Windows.Forms.ListBox matchingFriendListListBox;
+        private System.Windows.Forms.BindingSource userFacadeBindingSource;
+        private System.Windows.Forms.Label birthdayLabel1;
+        private System.Windows.Forms.Label emailLabel1;
+        private System.Windows.Forms.Label firstNameLabel1;
+        private System.Windows.Forms.Label genderLabel1;
+        private System.Windows.Forms.Label lastNameLabel1;
+        private System.Windows.Forms.Label locationLabel1;
+        private System.Windows.Forms.PictureBox pictureLargeUrlPictureBox;
+        private System.Windows.Forms.Label relationshipStatusLabel1;
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown numericUpDown2;
     }
 }

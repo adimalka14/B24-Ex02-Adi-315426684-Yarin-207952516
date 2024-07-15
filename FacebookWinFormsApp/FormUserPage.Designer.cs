@@ -37,7 +37,9 @@
             System.Windows.Forms.Label relationshipStatusLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUserPage));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonRefreshAll = new System.Windows.Forms.Button();
             this.pictureLargeUrlPictureBox = new System.Windows.Forms.PictureBox();
+            this.generalPageServiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.locationTextBox = new System.Windows.Forms.TextBox();
             this.buttonLogout = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
@@ -51,16 +53,17 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.pictureBoxLikedPage = new System.Windows.Forms.PictureBox();
             this.likedPagesListBox = new System.Windows.Forms.ListBox();
+            this.pageAdapterBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.panel3 = new System.Windows.Forms.Panel();
-            this.pictureBoxFavoriteTeams = new System.Windows.Forms.PictureBox();
             this.favoriteTeamsListBox = new System.Windows.Forms.ListBox();
+            this.imgUrlPictureBox = new System.Windows.Forms.PictureBox();
             this.postsListBox = new System.Windows.Forms.ListBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.pictureBoxFreind = new System.Windows.Forms.PictureBox();
+            this.pictureLargeUrlPictureBox1 = new System.Windows.Forms.PictureBox();
+            this.userFacadeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.friendsListBox = new System.Windows.Forms.ListBox();
             this.panel6 = new System.Windows.Forms.Panel();
             this.textBoxText = new System.Windows.Forms.TextBox();
@@ -79,8 +82,7 @@
             this.bindingNavigatorDeleteItem = new System.Windows.Forms.ToolStripButton();
             this.generalPageServiceBindingNavigatorSaveItem = new System.Windows.Forms.ToolStripButton();
             this.generalPageServiceBindingNavigator = new System.Windows.Forms.BindingNavigator(this.components);
-            this.buttonRefreshAll = new System.Windows.Forms.Button();
-            this.generalPageServiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panel7 = new System.Windows.Forms.Panel();
             birthdayLabel = new System.Windows.Forms.Label();
             emailLabel = new System.Windows.Forms.Label();
             firstNameLabel = new System.Windows.Forms.Label();
@@ -90,20 +92,22 @@
             relationshipStatusLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.generalPageServiceBindingSource)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageAdapterBindingSource)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeams)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgUrlPictureBox)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFreind)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userFacadeBindingSource)).BeginInit();
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.generalPageServiceBindingNavigator)).BeginInit();
             this.generalPageServiceBindingNavigator.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.generalPageServiceBindingSource)).BeginInit();
+            this.panel7.SuspendLayout();
             this.SuspendLayout();
             // 
             // birthdayLabel
@@ -210,6 +214,21 @@
             this.panel1.Size = new System.Drawing.Size(385, 871);
             this.panel1.TabIndex = 0;
             // 
+            // buttonRefreshAll
+            // 
+            this.buttonRefreshAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonRefreshAll.BackColor = System.Drawing.Color.Silver;
+            this.buttonRefreshAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonRefreshAll.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonRefreshAll.Location = new System.Drawing.Point(89, 715);
+            this.buttonRefreshAll.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonRefreshAll.Name = "buttonRefreshAll";
+            this.buttonRefreshAll.Size = new System.Drawing.Size(190, 44);
+            this.buttonRefreshAll.TabIndex = 77;
+            this.buttonRefreshAll.Text = "Refresh Page";
+            this.buttonRefreshAll.UseVisualStyleBackColor = false;
+            this.buttonRefreshAll.Click += new System.EventHandler(this.buttonRefreshAll_Click);
+            // 
             // pictureLargeUrlPictureBox
             // 
             this.pictureLargeUrlPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("ImageLocation", this.generalPageServiceBindingSource, "InUserFacade.PictureLargeUrl", true));
@@ -218,6 +237,10 @@
             this.pictureLargeUrlPictureBox.Size = new System.Drawing.Size(251, 207);
             this.pictureLargeUrlPictureBox.TabIndex = 13;
             this.pictureLargeUrlPictureBox.TabStop = false;
+            // 
+            // generalPageServiceBindingSource
+            // 
+            this.generalPageServiceBindingSource.DataSource = typeof(BasicFacebookFeatures.Services.GeneralPageService);
             // 
             // locationTextBox
             // 
@@ -352,11 +375,12 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(1006, 107);
+            this.tabControl1.Location = new System.Drawing.Point(10, 10);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(567, 274);
+            this.tabControl1.Size = new System.Drawing.Size(412, 276);
             this.tabControl1.TabIndex = 12;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -366,77 +390,70 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(559, 245);
+            this.tabPage1.Size = new System.Drawing.Size(404, 247);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Liked Pages";
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.pictureBoxLikedPage);
             this.panel2.Controls.Add(this.likedPagesListBox);
-            this.panel2.Location = new System.Drawing.Point(2, 29);
+            this.panel2.Location = new System.Drawing.Point(6, 6);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(470, 188);
+            this.panel2.Size = new System.Drawing.Size(378, 235);
             this.panel2.TabIndex = 0;
-            // 
-            // pictureBoxLikedPage
-            // 
-            this.pictureBoxLikedPage.Location = new System.Drawing.Point(368, 30);
-            this.pictureBoxLikedPage.Name = "pictureBoxLikedPage";
-            this.pictureBoxLikedPage.Size = new System.Drawing.Size(146, 149);
-            this.pictureBoxLikedPage.TabIndex = 14;
-            this.pictureBoxLikedPage.TabStop = false;
             // 
             // likedPagesListBox
             // 
-            this.likedPagesListBox.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this.generalPageServiceBindingSource, "InUserFacade.LikedPages", true));
+            this.likedPagesListBox.DataSource = this.pageAdapterBindingSource;
             this.likedPagesListBox.FormattingEnabled = true;
             this.likedPagesListBox.ItemHeight = 16;
-            this.likedPagesListBox.Location = new System.Drawing.Point(11, -10);
+            this.likedPagesListBox.Location = new System.Drawing.Point(3, 10);
             this.likedPagesListBox.Name = "likedPagesListBox";
-            this.likedPagesListBox.Size = new System.Drawing.Size(321, 196);
+            this.likedPagesListBox.Size = new System.Drawing.Size(355, 212);
             this.likedPagesListBox.TabIndex = 13;
-            this.likedPagesListBox.SelectedIndexChanged += new System.EventHandler(this.likedPagesListBox_SelectedIndexChanged);
+            // 
+            // pageAdapterBindingSource
+            // 
+            this.pageAdapterBindingSource.DataSource = typeof(BasicFacebookFeatures.Adapter.PageAdapter);
             // 
             // tabPage2
             // 
+            this.tabPage2.AutoScroll = true;
             this.tabPage2.BackColor = System.Drawing.SystemColors.Highlight;
             this.tabPage2.Controls.Add(this.panel3);
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(559, 245);
+            this.tabPage2.Size = new System.Drawing.Size(404, 247);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Favorite Teams";
             // 
             // panel3
             // 
-            this.panel3.Controls.Add(this.pictureBoxFavoriteTeams);
             this.panel3.Controls.Add(this.favoriteTeamsListBox);
-            this.panel3.Location = new System.Drawing.Point(0, 6);
+            this.panel3.Location = new System.Drawing.Point(6, 6);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(544, 236);
+            this.panel3.Size = new System.Drawing.Size(361, 235);
             this.panel3.TabIndex = 0;
-            // 
-            // pictureBoxFavoriteTeams
-            // 
-            this.pictureBoxFavoriteTeams.BackColor = System.Drawing.SystemColors.HighlightText;
-            this.pictureBoxFavoriteTeams.Location = new System.Drawing.Point(378, 33);
-            this.pictureBoxFavoriteTeams.Name = "pictureBoxFavoriteTeams";
-            this.pictureBoxFavoriteTeams.Size = new System.Drawing.Size(154, 161);
-            this.pictureBoxFavoriteTeams.TabIndex = 1;
-            this.pictureBoxFavoriteTeams.TabStop = false;
             // 
             // favoriteTeamsListBox
             // 
-            this.favoriteTeamsListBox.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this.generalPageServiceBindingSource, "InUserFacade.FavoriteTeams", true));
+            this.favoriteTeamsListBox.DataSource = this.pageAdapterBindingSource;
             this.favoriteTeamsListBox.FormattingEnabled = true;
             this.favoriteTeamsListBox.ItemHeight = 16;
-            this.favoriteTeamsListBox.Location = new System.Drawing.Point(43, 12);
+            this.favoriteTeamsListBox.Location = new System.Drawing.Point(8, 12);
             this.favoriteTeamsListBox.Name = "favoriteTeamsListBox";
-            this.favoriteTeamsListBox.Size = new System.Drawing.Size(309, 196);
+            this.favoriteTeamsListBox.Size = new System.Drawing.Size(333, 196);
             this.favoriteTeamsListBox.TabIndex = 15;
-            this.favoriteTeamsListBox.SelectedIndexChanged += new System.EventHandler(this.favoriteTeamsListBox_SelectedIndexChanged);
+            // 
+            // imgUrlPictureBox
+            // 
+            this.imgUrlPictureBox.DataBindings.Add(new System.Windows.Forms.Binding("ImageLocation", this.pageAdapterBindingSource, "ImgUrl", true));
+            this.imgUrlPictureBox.Location = new System.Drawing.Point(428, 86);
+            this.imgUrlPictureBox.Name = "imgUrlPictureBox";
+            this.imgUrlPictureBox.Size = new System.Drawing.Size(128, 128);
+            this.imgUrlPictureBox.TabIndex = 14;
+            this.imgUrlPictureBox.TabStop = false;
             // 
             // postsListBox
             // 
@@ -460,31 +477,35 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panel5.Controls.Add(this.pictureBoxFreind);
+            this.panel5.Controls.Add(this.pictureLargeUrlPictureBox1);
             this.panel5.Controls.Add(this.friendsListBox);
             this.panel5.Location = new System.Drawing.Point(445, 107);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(513, 291);
             this.panel5.TabIndex = 16;
             // 
-            // pictureBoxFreind
+            // pictureLargeUrlPictureBox1
             // 
-            this.pictureBoxFreind.Location = new System.Drawing.Point(260, 31);
-            this.pictureBoxFreind.Name = "pictureBoxFreind";
-            this.pictureBoxFreind.Size = new System.Drawing.Size(218, 225);
-            this.pictureBoxFreind.TabIndex = 78;
-            this.pictureBoxFreind.TabStop = false;
+            this.pictureLargeUrlPictureBox1.DataBindings.Add(new System.Windows.Forms.Binding("ImageLocation", this.userFacadeBindingSource, "PictureLargeUrl", true));
+            this.pictureLargeUrlPictureBox1.Location = new System.Drawing.Point(257, 43);
+            this.pictureLargeUrlPictureBox1.Name = "pictureLargeUrlPictureBox1";
+            this.pictureLargeUrlPictureBox1.Size = new System.Drawing.Size(225, 205);
+            this.pictureLargeUrlPictureBox1.TabIndex = 2;
+            this.pictureLargeUrlPictureBox1.TabStop = false;
+            // 
+            // userFacadeBindingSource
+            // 
+            this.userFacadeBindingSource.DataSource = typeof(BasicFacebookFeatures.NewUser.UserFacade);
             // 
             // friendsListBox
             // 
-            this.friendsListBox.DataBindings.Add(new System.Windows.Forms.Binding("DataSource", this.generalPageServiceBindingSource, "InUserFacade.Friends", true));
+            this.friendsListBox.DataSource = this.userFacadeBindingSource;
             this.friendsListBox.FormattingEnabled = true;
             this.friendsListBox.ItemHeight = 16;
-            this.friendsListBox.Location = new System.Drawing.Point(32, 28);
+            this.friendsListBox.Location = new System.Drawing.Point(41, 25);
             this.friendsListBox.Name = "friendsListBox";
             this.friendsListBox.Size = new System.Drawing.Size(188, 228);
             this.friendsListBox.TabIndex = 1;
-            this.friendsListBox.SelectedIndexChanged += new System.EventHandler(this.friendsListBox_SelectedIndexChanged);
             // 
             // panel6
             // 
@@ -538,7 +559,7 @@
             this.bindingNavigatorMoveFirstItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveFirstItem.Image")));
             this.bindingNavigatorMoveFirstItem.Name = "bindingNavigatorMoveFirstItem";
             this.bindingNavigatorMoveFirstItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(29, 36);
+            this.bindingNavigatorMoveFirstItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorMoveFirstItem.Text = "Move first";
             // 
             // bindingNavigatorMovePreviousItem
@@ -547,13 +568,13 @@
             this.bindingNavigatorMovePreviousItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMovePreviousItem.Image")));
             this.bindingNavigatorMovePreviousItem.Name = "bindingNavigatorMovePreviousItem";
             this.bindingNavigatorMovePreviousItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(29, 36);
+            this.bindingNavigatorMovePreviousItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorMovePreviousItem.Text = "Move previous";
             // 
             // bindingNavigatorSeparator
             // 
             this.bindingNavigatorSeparator.Name = "bindingNavigatorSeparator";
-            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 39);
+            this.bindingNavigatorSeparator.Size = new System.Drawing.Size(6, 27);
             // 
             // bindingNavigatorPositionItem
             // 
@@ -568,14 +589,14 @@
             // bindingNavigatorCountItem
             // 
             this.bindingNavigatorCountItem.Name = "bindingNavigatorCountItem";
-            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(45, 36);
+            this.bindingNavigatorCountItem.Size = new System.Drawing.Size(45, 24);
             this.bindingNavigatorCountItem.Text = "of {0}";
             this.bindingNavigatorCountItem.ToolTipText = "Total number of items";
             // 
             // bindingNavigatorSeparator1
             // 
             this.bindingNavigatorSeparator1.Name = "bindingNavigatorSeparator1";
-            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 39);
+            this.bindingNavigatorSeparator1.Size = new System.Drawing.Size(6, 27);
             // 
             // bindingNavigatorMoveNextItem
             // 
@@ -583,7 +604,7 @@
             this.bindingNavigatorMoveNextItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveNextItem.Image")));
             this.bindingNavigatorMoveNextItem.Name = "bindingNavigatorMoveNextItem";
             this.bindingNavigatorMoveNextItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(29, 36);
+            this.bindingNavigatorMoveNextItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorMoveNextItem.Text = "Move next";
             // 
             // bindingNavigatorMoveLastItem
@@ -592,13 +613,13 @@
             this.bindingNavigatorMoveLastItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorMoveLastItem.Image")));
             this.bindingNavigatorMoveLastItem.Name = "bindingNavigatorMoveLastItem";
             this.bindingNavigatorMoveLastItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(29, 36);
+            this.bindingNavigatorMoveLastItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorMoveLastItem.Text = "Move last";
             // 
             // bindingNavigatorSeparator2
             // 
             this.bindingNavigatorSeparator2.Name = "bindingNavigatorSeparator2";
-            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 39);
+            this.bindingNavigatorSeparator2.Size = new System.Drawing.Size(6, 27);
             // 
             // bindingNavigatorAddNewItem
             // 
@@ -606,7 +627,7 @@
             this.bindingNavigatorAddNewItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorAddNewItem.Image")));
             this.bindingNavigatorAddNewItem.Name = "bindingNavigatorAddNewItem";
             this.bindingNavigatorAddNewItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(29, 36);
+            this.bindingNavigatorAddNewItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorAddNewItem.Text = "Add new";
             // 
             // bindingNavigatorDeleteItem
@@ -615,7 +636,7 @@
             this.bindingNavigatorDeleteItem.Image = ((System.Drawing.Image)(resources.GetObject("bindingNavigatorDeleteItem.Image")));
             this.bindingNavigatorDeleteItem.Name = "bindingNavigatorDeleteItem";
             this.bindingNavigatorDeleteItem.RightToLeftAutoMirrorImage = true;
-            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(29, 36);
+            this.bindingNavigatorDeleteItem.Size = new System.Drawing.Size(29, 24);
             this.bindingNavigatorDeleteItem.Text = "Delete";
             // 
             // generalPageServiceBindingNavigatorSaveItem
@@ -624,7 +645,7 @@
             this.generalPageServiceBindingNavigatorSaveItem.Enabled = false;
             this.generalPageServiceBindingNavigatorSaveItem.Image = ((System.Drawing.Image)(resources.GetObject("generalPageServiceBindingNavigatorSaveItem.Image")));
             this.generalPageServiceBindingNavigatorSaveItem.Name = "generalPageServiceBindingNavigatorSaveItem";
-            this.generalPageServiceBindingNavigatorSaveItem.Size = new System.Drawing.Size(29, 36);
+            this.generalPageServiceBindingNavigatorSaveItem.Size = new System.Drawing.Size(29, 24);
             this.generalPageServiceBindingNavigatorSaveItem.Text = "Save Data";
             // 
             // generalPageServiceBindingNavigator
@@ -654,62 +675,56 @@
             this.generalPageServiceBindingNavigator.MovePreviousItem = this.bindingNavigatorMovePreviousItem;
             this.generalPageServiceBindingNavigator.Name = "generalPageServiceBindingNavigator";
             this.generalPageServiceBindingNavigator.PositionItem = this.bindingNavigatorPositionItem;
-            this.generalPageServiceBindingNavigator.Size = new System.Drawing.Size(2063, 39);
+            this.generalPageServiceBindingNavigator.Size = new System.Drawing.Size(1889, 27);
             this.generalPageServiceBindingNavigator.TabIndex = 1;
             this.generalPageServiceBindingNavigator.Text = "bindingNavigator1";
             // 
-            // buttonRefreshAll
+            // panel7
             // 
-            this.buttonRefreshAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefreshAll.BackColor = System.Drawing.Color.Silver;
-            this.buttonRefreshAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRefreshAll.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonRefreshAll.Location = new System.Drawing.Point(89, 715);
-            this.buttonRefreshAll.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonRefreshAll.Name = "buttonRefreshAll";
-            this.buttonRefreshAll.Size = new System.Drawing.Size(190, 44);
-            this.buttonRefreshAll.TabIndex = 77;
-            this.buttonRefreshAll.Text = "Refresh Page";
-            this.buttonRefreshAll.UseVisualStyleBackColor = false;
-            this.buttonRefreshAll.Click += new System.EventHandler(this.buttonRefreshAll_Click);
-            // 
-            // generalPageServiceBindingSource
-            // 
-            this.generalPageServiceBindingSource.DataSource = typeof(BasicFacebookFeatures.Services.GeneralPageService);
+            this.panel7.BackColor = System.Drawing.SystemColors.Highlight;
+            this.panel7.Controls.Add(this.imgUrlPictureBox);
+            this.panel7.Controls.Add(this.tabControl1);
+            this.panel7.Location = new System.Drawing.Point(1006, 97);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(580, 310);
+            this.panel7.TabIndex = 16;
             // 
             // FormUserPage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1650, 842);
+            this.ClientSize = new System.Drawing.Size(1889, 871);
+            this.ControlBox = false;
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel6);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel4);
-            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.generalPageServiceBindingNavigator);
+            this.Controls.Add(this.panel7);
             this.Name = "FormUserPage";
             this.Text = "FormUserPage";
             this.Load += new System.EventHandler(this.FormUserPage_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.generalPageServiceBindingSource)).EndInit();
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLikedPage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pageAdapterBindingSource)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFavoriteTeams)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgUrlPictureBox)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxFreind)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.userFacadeBindingSource)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.generalPageServiceBindingNavigator)).EndInit();
             this.generalPageServiceBindingNavigator.ResumeLayout(false);
             this.generalPageServiceBindingNavigator.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.generalPageServiceBindingSource)).EndInit();
+            this.panel7.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -732,7 +747,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.ListBox likedPagesListBox;
         private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ListBox favoriteTeamsListBox;
         private System.Windows.Forms.ListBox postsListBox;
         private System.Windows.Forms.Panel panel4;
@@ -759,8 +773,11 @@
         private System.Windows.Forms.BindingNavigator generalPageServiceBindingNavigator;
         private System.Windows.Forms.Button buttonRefreshAll;
         private System.Windows.Forms.ListBox friendsListBox;
-        private System.Windows.Forms.PictureBox pictureBoxFavoriteTeams;
-        private System.Windows.Forms.PictureBox pictureBoxFreind;
-        private System.Windows.Forms.PictureBox pictureBoxLikedPage;
+        private System.Windows.Forms.PictureBox pictureLargeUrlPictureBox1;
+        private System.Windows.Forms.BindingSource userFacadeBindingSource;
+        private System.Windows.Forms.PictureBox imgUrlPictureBox;
+        private System.Windows.Forms.BindingSource pageAdapterBindingSource;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel7;
     }
 }

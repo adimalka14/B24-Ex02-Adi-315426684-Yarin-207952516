@@ -1,12 +1,10 @@
-﻿using FacebookWrapper.ObjectModel;
-using System;
+﻿using System;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
 using BasicFacebookFeatures.NewUser;
-using System.ComponentModel;
 using System.Linq;
+using System.Threading;
 using BasicFacebookFeatures.Adapter;
-using System.Collections.Generic;
 
 namespace BasicFacebookFeatures
 {
@@ -39,87 +37,17 @@ namespace BasicFacebookFeatures
             }
         }
 
-
-
-        //private void loadCities()
-        //{
-        //    string[] cities = r_MatchFriendService.Cities.ToArray();
-        //    checkedListBoxCity.Invoke(new Action(() => checkedListBoxCity.Items.AddRange(cities)));
-        //}
-
-        //private void loadLikedPage()
-        //{
-
-        //    List<PageAdapter> likedPage = r_MatchFriendService.GetLikedPages().ToList();
-
-        //    checkedListBoxLikedPage.Invoke(new Action(() =>
-        //    {
-        //        checkedListBoxLikedPage.DataSource = likedPage;
-        //        checkedListBoxLikedPage.DisplayMember = "Name";
-        //    }));
-        //}
-
-        //private void loadFavoriteTeams()
-        //{
-        //    List<PageAdapter> favoriteTeams = r_MatchFriendService.GetFavoriteTeams().ToList();
-
-        //    checkedListBoxFavoriteTeams.Invoke(new Action(() =>
-        //    {
-        //        checkedListBoxFavoriteTeams.DataSource = favoriteTeams;
-        //        checkedListBoxFavoriteTeams.DisplayMember = "Name";
-        //    }));
-        //}
-
         private void buttonSearch_Click(object sender, EventArgs e)
         {
-            if (r_MatchFriendService.IsValidAgeRange(hScrollBarMinAge.Value, hScrollBarMaxAge.Value))
+            r_MatchFriendService.SelectedCities = CitiesDataBoundCheckedListBox.CheckedItems.Cast<string>().ToList();
+            r_MatchFriendService.SelectedLikedPages = likedPagesDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
+            r_MatchFriendService.SelectedFavoriteTeams = favoriteTeamsDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
+            r_MatchFriendService.GetMatchingFriends();
+            userFacadeBindingSource.DataSource = r_MatchFriendService.MatchingFriendList;
+            if (!matchingFriendListListBox.Items.Cast<UserFacade>().Any())
             {
-
-                IEnumerable<string> selectedCities = CitiesDataBoundCheckedListBox.CheckedItems.Cast<string>().ToList();
-                IEnumerable<PageAdapter> selectedLikedPages = likedPagesDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
-                IEnumerable<PageAdapter> selectedFavoriteTeams = favoriteTeamsDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
-
-                r_MatchFriendService.GetMatchingFriends(
-                        checkBoxMale.Checked,
-                        checkBoxFemale.Checked,
-                        hScrollBarMinAge.Value,
-                        hScrollBarMaxAge.Value,
-                        selectedCities,
-                        selectedLikedPages,
-                        selectedFavoriteTeams);
-
-                //this.Invoke((MethodInvoker)delegate
-                //{
-                //    listBoxMatchFriends.Items.Clear();
-                //    listBoxMatchFriends.DisplayMember = "Name";
-
-                //    foreach (var friend in matchingFriends)
-                //    {
-                //        listBoxMatchFriends.Items.Add(friend);
-                //    }
-
-                if (!matchingFriendListListBox.Items.Cast<UserFacade>().Any())
-                {
-                    MessageBox.Show("No match friends");
-                }
-                //});
+                MessageBox.Show("No match friends");
             }
-            else
-            {
-                MessageBox.Show("Max age must be greater than min age.", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                hScrollBarMaxAge.Value = 120;
-                hScrollBarMinAge.Value = 0;
-            }
-        }
-
-        private void hScrollBarMinAge_Scroll(object sender, ScrollEventArgs e)
-        {
-            labelMinAgeValue.Text = hScrollBarMinAge.Value.ToString();
-        }
-
-        private void hScrollBarMaxAge_Scroll(object sender, ScrollEventArgs e)
-        {
-            labelMaxAgeValue.Text = hScrollBarMaxAge.Value.ToString();
         }
 
         private void checkBoxFemale_CheckedChanged(object sender, EventArgs e)
@@ -163,35 +91,6 @@ namespace BasicFacebookFeatures
         private void buttonFavoriteTeams_Click(object sender, EventArgs e)
         {
             toggleCheckAll(buttonFavoriteTeams, favoriteTeamsDataBoundCheckedListBox);
-        }
-
-        //private void listBoxMatchFriends_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-        //    User choosenUser = listBoxMatchFriends.SelectedItem as User;
-
-        //    if (choosenUser != null)
-        //    {
-        //        r_threadAdapter.Execute(() => showSelectedFriendPrivateDetails(choosenUser));
-        //    }
-        //}
-
-        private void showSelectedFriendPrivateDetails(User i_ChoosenUser)
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new Action(() => showSelectedFriendPrivateDetails(i_ChoosenUser)));
-            }
-            else
-            {
-                pictureProfile.ImageLocation = i_ChoosenUser.PictureLargeURL;
-                this.labelUserName.Text = $"{i_ChoosenUser.FirstName} {i_ChoosenUser.LastName}";
-                listBoxUserDetails.Items.Clear();
-                listBoxUserDetails.Items.Add("Birthday: " + i_ChoosenUser.Birthday);
-                listBoxUserDetails.Items.Add("Gender: " + i_ChoosenUser.Gender);
-                listBoxUserDetails.Items.Add("Email: " + i_ChoosenUser.Email);
-                listBoxUserDetails.Items.Add("Relationship: " + i_ChoosenUser.RelationshipStatus);
-                listBoxUserDetails.Items.Add("Location: " + i_ChoosenUser.Location?.Name);
-            }
         }
 
         private void buttonRefreshAll_Click(object sender, EventArgs e)

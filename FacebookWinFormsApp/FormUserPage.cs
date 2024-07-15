@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
-using BasicFacebookFeatures.Adapter;
-using BasicFacebookFeatures.NewUser;
+
 using BasicFacebookFeatures.Services;
 using FacebookWrapper;
 
@@ -16,7 +15,8 @@ namespace BasicFacebookFeatures
             InitializeComponent();
             r_GeneralPageService = i_GeneralPageService;
             generalPageServiceBindingSource.DataSource = r_GeneralPageService;
-            r_GeneralPageService.DataLoaded += this.OnDataLoaded;
+            r_GeneralPageService.r_NotifyThread.Finish += OnDataLoaded;
+            r_GeneralPageService.r_NotifyThread.ErrorOccurred += showError;
         }
 
         private void FormUserPage_Load(object sender, EventArgs e)
@@ -26,21 +26,39 @@ namespace BasicFacebookFeatures
 
         private void OnDataLoaded()
         {
+            this.Invoke(new Action(() =>
+            {
+                    if (r_GeneralPageService.InUserFacade?.Friends != null)
+                    {
+                        userFacadeBindingSource.DataSource = r_GeneralPageService.InUserFacade.Friends;
+                    }
+                  
+                    if (r_GeneralPageService.InUserFacade?.FavoriteTeams != null)
+                    {
+                        pageAdapterBindingSource.DataSource = r_GeneralPageService.InUserFacade.FavoriteTeams;
+                    }
+                    
+                    if (r_GeneralPageService.InUserFacade?.LikedPages != null)
+                    {
+                        pageAdapterBindingSource.DataSource = r_GeneralPageService.InUserFacade.LikedPages;
+                    }
+
+                    userFacadeBindingSource.ResetBindings(false);
+                    pageAdapterBindingSource.ResetBindings(false);
+                    generalPageServiceBindingSource.ResetBindings(false);
+            }));
+        }
+
+        private void showError(Exception ex)
+        {
             if (this.InvokeRequired)
             {
-                this.Invoke(new Action(() => generalPageServiceBindingSource.ResetBindings(false)));
+                this.Invoke(new Action(() => MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error)));
             }
             else
             {
-                generalPageServiceBindingSource.ResetBindings(false);
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-
-        private void buttonRefreshAll_Click(object sender, EventArgs e)
-        {
-            generalPageServiceBindingSource.ResetBindings(false);
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -54,33 +72,6 @@ namespace BasicFacebookFeatures
             {
                 MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void loadPictureFromSelectedItem<T>(ListBox i_ListBox, PictureBox i_PictureBox, Func<T, string> i_GetUrlFunc)
-        {
-            if (i_ListBox.SelectedItems.Count == 1 && i_ListBox.SelectedItem is T selectedItem)
-            {
-                string pictureUrl = i_GetUrlFunc(selectedItem);
-                if (pictureUrl != null)
-                {
-                    i_PictureBox.LoadAsync(pictureUrl);
-                }
-            }
-        }
-
-        private void likedPagesListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            loadPictureFromSelectedItem<PageAdapter>(likedPagesListBox, pictureBoxLikedPage, (i_Page) => i_Page.ImgUrl);
-        }
-
-        private void friendsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            loadPictureFromSelectedItem<UserFacade>(friendsListBox, pictureBoxFreind, (i_User) => i_User.PictureLargeUrl);
-        }
-
-        private void favoriteTeamsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            loadPictureFromSelectedItem<PageAdapter>(favoriteTeamsListBox, pictureBoxFavoriteTeams, (i_Page) => i_Page.ImgUrl);
         }
 
         private void buttonSharePost_Click(object sender, EventArgs e)
@@ -116,14 +107,32 @@ namespace BasicFacebookFeatures
             if (r_GeneralPageService.InUserFacade != null)
             {
                 FormMemoriesPosts form = new FormMemoriesPosts(r_GeneralPageService.InUserFacade);
-                //r_threadAdapter.Execute(form.LoadData);
                 form.ShowDialog();
             }
             else
             {
                 MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
 
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedIndex)
+            {
+                case 0:
+                    pageAdapterBindingSource.DataSource = r_GeneralPageService.InUserFacade.LikedPages;
+                    break;
+                case 1:
+                    pageAdapterBindingSource.DataSource = r_GeneralPageService.InUserFacade.FavoriteTeams;
+                    break;
+            }
+        }
+
+        private void buttonRefreshAll_Click(object sender, EventArgs e)
+        {
+            userFacadeBindingSource.ResetBindings(false);
+            pageAdapterBindingSource.ResetBindings(false);
+            generalPageServiceBindingSource.ResetBindings(false);
         }
     }
 }

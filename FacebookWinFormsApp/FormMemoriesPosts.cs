@@ -2,8 +2,6 @@
 using System.Windows.Forms;
 using BasicFacebookFeatures.NewUser;
 using BasicFacebookFeatures.Services;
-using BasicFacebookFeatures.Adapter;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BasicFacebookFeatures
@@ -17,48 +15,36 @@ namespace BasicFacebookFeatures
             InitializeComponent();
             r_MemoriesPostsService = new MemoriesPostsService(i_UserFacadeProfile);
             memoriesPostsServiceBindingSource.DataSource = r_MemoriesPostsService;
-            r_MemoriesPostsService.DataLoaded += this.OnDataLoaded;
+            r_MemoriesPostsService.r_NotifyThread.Finish += this.OnDataLoaded;
+            r_MemoriesPostsService.r_NotifyThread.ErrorOccurred += this.showError;
         }
 
         private void FormMemoriesPosts_Load(object sender, EventArgs e)
         {
             r_MemoriesPostsService.FetchData();
         }
-        
+
         private void OnDataLoaded()
         {
-            if (this.InvokeRequired)
+            this.Invoke(new Action(() => memoriesPostsServiceBindingSource.ResetBindings(false)));
+        }
+
+        private void showError(Exception ex)
+        {
+            this.Invoke(new Action(() =>
             {
-                this.Invoke(new Action(() => memoriesPostsServiceBindingSource.ResetBindings(false)));
-            }
-            else
-            {
-                memoriesPostsServiceBindingSource.ResetBindings(false);
-            }
+                this.Close();
+                MessageBox.Show(ex.Message, "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }));
         }
 
         private void buttonShowMemories_Click(object sender, EventArgs e)
         {
-            IEnumerable<string> selectedLocation = locationsDataBoundCheckedListBox.CheckedItems.Cast<string>().ToList();
-            r_MemoriesPostsService.GetFilteredPosts(
-                selectedLocation,
-                dateTimePickerStart.Value,
-                dateTimePickerFinish.Value);
-
-            if (filteredPostsListBox.Items.Count == 0)
-            {
-                MessageBox.Show("No Posts to retrieve.");
-            }
+            r_MemoriesPostsService.CheckedLocations = locationsDataBoundCheckedListBox.CheckedItems.Cast<string>().ToList();
+            r_MemoriesPostsService.GetFilteredPosts();
+            postAdapterBindingSource.DataSource = r_MemoriesPostsService?.FilteredPosts;
         }
 
-        private void filteredPostsListBox_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            PostAdapter selectedPost = filteredPostsListBox.SelectedItem as PostAdapter;
-
-            textBoxSelectedMemory.Text = selectedPost?.ToString() ?? "";
-            dateTime.Text = selectedPost?.CreatedTime.ToString() ?? "";
-            pictureBox1.ImageLocation = selectedPost?.Post.PictureURL ?? "https://images.app.goo.gl/1fiGGkwrp8ToEiRW8";
-        }
         private void toggleCheckAll(Button i_Button, CheckedListBox i_CheckedListBox)
         {
             bool checkAll = i_Button.Text == "Check all";

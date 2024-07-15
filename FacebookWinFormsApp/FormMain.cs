@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using BasicFacebookFeatures.Services;
-using BasicFacebookFeatures.NewUser;
 using FacebookWrapper;
 
 namespace BasicFacebookFeatures

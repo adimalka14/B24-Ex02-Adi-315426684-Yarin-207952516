@@ -4,13 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BasicFacebookFeatures.Adapter;
+using CefSharp.DevTools.CSS;
 using FacebookWrapper.ObjectModel;
 
 namespace BasicFacebookFeatures.NewUser
 {
     public class UserBuilder : IUserBuilder
     {
-        private readonly string r_appId = "1824773104686874";//"883640926898711";// //myAppId
+        private readonly string r_appId = "1824773104686874";
+        //private readonly string r_appId = "883640926898711";//////myAppId
         private string[] m_properties =
         {
             // requested permissions:
@@ -33,7 +35,7 @@ namespace BasicFacebookFeatures.NewUser
         public UserFacade CreateUser()
         {
             //string accessToken = "EAAMjqqZBOihcBOxW9fwDdwTb9E21mkTaHu9bpzgio1YI8lyZBfOsb8ZAr1aAl59SNuIeHsyjy4bMj3eNowYoTGp02Bz2ZAPxuyYnnZBhw8c3mKZBaxhlkgZBKXqHa6piB4DjuR6cDpT19fbPFhEvhZB3xW01K0BhUcP2ZChUn3QKGsv6hHBkin41StunTPQZDZD";
-            //LoginResult loginResult = FacebookService.Connect(accessToken);
+           // LoginResult loginResult = FacebookService.Connect(accessToken);
             LoginResult loginResult = FacebookService.Login(r_appId, m_properties);
             UserFacade newUserFacade;
 
@@ -119,8 +121,29 @@ namespace BasicFacebookFeatures.NewUser
             {
                 Post = post,
                 Location = post.Place?.Location.City,
-                CreatedTime = post.CreatedTime?.Date ?? DateTime.MinValue
+                CreatedTime = post.CreatedTime?.Date ?? DateTime.MinValue,
+                Description = getText(post)
             }).ToList() ?? new List<PostAdapter>();
+        }
+
+        private string getText(Post i_Post)
+        {
+            string stringResult;
+
+            if (i_Post.Message != null)
+            {
+                stringResult = string.Format($"{i_Post.From?.Name ?? "-"}: [{i_Post.Type}] {i_Post.Message}");
+            }
+            else if (i_Post.Caption != null)
+            {
+                stringResult = string.Format($"{i_Post.From?.Name ?? "-"}: [{i_Post.Type}] {i_Post.Caption}");
+            }
+            else
+            {
+                stringResult = string.Format($"{i_Post.From?.Name ?? "-"}: [{i_Post.Type}]");
+            }
+
+            return stringResult;
         }
     }
 }
