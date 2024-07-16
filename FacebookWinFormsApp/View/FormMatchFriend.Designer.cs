@@ -1,5 +1,4 @@
-﻿using BasicFacebookFeatures.Model.NewUser;
-using BasicFacebookFeatures.ViewModel;
+﻿using BasicFacebookFeatures.Model;
 
 namespace BasicFacebookFeatures.View
 {
@@ -51,9 +50,9 @@ namespace BasicFacebookFeatures.View
             this.buttonLikedPage = new System.Windows.Forms.Button();
             this.buttonFavoriteTeams = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.CitiesDataBoundCheckedListBox = new BasicFacebookFeatures.View.DataBoundCheckedListBox();
-            this.favoriteTeamsDataBoundCheckedListBox = new BasicFacebookFeatures.View.DataBoundCheckedListBox();
-            this.likedPagesDataBoundCheckedListBox = new BasicFacebookFeatures.View.DataBoundCheckedListBox();
+            this.CitiesDataBoundCheckedListBox = new DataBoundCheckedListBox();
+            this.favoriteTeamsDataBoundCheckedListBox = new DataBoundCheckedListBox();
+            this.likedPagesDataBoundCheckedListBox = new DataBoundCheckedListBox();
             this.matchingFriendListListBox = new System.Windows.Forms.ListBox();
             this.userFacadeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.birthdayLabel1 = new System.Windows.Forms.Label();
