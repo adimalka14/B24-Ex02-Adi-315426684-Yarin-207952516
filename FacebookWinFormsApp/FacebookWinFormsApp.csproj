@@ -92,7 +92,7 @@
   <ItemGroup>
     <Compile Include="Model\Adapter\PageAdapter.cs" />
     <Compile Include="Model\Adapter\PostAdapter.cs" />
-    <Compile Include="View\DataBoundCheckedListBox.cs">
+    <Compile Include="Model\DataBoundCheckedListBox.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="View\FormUserPage.cs">

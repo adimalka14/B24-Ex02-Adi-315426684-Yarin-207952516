@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Windows.Forms;
 
-namespace BasicFacebookFeatures.View
+namespace BasicFacebookFeatures.Model
 {
     public class DataBoundCheckedListBox : CheckedListBox
     {

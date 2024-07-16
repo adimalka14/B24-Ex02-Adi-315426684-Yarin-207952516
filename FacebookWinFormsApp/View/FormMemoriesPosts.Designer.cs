@@ -1,4 +1,5 @@
-﻿using BasicFacebookFeatures.Model.Adapter;
+﻿using BasicFacebookFeatures.Model;
+using BasicFacebookFeatures.Model.Adapter;
 using BasicFacebookFeatures.ViewModel;
 
 namespace BasicFacebookFeatures.View
