@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using BasicFacebookFeatures.View;
 using CefSharp;
 using CefSharp.WinForms;
 using FacebookWrapper;

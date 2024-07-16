@@ -90,62 +90,62 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adapter\PageAdapter.cs" />
-    <Compile Include="Adapter\PostAdapter.cs" />
-    <Compile Include="DataBoundCheckedListBox.cs">
+    <Compile Include="Model\Adapter\PageAdapter.cs" />
+    <Compile Include="Model\Adapter\PostAdapter.cs" />
+    <Compile Include="View\DataBoundCheckedListBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="FormUserPage.cs">
+    <Compile Include="View\FormUserPage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormUserPage.Designer.cs">
+    <Compile Include="View\FormUserPage.Designer.cs">
       <DependentUpon>FormUserPage.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeneralPageService.cs" />
-    <Compile Include="FormMemoriesPosts.cs">
+    <Compile Include="ViewModel\UserPageService.cs" />
+    <Compile Include="View\FormMemoriesPosts.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMemoriesPosts.Designer.cs">
+    <Compile Include="View\FormMemoriesPosts.Designer.cs">
       <DependentUpon>FormMemoriesPosts.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMatchFriend.cs">
+    <Compile Include="View\FormMatchFriend.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMatchFriend.Designer.cs">
+    <Compile Include="View\FormMatchFriend.Designer.cs">
       <DependentUpon>FormMatchFriend.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMain.cs">
+    <Compile Include="View\FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMain.Designer.cs">
+    <Compile Include="View\FormMain.Designer.cs">
       <DependentUpon>FormMain.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainPageService.cs" />
-    <Compile Include="MatchFriendService.cs" />
-    <Compile Include="MatchStrategy\FavoriteTeamsStrategy.cs" />
-    <Compile Include="MatchStrategy\LikedPageStrategy.cs" />
-    <Compile Include="MemoriesPostsService.cs" />
-    <Compile Include="NotifyThread.cs" />
+    <Compile Include="ViewModel\MainPageService.cs" />
+    <Compile Include="ViewModel\MatchFriendService.cs" />
+    <Compile Include="Model\MatchStrategy\FavoriteTeamsStrategy.cs" />
+    <Compile Include="Model\MatchStrategy\LikedPageStrategy.cs" />
+    <Compile Include="ViewModel\MemoriesPostsService.cs" />
+    <Compile Include="Model\NotifyThread.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="MatchStrategy\AgeMatchStrategy.cs" />
-    <Compile Include="MatchStrategy\CityMatchStrategy.cs" />
-    <Compile Include="MatchStrategy\GenderMatchStrategy.cs" />
-    <Compile Include="MatchStrategy\IMatchStrategy.cs" />
-    <Compile Include="NewUser\IUserBuilder.cs" />
-    <Compile Include="NewUser\UserFacade.cs" />
-    <Compile Include="NewUser\UserBuilder.cs" />
-    <Compile Include="NewUser\UserComposer.cs" />
-    <EmbeddedResource Include="FormMemoriesPosts.resx">
+    <Compile Include="Model\MatchStrategy\AgeMatchStrategy.cs" />
+    <Compile Include="Model\MatchStrategy\CityMatchStrategy.cs" />
+    <Compile Include="Model\MatchStrategy\GenderMatchStrategy.cs" />
+    <Compile Include="Model\MatchStrategy\IMatchStrategy.cs" />
+    <Compile Include="Model\NewUser\IUserBuilder.cs" />
+    <Compile Include="Model\NewUser\UserFacade.cs" />
+    <Compile Include="Model\NewUser\UserBuilder.cs" />
+    <Compile Include="Model\NewUser\UserComposer.cs" />
+    <EmbeddedResource Include="View\FormMemoriesPosts.resx">
       <DependentUpon>FormMemoriesPosts.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMatchFriend.resx">
+    <EmbeddedResource Include="View\FormMatchFriend.resx">
       <DependentUpon>FormMatchFriend.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMain.resx">
+    <EmbeddedResource Include="View\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormUserPage.resx">
+    <EmbeddedResource Include="View\FormUserPage.resx">
       <DependentUpon>FormUserPage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -181,6 +181,7 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
