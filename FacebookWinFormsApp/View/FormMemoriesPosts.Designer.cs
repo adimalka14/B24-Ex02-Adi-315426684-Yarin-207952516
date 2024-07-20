@@ -44,27 +44,49 @@ namespace BasicFacebookFeatures.View
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonCity = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
-            this.locationsDataBoundCheckedListBox = new DataBoundCheckedListBox();
+            this.locationsDataBoundCheckedListBox = new BasicFacebookFeatures.Model.DataBoundCheckedListBox();
             this.buttonShowMemories = new System.Windows.Forms.Button();
             this.panel3 = new System.Windows.Forms.Panel();
             this.filteredPostsListBox = new System.Windows.Forms.ListBox();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.labelTitle = new System.Windows.Forms.Label();
             this.postAdapterBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.descriptionTextBox = new System.Windows.Forms.TextBox();
             this.createdTimeLabel1 = new System.Windows.Forms.Label();
             this.imgUrlPictureBox = new System.Windows.Forms.PictureBox();
             this.locationLabel1 = new System.Windows.Forms.Label();
-            this.descriptionTextBox = new System.Windows.Forms.TextBox();
+            this.labelTitle = new System.Windows.Forms.Label();
             createdTimeLabel = new System.Windows.Forms.Label();
             locationLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.memoriesPostsServiceBindingSource)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.postAdapterBindingSource)).BeginInit();
+            this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgUrlPictureBox)).BeginInit();
             this.SuspendLayout();
+            // 
+            // createdTimeLabel
+            // 
+            createdTimeLabel.AutoSize = true;
+            createdTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            createdTimeLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            createdTimeLabel.Location = new System.Drawing.Point(85, 308);
+            createdTimeLabel.Name = "createdTimeLabel";
+            createdTimeLabel.Size = new System.Drawing.Size(167, 29);
+            createdTimeLabel.TabIndex = 0;
+            createdTimeLabel.Text = "Created Time:";
+            // 
+            // locationLabel
+            // 
+            locationLabel.AutoSize = true;
+            locationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            locationLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            locationLabel.Location = new System.Drawing.Point(85, 389);
+            locationLabel.Name = "locationLabel";
+            locationLabel.Size = new System.Drawing.Size(110, 29);
+            locationLabel.TabIndex = 6;
+            locationLabel.Text = "Location:";
             // 
             // panel1
             // 
@@ -113,7 +135,7 @@ namespace BasicFacebookFeatures.View
             // 
             // memoriesPostsServiceBindingSource
             // 
-            this.memoriesPostsServiceBindingSource.DataSource = typeof(MemoriesPostsService);
+            this.memoriesPostsServiceBindingSource.DataSource = typeof(BasicFacebookFeatures.ViewModel.MemoriesPostsService);
             // 
             // dateTimePickerStart
             // 
@@ -202,6 +224,10 @@ namespace BasicFacebookFeatures.View
             this.filteredPostsListBox.Size = new System.Drawing.Size(330, 100);
             this.filteredPostsListBox.TabIndex = 7;
             // 
+            // postAdapterBindingSource
+            // 
+            this.postAdapterBindingSource.DataSource = typeof(BasicFacebookFeatures.Model.Adapter.PostAdapter);
+            // 
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.DodgerBlue;
@@ -216,31 +242,15 @@ namespace BasicFacebookFeatures.View
             this.panel4.Size = new System.Drawing.Size(736, 486);
             this.panel4.TabIndex = 5;
             // 
-            // labelTitle
+            // descriptionTextBox
             // 
-            this.labelTitle.BackColor = System.Drawing.Color.Aqua;
-            this.labelTitle.Font = new System.Drawing.Font("Pristina", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTitle.Location = new System.Drawing.Point(349, 8);
-            this.labelTitle.Name = "labelTitle";
-            this.labelTitle.Size = new System.Drawing.Size(316, 139);
-            this.labelTitle.TabIndex = 6;
-            this.labelTitle.Text = "Memories";
-            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // postAdapterBindingSource
-            // 
-            this.postAdapterBindingSource.DataSource = typeof(PostAdapter);
-            // 
-            // createdTimeLabel
-            // 
-            createdTimeLabel.AutoSize = true;
-            createdTimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            createdTimeLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            createdTimeLabel.Location = new System.Drawing.Point(85, 308);
-            createdTimeLabel.Name = "createdTimeLabel";
-            createdTimeLabel.Size = new System.Drawing.Size(167, 29);
-            createdTimeLabel.TabIndex = 0;
-            createdTimeLabel.Text = "Created Time:";
+            this.descriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postAdapterBindingSource, "Description", true));
+            this.descriptionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.descriptionTextBox.Location = new System.Drawing.Point(405, 58);
+            this.descriptionTextBox.Multiline = true;
+            this.descriptionTextBox.Name = "descriptionTextBox";
+            this.descriptionTextBox.Size = new System.Drawing.Size(264, 162);
+            this.descriptionTextBox.TabIndex = 8;
             // 
             // createdTimeLabel1
             // 
@@ -262,17 +272,6 @@ namespace BasicFacebookFeatures.View
             this.imgUrlPictureBox.TabIndex = 5;
             this.imgUrlPictureBox.TabStop = false;
             // 
-            // locationLabel
-            // 
-            locationLabel.AutoSize = true;
-            locationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            locationLabel.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            locationLabel.Location = new System.Drawing.Point(85, 389);
-            locationLabel.Name = "locationLabel";
-            locationLabel.Size = new System.Drawing.Size(110, 29);
-            locationLabel.TabIndex = 6;
-            locationLabel.Text = "Location:";
-            // 
             // locationLabel1
             // 
             this.locationLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postAdapterBindingSource, "Location", true));
@@ -284,15 +283,16 @@ namespace BasicFacebookFeatures.View
             this.locationLabel1.TabIndex = 7;
             this.locationLabel1.Text = "label1";
             // 
-            // descriptionTextBox
+            // labelTitle
             // 
-            this.descriptionTextBox.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.postAdapterBindingSource, "Description", true));
-            this.descriptionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.descriptionTextBox.Location = new System.Drawing.Point(405, 58);
-            this.descriptionTextBox.Multiline = true;
-            this.descriptionTextBox.Name = "descriptionTextBox";
-            this.descriptionTextBox.Size = new System.Drawing.Size(264, 162);
-            this.descriptionTextBox.TabIndex = 8;
+            this.labelTitle.BackColor = System.Drawing.Color.Aqua;
+            this.labelTitle.Font = new System.Drawing.Font("Pristina", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTitle.Location = new System.Drawing.Point(349, 8);
+            this.labelTitle.Name = "labelTitle";
+            this.labelTitle.Size = new System.Drawing.Size(316, 139);
+            this.labelTitle.TabIndex = 6;
+            this.labelTitle.Text = "Memories";
+            this.labelTitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormMemoriesPosts
             // 
@@ -310,16 +310,16 @@ namespace BasicFacebookFeatures.View
             this.Name = "FormMemoriesPosts";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Memories";
-            this.Load += new System.EventHandler(this.FormMemoriesPosts_Load);
+            this.Load += new System.EventHandler(this.formMemoriesPosts_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.memoriesPostsServiceBindingSource)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.postAdapterBindingSource)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.postAdapterBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgUrlPictureBox)).EndInit();
             this.ResumeLayout(false);
 

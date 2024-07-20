@@ -16,16 +16,16 @@ namespace BasicFacebookFeatures.View
             InitializeComponent();
             r_MatchFriendService = new MatchFriendService(i_UserFacadeProfile);
             matchFriendServiceBindingSource.DataSource = r_MatchFriendService;
-            r_MatchFriendService.r_NotifyThread.Finish += this.OnDataLoaded;
+            r_MatchFriendService.r_NotifyThread.Finish += this.onDataLoaded;
             r_MatchFriendService.r_NotifyThread.ErrorOccurred += this.showError;
         }
 
-        private void FormMatchFriend_Load(object sender, EventArgs e)
+        private void formMatchFriend_Load(object sender, EventArgs e)
         {
             r_MatchFriendService.FetchData();
         }
 
-        private void OnDataLoaded()
+        private void onDataLoaded()
         {
             this.Invoke(new Action(() => matchFriendServiceBindingSource.ResetBindings(false)));
         }
@@ -41,10 +41,11 @@ namespace BasicFacebookFeatures.View
 
         private void buttonSearch_Click(object sender, EventArgs e)
         {
+            matchFriendServiceBindingSource.ResetBindings(false);
             r_MatchFriendService.SelectedCities = CitiesDataBoundCheckedListBox.CheckedItems.Cast<string>().ToList();
             r_MatchFriendService.SelectedLikedPages = likedPagesDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
             r_MatchFriendService.SelectedFavoriteTeams = favoriteTeamsDataBoundCheckedListBox.CheckedItems.Cast<PageAdapter>().ToList();
-            r_MatchFriendService.GetMatchingFriends();
+            r_MatchFriendService.FindMatchingFriends();
             userFacadeBindingSource.DataSource = r_MatchFriendService.MatchingFriendList;
             if (!matchingFriendListListBox.Items.Cast<UserFacade>().Any())
             {

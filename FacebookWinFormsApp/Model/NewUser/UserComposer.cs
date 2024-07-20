@@ -2,7 +2,7 @@
 {
     public class UserComposer
     {
-        private IUserBuilder Builder { get; set; }
+        private IUserBuilder Builder { get; }
 
         public UserComposer(IUserBuilder i_Builder)
         {
@@ -23,16 +23,17 @@
         {
             Builder.BuildUserFriends(i_UserFacade);
         }
+
         public void LikedPages(UserFacade i_UserFacade)
         {
             Builder.BuildLikedPages(i_UserFacade);
-
         }
+
         public void FavoriteTeams(UserFacade i_UserFacade)
         {
             Builder.BuildFavoriteTeams(i_UserFacade);
-
         }
+
         public void Posts(UserFacade i_UserFacade)
         {
             Builder.BuildPosts(i_UserFacade);

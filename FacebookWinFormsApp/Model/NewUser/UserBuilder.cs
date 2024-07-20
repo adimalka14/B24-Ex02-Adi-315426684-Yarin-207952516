@@ -10,8 +10,8 @@ namespace BasicFacebookFeatures.Model.NewUser
 {
     public class UserBuilder : IUserBuilder
     {
-        //private readonly string r_appId = "1824773104686874"; 
-        private readonly string r_appId = "883640926898711";//////myAppId
+        private readonly string r_appId = "1824773104686874"; 
+        //private readonly string r_appId = "883640926898711";//////myAppId
         private string[] m_properties =
         {
             // requested permissions:
@@ -80,6 +80,7 @@ namespace BasicFacebookFeatures.Model.NewUser
                     Gender = friend.Gender.HasValue ? (UserFacade.eGender)friend.Gender.Value : UserFacade.eGender.None,
                     RelationshipStatus = friend.RelationshipStatus.HasValue ? friend.RelationshipStatus.Value.ToString() : string.Empty,
                 };
+
                 new Thread(() => friendFacade.LikedPages = getLikedPages(friend)).Start();
                 new Thread(() => friendFacade.FavoriteTeams = getFavoriteTeams(friend)).Start();
                 new Thread(() => friendFacade.Posts = getPosts(friend)).Start();

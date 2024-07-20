@@ -20,10 +20,10 @@ namespace BasicFacebookFeatures.ViewModel
         public MemoriesPostsService(UserFacade i_UserFacadeProfile)
         {
             r_UserFacadeProfile = i_UserFacadeProfile;
-            InitializeDateRange();
+            initializeDateRange();
         }
 
-        private void InitializeDateRange()
+        private void initializeDateRange()
         {
             StratTime = new DateTime(2004, 2, 4);
             EndTime = DateTime.Now;
@@ -31,10 +31,10 @@ namespace BasicFacebookFeatures.ViewModel
 
         public void FetchData()
         {
-            r_NotifyThread.SafeExecute(GetLocations);
+            r_NotifyThread.SafeExecute(getLocations);
         }
 
-        public void GetLocations()
+        private void getLocations()
         {
             List<string> locations = new List<string> { "All locations" };
 
@@ -53,25 +53,24 @@ namespace BasicFacebookFeatures.ViewModel
 
             this.Locations = locations;
         }
-
-
-        public bool CheckDate(PostAdapter i_Post)
-        {
-            return i_Post.CreatedTime >= StratTime.Date &&
-                   i_Post.CreatedTime <= EndTime.Date;
-        }
-
-        public bool CheckLocation(PostAdapter i_Post)
-        {
-            return CheckedLocations.Contains(i_Post.Location);
-        }
-
+    
         public void GetFilteredPosts()
         {
             FilteredPosts =
                 r_UserFacadeProfile.Posts.Where(post =>
                     (CheckedLocations.Contains("All locations")
-                     || CheckLocation(post)) && CheckDate(post)).ToList();
+                     || checkLocation(post)) && checkDate(post)).ToList();
+        }
+
+        private bool checkDate(PostAdapter i_Post)
+        {
+            return i_Post.CreatedTime >= StratTime.Date &&
+                   i_Post.CreatedTime <= EndTime.Date;
+        }
+
+        private bool checkLocation(PostAdapter i_Post)
+        {
+            return CheckedLocations.Contains(i_Post.Location);
         }
     }
 }

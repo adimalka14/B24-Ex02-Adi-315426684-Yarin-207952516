@@ -40,13 +40,12 @@ namespace BasicFacebookFeatures.View
             System.Windows.Forms.Label relationshipStatusLabel;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormUserPage));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.buttonRefreshAll = new System.Windows.Forms.Button();
             this.pictureLargeUrlPictureBox = new System.Windows.Forms.PictureBox();
             this.generalPageServiceBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.locationTextBox = new System.Windows.Forms.TextBox();
             this.buttonLogout = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonMatchFriend = new System.Windows.Forms.Button();
+            this.buttonSearchMemories = new System.Windows.Forms.Button();
             this.birthdayTextBox = new System.Windows.Forms.TextBox();
             this.emailTextBox = new System.Windows.Forms.TextBox();
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
@@ -197,12 +196,11 @@ namespace BasicFacebookFeatures.View
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.Highlight;
-            this.panel1.Controls.Add(this.buttonRefreshAll);
             this.panel1.Controls.Add(this.pictureLargeUrlPictureBox);
             this.panel1.Controls.Add(this.locationTextBox);
             this.panel1.Controls.Add(this.buttonLogout);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.buttonMatchFriend);
+            this.panel1.Controls.Add(this.buttonSearchMemories);
             this.panel1.Controls.Add(this.birthdayTextBox);
             this.panel1.Controls.Add(this.emailTextBox);
             this.panel1.Controls.Add(this.firstNameTextBox);
@@ -220,21 +218,6 @@ namespace BasicFacebookFeatures.View
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(385, 871);
             this.panel1.TabIndex = 0;
-            // 
-            // buttonRefreshAll
-            // 
-            this.buttonRefreshAll.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonRefreshAll.BackColor = System.Drawing.Color.Silver;
-            this.buttonRefreshAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonRefreshAll.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonRefreshAll.Location = new System.Drawing.Point(89, 715);
-            this.buttonRefreshAll.Margin = new System.Windows.Forms.Padding(4);
-            this.buttonRefreshAll.Name = "buttonRefreshAll";
-            this.buttonRefreshAll.Size = new System.Drawing.Size(190, 44);
-            this.buttonRefreshAll.TabIndex = 77;
-            this.buttonRefreshAll.Text = "Refresh Page";
-            this.buttonRefreshAll.UseVisualStyleBackColor = false;
-            this.buttonRefreshAll.Click += new System.EventHandler(this.buttonRefreshAll_Click);
             // 
             // pictureLargeUrlPictureBox
             // 
@@ -267,7 +250,7 @@ namespace BasicFacebookFeatures.View
             this.buttonLogout.BackColor = System.Drawing.Color.Red;
             this.buttonLogout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.buttonLogout.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.buttonLogout.Location = new System.Drawing.Point(89, 787);
+            this.buttonLogout.Location = new System.Drawing.Point(89, 779);
             this.buttonLogout.Margin = new System.Windows.Forms.Padding(4);
             this.buttonLogout.Name = "buttonLogout";
             this.buttonLogout.Size = new System.Drawing.Size(190, 37);
@@ -276,35 +259,35 @@ namespace BasicFacebookFeatures.View
             this.buttonLogout.UseVisualStyleBackColor = false;
             this.buttonLogout.Click += new System.EventHandler(this.buttonLogout_Click);
             // 
-            // button2
+            // buttonMatchFriend
             // 
-            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.BackColor = System.Drawing.Color.DarkGray;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button2.Location = new System.Drawing.Point(89, 663);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(190, 44);
-            this.button2.TabIndex = 69;
-            this.button2.Text = "Matching friend";
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.buttonMatchFriend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonMatchFriend.BackColor = System.Drawing.Color.DarkGray;
+            this.buttonMatchFriend.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonMatchFriend.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonMatchFriend.Location = new System.Drawing.Point(89, 678);
+            this.buttonMatchFriend.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonMatchFriend.Name = "buttonMatchFriend";
+            this.buttonMatchFriend.Size = new System.Drawing.Size(190, 44);
+            this.buttonMatchFriend.TabIndex = 69;
+            this.buttonMatchFriend.Text = "Matching friend";
+            this.buttonMatchFriend.UseVisualStyleBackColor = false;
+            this.buttonMatchFriend.Click += new System.EventHandler(this.buttonMatchFriend_Click);
             // 
-            // button1
+            // buttonSearchMemories
             // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.BackColor = System.Drawing.Color.Silver;
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.button1.Location = new System.Drawing.Point(89, 603);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(190, 44);
-            this.button1.TabIndex = 68;
-            this.button1.Text = "Search memories";
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.buttonSearchMemories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSearchMemories.BackColor = System.Drawing.Color.Silver;
+            this.buttonSearchMemories.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSearchMemories.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.buttonSearchMemories.Location = new System.Drawing.Point(89, 603);
+            this.buttonSearchMemories.Margin = new System.Windows.Forms.Padding(4);
+            this.buttonSearchMemories.Name = "buttonSearchMemories";
+            this.buttonSearchMemories.Size = new System.Drawing.Size(190, 44);
+            this.buttonSearchMemories.TabIndex = 68;
+            this.buttonSearchMemories.Text = "Search memories";
+            this.buttonSearchMemories.UseVisualStyleBackColor = false;
+            this.buttonSearchMemories.Click += new System.EventHandler(this.buttonSearchMemories_Click);
             // 
             // birthdayTextBox
             // 
@@ -420,7 +403,7 @@ namespace BasicFacebookFeatures.View
             // 
             // likedPagesBindingSource
             // 
-            this.likedPagesBindingSource.DataSource = typeof(PageAdapter);
+            this.likedPagesBindingSource.DataSource = typeof(BasicFacebookFeatures.Model.Adapter.PageAdapter);
             // 
             // likedPagesListBox
             // 
@@ -464,7 +447,7 @@ namespace BasicFacebookFeatures.View
             // 
             // favoriteTeamsbindingSource
             // 
-            this.favoriteTeamsbindingSource.DataSource = typeof(PageAdapter);
+            this.favoriteTeamsbindingSource.DataSource = typeof(BasicFacebookFeatures.Model.Adapter.PageAdapter);
             // 
             // favoriteTeamsListBox
             // 
@@ -516,7 +499,7 @@ namespace BasicFacebookFeatures.View
             // 
             // userFacadeBindingSource
             // 
-            this.userFacadeBindingSource.DataSource = typeof(UserFacade);
+            this.userFacadeBindingSource.DataSource = typeof(BasicFacebookFeatures.Model.NewUser.UserFacade);
             // 
             // friendsListBox
             // 
@@ -723,7 +706,7 @@ namespace BasicFacebookFeatures.View
             this.Controls.Add(this.panel7);
             this.Name = "FormUserPage";
             this.Text = "FormUserPage";
-            this.Load += new System.EventHandler(this.FormUserPage_Load);
+            this.Load += new System.EventHandler(this.formUserPage_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox)).EndInit();
@@ -777,8 +760,8 @@ namespace BasicFacebookFeatures.View
         private System.Windows.Forms.TextBox textBoxText;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button buttonSharePost;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button buttonSearchMemories;
+        private System.Windows.Forms.Button buttonMatchFriend;
         private System.Windows.Forms.Button buttonLogout;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMoveFirstItem;
         private System.Windows.Forms.ToolStripButton bindingNavigatorMovePreviousItem;
@@ -793,7 +776,6 @@ namespace BasicFacebookFeatures.View
         private System.Windows.Forms.ToolStripButton bindingNavigatorDeleteItem;
         private System.Windows.Forms.ToolStripButton generalPageServiceBindingNavigatorSaveItem;
         private System.Windows.Forms.BindingNavigator generalPageServiceBindingNavigator;
-        private System.Windows.Forms.Button buttonRefreshAll;
         private System.Windows.Forms.ListBox friendsListBox;
         private System.Windows.Forms.PictureBox pictureLargeUrlPictureBox1;
         private System.Windows.Forms.BindingSource userFacadeBindingSource;

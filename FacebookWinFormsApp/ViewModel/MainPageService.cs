@@ -5,8 +5,8 @@ namespace BasicFacebookFeatures.ViewModel
 {
     public class MainPageService
     {
-        public readonly UserComposer r_Composer = new UserComposer(new UserBuilder());
-        public UserFacade i_UserFacade;
+        private readonly UserComposer r_Composer = new UserComposer(new UserBuilder());
+        public UserFacade UserFacade { get; private set; }
 
         public MainPageService()
         {
@@ -15,7 +15,7 @@ namespace BasicFacebookFeatures.ViewModel
 
         public void Init()
         {
-            i_UserFacade = r_Composer.CreateUser();
+            this.UserFacade = r_Composer.CreateUser();
         }
     }
 }

@@ -50,9 +50,9 @@ namespace BasicFacebookFeatures.View
             this.buttonLikedPage = new System.Windows.Forms.Button();
             this.buttonFavoriteTeams = new System.Windows.Forms.Button();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.CitiesDataBoundCheckedListBox = new DataBoundCheckedListBox();
-            this.favoriteTeamsDataBoundCheckedListBox = new DataBoundCheckedListBox();
-            this.likedPagesDataBoundCheckedListBox = new DataBoundCheckedListBox();
+            this.CitiesDataBoundCheckedListBox = new BasicFacebookFeatures.Model.DataBoundCheckedListBox();
+            this.favoriteTeamsDataBoundCheckedListBox = new BasicFacebookFeatures.Model.DataBoundCheckedListBox();
+            this.likedPagesDataBoundCheckedListBox = new BasicFacebookFeatures.Model.DataBoundCheckedListBox();
             this.matchingFriendListListBox = new System.Windows.Forms.ListBox();
             this.userFacadeBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.birthdayLabel1 = new System.Windows.Forms.Label();
@@ -446,7 +446,7 @@ namespace BasicFacebookFeatures.View
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1080, 735);
+            this.ClientSize = new System.Drawing.Size(1082, 735);
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.numericUpDown1);
             this.Controls.Add(birthdayLabel);
@@ -485,7 +485,7 @@ namespace BasicFacebookFeatures.View
             this.Name = "FormMatchFriend";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Matching friend";
-            this.Load += new System.EventHandler(this.FormMatchFriend_Load);
+            this.Load += new System.EventHandler(this.formMatchFriend_Load);
             ((System.ComponentModel.ISupportInitialize)(this.matchFriendServiceBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userFacadeBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureLargeUrlPictureBox)).EndInit();

@@ -17,19 +17,19 @@ namespace BasicFacebookFeatures.ViewModel
         public bool IsFemaleChecked { get; set; } = true;
         public int MinAge { get; set; }
         public int MaxAge { get; set; } = 120;
-        public IEnumerable<string> SelectedCities { get; set; }
-        public IEnumerable<PageAdapter> SelectedLikedPages { get; set; }
-        public IEnumerable<PageAdapter> SelectedFavoriteTeams { get; set; }
+        public IEnumerable<string> SelectedCities { get; set; } 
+        public IEnumerable<PageAdapter> SelectedLikedPages { get; set; } 
+        public IEnumerable<PageAdapter> SelectedFavoriteTeams { get; set; } 
         public readonly NotifyThread r_NotifyThread = new NotifyThread();
 
         public MatchFriendService(UserFacade i_UserFacadeProfile)
         {
-            UserFacadeProfile = i_UserFacadeProfile;
+            this.UserFacadeProfile = i_UserFacadeProfile;
         }
 
         public void FetchData()
         {
-            r_NotifyThread.SafeExecute(loadCities);
+            this.r_NotifyThread.SafeExecute(loadCities);
         }
 
         private void loadCities()
@@ -37,7 +37,6 @@ namespace BasicFacebookFeatures.ViewModel
             List<string> cities = new List<string>();
 
             cities.Add(UserFacadeProfile?.Location);
-
             if (UserFacadeProfile?.Friends == null)
             {
                 throw new Exception("please wait and try again later");
@@ -54,7 +53,7 @@ namespace BasicFacebookFeatures.ViewModel
             this.Cities = cities;
         }
 
-        public void GetMatchingFriends()
+        public void FindMatchingFriends()
         {
             List<UserFacade> filterFriend = new List<UserFacade>();
             List<IMatchStrategy> strategies = new List<IMatchStrategy>
@@ -74,7 +73,7 @@ namespace BasicFacebookFeatures.ViewModel
                 }
             }
 
-            MatchingFriendList = filterFriend;
+            this.MatchingFriendList = filterFriend;
         }
     }
 }
