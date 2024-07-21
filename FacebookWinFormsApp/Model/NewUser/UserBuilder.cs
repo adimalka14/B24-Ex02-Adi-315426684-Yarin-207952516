@@ -10,7 +10,6 @@ namespace BasicFacebookFeatures.Model.NewUser
 {
     public class UserBuilder : IUserBuilder
     {
-        //private readonly string r_appId = "1824773104686874"; 
         private readonly string r_appId = "883640926898711";//////myAppId
         private string[] m_properties =
         {
@@ -33,8 +32,6 @@ namespace BasicFacebookFeatures.Model.NewUser
 
         public UserFacade CreateUser()
         {
-            string accessToken = "EAAMjqqZBOihcBOxW9fwDdwTb9E21mkTaHu9bpzgio1YI8lyZBfOsb8ZAr1aAl59SNuIeHsyjy4bMj3eNowYoTGp02Bz2ZAPxuyYnnZBhw8c3mKZBaxhlkgZBKXqHa6piB4DjuR6cDpT19fbPFhEvhZB3xW01K0BhUcP2ZChUn3QKGsv6hHBkin41StunTPQZDZD";
-            //LoginResult loginResult = FacebookService.Connect(accessToken);
             LoginResult loginResult = FacebookService.Login(r_appId, m_properties);
             UserFacade newUserFacade;
 
