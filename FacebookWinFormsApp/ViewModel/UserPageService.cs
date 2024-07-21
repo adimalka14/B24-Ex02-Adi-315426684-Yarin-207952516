@@ -31,14 +31,17 @@ namespace BasicFacebookFeatures.ViewModel
         {
             r_Composer.UserFriends(InUserFacade);
         }
+
         private void fetchLikedPages()
         {
             r_Composer.LikedPages(InUserFacade);
         }
+
         private void fetchFavoriteTeams()
         {
             r_Composer.FavoriteTeams(InUserFacade);
         }
+
         private void fetchPosts()
         {
             r_Composer.Posts(InUserFacade);

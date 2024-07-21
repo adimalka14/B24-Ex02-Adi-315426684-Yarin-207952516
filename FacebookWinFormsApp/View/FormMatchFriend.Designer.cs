@@ -84,8 +84,9 @@ namespace BasicFacebookFeatures.View
             // birthdayLabel
             // 
             birthdayLabel.AutoSize = true;
+            birthdayLabel.BackColor = System.Drawing.SystemColors.Control;
             birthdayLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            birthdayLabel.Location = new System.Drawing.Point(617, 538);
+            birthdayLabel.Location = new System.Drawing.Point(76, 540);
             birthdayLabel.Name = "birthdayLabel";
             birthdayLabel.Size = new System.Drawing.Size(106, 29);
             birthdayLabel.TabIndex = 99;
@@ -94,8 +95,9 @@ namespace BasicFacebookFeatures.View
             // emailLabel
             // 
             emailLabel.AutoSize = true;
+            emailLabel.BackColor = System.Drawing.SystemColors.Control;
             emailLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            emailLabel.Location = new System.Drawing.Point(621, 577);
+            emailLabel.Location = new System.Drawing.Point(76, 574);
             emailLabel.Name = "emailLabel";
             emailLabel.Size = new System.Drawing.Size(80, 29);
             emailLabel.TabIndex = 101;
@@ -114,8 +116,9 @@ namespace BasicFacebookFeatures.View
             // genderLabel
             // 
             genderLabel.AutoSize = true;
+            genderLabel.BackColor = System.Drawing.SystemColors.Control;
             genderLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            genderLabel.Location = new System.Drawing.Point(621, 610);
+            genderLabel.Location = new System.Drawing.Point(76, 612);
             genderLabel.Name = "genderLabel";
             genderLabel.Size = new System.Drawing.Size(100, 29);
             genderLabel.TabIndex = 105;
@@ -124,8 +127,9 @@ namespace BasicFacebookFeatures.View
             // lastNameLabel
             // 
             lastNameLabel.AutoSize = true;
+            lastNameLabel.BackColor = System.Drawing.SystemColors.Control;
             lastNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            lastNameLabel.Location = new System.Drawing.Point(617, 499);
+            lastNameLabel.Location = new System.Drawing.Point(76, 501);
             lastNameLabel.Name = "lastNameLabel";
             lastNameLabel.Size = new System.Drawing.Size(134, 29);
             lastNameLabel.TabIndex = 107;
@@ -134,8 +138,9 @@ namespace BasicFacebookFeatures.View
             // locationLabel
             // 
             locationLabel.AutoSize = true;
+            locationLabel.BackColor = System.Drawing.SystemColors.Control;
             locationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            locationLabel.Location = new System.Drawing.Point(621, 646);
+            locationLabel.Location = new System.Drawing.Point(76, 648);
             locationLabel.Name = "locationLabel";
             locationLabel.Size = new System.Drawing.Size(110, 29);
             locationLabel.TabIndex = 109;
@@ -144,8 +149,9 @@ namespace BasicFacebookFeatures.View
             // relationshipStatusLabel
             // 
             relationshipStatusLabel.AutoSize = true;
+            relationshipStatusLabel.BackColor = System.Drawing.SystemColors.Control;
             relationshipStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            relationshipStatusLabel.Location = new System.Drawing.Point(621, 681);
+            relationshipStatusLabel.Location = new System.Drawing.Point(76, 683);
             relationshipStatusLabel.Name = "relationshipStatusLabel";
             relationshipStatusLabel.Size = new System.Drawing.Size(225, 29);
             relationshipStatusLabel.TabIndex = 113;
@@ -335,9 +341,10 @@ namespace BasicFacebookFeatures.View
             // 
             // birthdayLabel1
             // 
+            this.birthdayLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.birthdayLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Birthday", true));
             this.birthdayLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.birthdayLabel1.Location = new System.Drawing.Point(870, 544);
+            this.birthdayLabel1.Location = new System.Drawing.Point(325, 540);
             this.birthdayLabel1.Name = "birthdayLabel1";
             this.birthdayLabel1.Size = new System.Drawing.Size(185, 23);
             this.birthdayLabel1.TabIndex = 100;
@@ -345,9 +352,10 @@ namespace BasicFacebookFeatures.View
             // 
             // emailLabel1
             // 
+            this.emailLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.emailLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Email", true));
             this.emailLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.emailLabel1.Location = new System.Drawing.Point(870, 583);
+            this.emailLabel1.Location = new System.Drawing.Point(325, 574);
             this.emailLabel1.Name = "emailLabel1";
             this.emailLabel1.Size = new System.Drawing.Size(185, 23);
             this.emailLabel1.TabIndex = 102;
@@ -365,9 +373,10 @@ namespace BasicFacebookFeatures.View
             // 
             // genderLabel1
             // 
+            this.genderLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.genderLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Gender", true));
             this.genderLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.genderLabel1.Location = new System.Drawing.Point(870, 610);
+            this.genderLabel1.Location = new System.Drawing.Point(325, 612);
             this.genderLabel1.Name = "genderLabel1";
             this.genderLabel1.Size = new System.Drawing.Size(185, 23);
             this.genderLabel1.TabIndex = 106;
@@ -375,9 +384,10 @@ namespace BasicFacebookFeatures.View
             // 
             // lastNameLabel1
             // 
+            this.lastNameLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.lastNameLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "LastName", true));
             this.lastNameLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lastNameLabel1.Location = new System.Drawing.Point(870, 505);
+            this.lastNameLabel1.Location = new System.Drawing.Point(325, 501);
             this.lastNameLabel1.Name = "lastNameLabel1";
             this.lastNameLabel1.Size = new System.Drawing.Size(185, 23);
             this.lastNameLabel1.TabIndex = 108;
@@ -385,9 +395,10 @@ namespace BasicFacebookFeatures.View
             // 
             // locationLabel1
             // 
+            this.locationLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.locationLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "Location", true));
             this.locationLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.locationLabel1.Location = new System.Drawing.Point(870, 642);
+            this.locationLabel1.Location = new System.Drawing.Point(325, 648);
             this.locationLabel1.Name = "locationLabel1";
             this.locationLabel1.Size = new System.Drawing.Size(185, 23);
             this.locationLabel1.TabIndex = 110;
@@ -404,9 +415,10 @@ namespace BasicFacebookFeatures.View
             // 
             // relationshipStatusLabel1
             // 
+            this.relationshipStatusLabel1.BackColor = System.Drawing.SystemColors.Control;
             this.relationshipStatusLabel1.DataBindings.Add(new System.Windows.Forms.Binding("Text", this.userFacadeBindingSource, "RelationshipStatus", true));
             this.relationshipStatusLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.relationshipStatusLabel1.Location = new System.Drawing.Point(870, 681);
+            this.relationshipStatusLabel1.Location = new System.Drawing.Point(325, 689);
             this.relationshipStatusLabel1.Name = "relationshipStatusLabel1";
             this.relationshipStatusLabel1.Size = new System.Drawing.Size(185, 23);
             this.relationshipStatusLabel1.TabIndex = 114;
@@ -437,6 +449,18 @@ namespace BasicFacebookFeatures.View
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.panel1.Controls.Add(this.matchingFriendListListBox);
+            this.panel1.Controls.Add(this.emailLabel1);
+            this.panel1.Controls.Add(birthdayLabel);
+            this.panel1.Controls.Add(this.lastNameLabel1);
+            this.panel1.Controls.Add(locationLabel);
+            this.panel1.Controls.Add(this.relationshipStatusLabel1);
+            this.panel1.Controls.Add(relationshipStatusLabel);
+            this.panel1.Controls.Add(genderLabel);
+            this.panel1.Controls.Add(emailLabel);
+            this.panel1.Controls.Add(this.birthdayLabel1);
+            this.panel1.Controls.Add(this.genderLabel1);
+            this.panel1.Controls.Add(lastNameLabel);
+            this.panel1.Controls.Add(this.locationLabel1);
             this.panel1.Location = new System.Drawing.Point(545, -2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(539, 737);
@@ -449,21 +473,9 @@ namespace BasicFacebookFeatures.View
             this.ClientSize = new System.Drawing.Size(1082, 735);
             this.Controls.Add(this.numericUpDown2);
             this.Controls.Add(this.numericUpDown1);
-            this.Controls.Add(birthdayLabel);
-            this.Controls.Add(this.birthdayLabel1);
-            this.Controls.Add(emailLabel);
-            this.Controls.Add(this.emailLabel1);
             this.Controls.Add(firstNameLabel);
             this.Controls.Add(this.firstNameLabel1);
-            this.Controls.Add(genderLabel);
-            this.Controls.Add(this.genderLabel1);
-            this.Controls.Add(lastNameLabel);
-            this.Controls.Add(this.lastNameLabel1);
-            this.Controls.Add(locationLabel);
-            this.Controls.Add(this.locationLabel1);
             this.Controls.Add(this.pictureLargeUrlPictureBox);
-            this.Controls.Add(relationshipStatusLabel);
-            this.Controls.Add(this.relationshipStatusLabel1);
             this.Controls.Add(this.CitiesDataBoundCheckedListBox);
             this.Controls.Add(this.favoriteTeamsDataBoundCheckedListBox);
             this.Controls.Add(this.likedPagesDataBoundCheckedListBox);
@@ -492,6 +504,7 @@ namespace BasicFacebookFeatures.View
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown2)).EndInit();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

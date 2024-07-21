@@ -47,8 +47,8 @@ namespace BasicFacebookFeatures.Model.NewUser
 
         public enum eGender
         {
-            female = 0,
-            male = 1,
+            Female = 0,
+            Male = 1,
             None = 2
         }
     }

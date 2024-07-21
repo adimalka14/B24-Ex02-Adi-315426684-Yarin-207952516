@@ -15,8 +15,8 @@ namespace BasicFacebookFeatures.Model.MatchStrategy
 
         public bool Match(UserFacade i_Friend)
         {
-            return (i_Friend.Gender == UserFacade.eGender.male && r_IsMaleChecked) ||
-                   (i_Friend.Gender == UserFacade.eGender.female && r_IsFemaleChecked);
+            return (i_Friend.Gender == UserFacade.eGender.Male && r_IsMaleChecked) ||
+                   (i_Friend.Gender == UserFacade.eGender.Female && r_IsFemaleChecked);
         }
     }
 }

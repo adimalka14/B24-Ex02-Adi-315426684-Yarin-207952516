@@ -8,7 +8,7 @@ namespace BasicFacebookFeatures.View
     public partial class FormUserPage : Form
     {
         private readonly UserPageService r_UserPageService;
-        private readonly object lockObject = new object();
+        private readonly object r_lockObject = new object();
 
         public FormUserPage(UserPageService i_UserPageService)
         {
@@ -26,7 +26,7 @@ namespace BasicFacebookFeatures.View
 
         private void OnDataLoaded()
         {
-            lock (lockObject)
+            lock (r_lockObject)
             {
                 this.Invoke(new Action(() =>
                 {
