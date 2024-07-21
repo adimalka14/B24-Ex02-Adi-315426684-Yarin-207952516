@@ -10,50 +10,50 @@ namespace BasicFacebookFeatures.ViewModel
     public class UserPageService
     {
         private readonly UserComposer r_Composer = new UserComposer(new UserBuilder());
-        public readonly NotifyThread r_NotifyThread = new NotifyThread();
+        public readonly NotifyThread r_NotifyThread  = new NotifyThread();
         public UserFacade InUserFacade { get; set; }
 
         public void FetchData()
         {
-            r_NotifyThread.SafeExecute(FetchPrivateDetails);
-            r_NotifyThread.SafeExecute(FetchUserFriends);
-            r_NotifyThread.SafeExecute(FetchLikedPages);
-            r_NotifyThread.SafeExecute(FetchFavoriteTeams);
-            r_NotifyThread.SafeExecute(FetchPosts);
+            r_NotifyThread.SafeExecute(fetchPrivateDetails);
+            r_NotifyThread.SafeExecute(fetchUserFriends);
+            r_NotifyThread.SafeExecute(fetchLikedPages);
+            r_NotifyThread.SafeExecute(fetchFavoriteTeams);
+            r_NotifyThread.SafeExecute(fetchPosts);
         }
 
-        public void FetchPrivateDetails()
+        private void fetchPrivateDetails()
         {
             r_Composer.UserPrivateDetails(InUserFacade);
         }
 
-        public void FetchUserFriends()
+        private void fetchUserFriends()
         {
             r_Composer.UserFriends(InUserFacade);
         }
-        public void FetchLikedPages()
+        private void fetchLikedPages()
         {
             r_Composer.LikedPages(InUserFacade);
         }
-        public void FetchFavoriteTeams()
+        private void fetchFavoriteTeams()
         {
             r_Composer.FavoriteTeams(InUserFacade);
         }
-        public void FetchPosts()
+        private void fetchPosts()
         {
             r_Composer.Posts(InUserFacade);
         }
 
-        public void PostStatus(string statusText)
+        public void PostStatus(string i_StatusText)
         {
             List<PostAdapter> list = InUserFacade.Posts.ToList();
 
             list.Add(new PostAdapter
             {
-                Description = $"{InUserFacade.FirstName} {InUserFacade.LastName} : {statusText}",CreatedTime = DateTime.Now,Location = InUserFacade.Location
+                Description = $"{InUserFacade.FirstName} {InUserFacade.LastName} : {i_StatusText}",CreatedTime = DateTime.Now,Location = InUserFacade.Location
             });
             InUserFacade.Posts = list;
-            InUserFacade.RealUser.PostStatus(statusText);
+            InUserFacade.RealUser.PostStatus(i_StatusText);
         }
     }
 }

@@ -15,16 +15,16 @@ namespace BasicFacebookFeatures.View
             InitializeComponent();
             r_MemoriesPostsService = new MemoriesPostsService(i_UserFacadeProfile);
             memoriesPostsServiceBindingSource.DataSource = r_MemoriesPostsService;
-            r_MemoriesPostsService.r_NotifyThread.Finish += this.OnDataLoaded;
+            r_MemoriesPostsService.r_NotifyThread.Finish += this.onDataLoaded;
             r_MemoriesPostsService.r_NotifyThread.ErrorOccurred += this.showError;
         }
 
-        private void FormMemoriesPosts_Load(object sender, EventArgs e)
+        private void formMemoriesPosts_Load(object sender, EventArgs e)
         {
             r_MemoriesPostsService.FetchData();
         }
 
-        private void OnDataLoaded()
+        private void onDataLoaded()
         {
             this.Invoke(new Action(() => memoriesPostsServiceBindingSource.ResetBindings(false)));
         }

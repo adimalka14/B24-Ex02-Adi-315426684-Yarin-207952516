@@ -19,7 +19,7 @@ namespace BasicFacebookFeatures.View
             r_UserPageService.r_NotifyThread.ErrorOccurred += showError;
         }
 
-        private void FormUserPage_Load(object sender, EventArgs e)
+        private void formUserPage_Load(object sender, EventArgs e)
         {
             r_UserPageService.FetchData();
         }
@@ -63,7 +63,27 @@ namespace BasicFacebookFeatures.View
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void buttonSearchMemories_Click(object sender, EventArgs e)
+        {
+            initFormMemoriesPost();
+        }
+
+        private void buttonMatchFriend_Click(object sender, EventArgs e)
+        {
+            initMatchFriend();
+        }
+
+        private void buttonSharePost_Click(object sender, EventArgs e)
+        {
+            sharePost();
+        }
+
+        private void buttonLogout_Click(object sender, EventArgs e)
+        {
+            logout();
+        }
+
+        private void initMatchFriend()
         {
             try
             {
@@ -76,7 +96,20 @@ namespace BasicFacebookFeatures.View
             }
         }
 
-        private void buttonSharePost_Click(object sender, EventArgs e)
+        private void initFormMemoriesPost()
+        {
+            if (r_UserPageService.InUserFacade != null)
+            {
+                FormMemoriesPosts form = new FormMemoriesPosts(r_UserPageService.InUserFacade);
+                form.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void sharePost()
         {
             try
             {
@@ -88,7 +121,7 @@ namespace BasicFacebookFeatures.View
             }
         }
 
-        private void buttonLogout_Click(object sender, EventArgs e)
+        private void logout()
         {
             DialogResult result = MessageBox.Show("Do you want logout?", "logout", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (result == DialogResult.OK)
@@ -102,24 +135,6 @@ namespace BasicFacebookFeatures.View
             {
                 this.Show();
             }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (r_UserPageService.InUserFacade != null)
-            {
-                FormMemoriesPosts form = new FormMemoriesPosts(r_UserPageService.InUserFacade);
-                form.ShowDialog();
-            }
-            else
-            {
-                MessageBox.Show("please wait some seconds, and then try again", "Message", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void buttonRefreshAll_Click(object sender, EventArgs e)
-        {
-            generalPageServiceBindingSource.ResetBindings(false);
         }
     }
 }

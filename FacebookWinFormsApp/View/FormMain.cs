@@ -27,7 +27,7 @@ namespace BasicFacebookFeatures.View
                 r_MainPageService.Init();
                 FormUserPage userPage = new FormUserPage(new UserPageService
                 {
-                    InUserFacade = r_MainPageService.i_UserFacade
+                    InUserFacade = r_MainPageService.UserFacade
                 });
 
                 userPage.Show();
